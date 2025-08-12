@@ -33,6 +33,10 @@
      .bi-heart-fill {
          color: red;
      }
+     #chatOffcanvas {
+  		 width: 700px;
+  		 max-width: 100%;
+	 }
      #interest {
      	width: 30px;
      	height: 30px;
@@ -109,7 +113,9 @@
              </table>
  
              <div class="d-grid gap-2 mb-3">
-                 <a href="#" class="btn btn-outline-dark"><i class="bi bi-chat-dots"></i> 물품 채팅방 (단체)</a>
+                 <button class="btn btn-outline-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas">
+    			 <i class="bi bi-chat-dots"></i> 물품 채팅방 (단체)
+			 </button>
              </div>
  
              <div class="input-group mb-3">
@@ -158,6 +164,9 @@
          </div>
      </div>
  </div>
+ 
+ <jsp:include page="groupChat.jsp"/>
+
  
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
  <script>

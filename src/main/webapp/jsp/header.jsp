@@ -107,7 +107,7 @@
 <body>
 <!-- Header -->
 <header class="header">
-            <a class="logo" href="realmain.jsp">
+            <a class="logo" href="main.jsp">
                 <img id="main-icon" src="../images/watermelon_icon.png" alt="수박 아이콘">
                 <span>수박나라</span>
             </a>

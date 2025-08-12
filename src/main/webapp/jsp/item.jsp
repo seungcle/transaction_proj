@@ -30,6 +30,9 @@
      .rating .bi-star-fill {
          color: #f0ad4e;
      }
+     .bi-heart-fill {
+         color: red;
+     }
      #interest {
      	width: 30px;
      	height: 30px;
@@ -106,7 +109,7 @@
              </table>
  
              <div class="d-grid gap-2 mb-3">
-                 <a href="#" class="btn btn-outline-secondary"><i class="bi bi-chat-dots"></i> 물품 채팅방 (단체)</a>
+                 <a href="#" class="btn btn-outline-dark"><i class="bi bi-chat-dots"></i> 물품 채팅방 (단체)</a>
              </div>
  
              <div class="input-group mb-3">
@@ -115,10 +118,10 @@
                  <span class="input-group-text">원</span>
              </div>
              <div class="d-flex gap-2">
-  				<button type="submit" class="btn btn-outline-secondary">
-    			<i class="bi bi-heart"></i> </button>
-
-			    <button class="btn btn-danger btn-lg flex-grow-1" type="button">
+  				<button id="likeButton" type="submit" class="btn btn-outline-basic">
+    				<i id="heartIcon" class="bi bi-heart"></i> 
+    			</button>
+			    <button class="btn btn-dark btn-lg flex-grow-1" type="button">
 			    	<i class="bi bi-hammer"></i> 입찰하기
 			    </button>
 			 </div>
@@ -148,7 +151,7 @@
                          (4.5)
                      </span>
                  </div>
-                 <button type="button" class="btn btn-success">
+                 <button type="button" class="btn btn-dark">
                      <i class="bi bi-chat-text-fill"></i> 판매자와 채팅하기
                  </button>
              </div>
@@ -157,5 +160,22 @@
  </div>
  
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ <script>
+ 	const likeButton = document.getElementById('likeButton');
+	const heartIcon = document.getElementById('heartIcon');
+	likeButton.addEventListener("click", function(){
+		const isNotLiked = heartIcon.classList.contains('bi-heart');
+
+	    if (isNotLiked) {
+	        // 빈 하트 상태이면, 'bi-heart'를 지우고 'bi-heart-fill'을 추가
+	        heartIcon.classList.remove('bi-heart');
+	        heartIcon.classList.add('bi-heart-fill');
+	    } else {
+	        // 채워진 하트 상태이면, 'bi-heart-fill'을 지우고 'bi-heart'를 추가
+	        heartIcon.classList.remove('bi-heart-fill');
+	        heartIcon.classList.add('bi-heart');
+	    }
+	});
+ </script>
  </body>
  </html>

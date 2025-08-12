@@ -120,7 +120,7 @@
  
              <div class="input-group mb-3">
                  <span class="input-group-text">희망입찰가</span>
-                 <input type="number" class="form-control" placeholder="금액 입력">
+                 <input type="number" class="form-control" placeholder="금액 입력" step="1000">
                  <span class="input-group-text">원</span>
              </div>
              <div class="d-flex gap-2">

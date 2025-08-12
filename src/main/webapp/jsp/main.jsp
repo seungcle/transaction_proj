@@ -23,6 +23,7 @@
 	</style>
 </head>
 <body>
+<!-- header.jsp -->
  <jsp:include page="header.jsp" />
 </body>
 </html>

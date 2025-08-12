@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title></title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
     <style>
     @font-face {
         font-family: 'MaplestoryOTFBold';
@@ -47,7 +47,7 @@
         .logo:hover {
             color: var(--bs-link-hover-color);
         }
-        #icon {
+        #main-icon {
             margin-left: 20px;
             height: 50px; 
             width: auto;
@@ -87,13 +87,28 @@
             color: #FF6B6B;
             font-size: 1.2rem;
         }
+        .icon{
+        	height: 15px; 
+            width: auto;
+        }
+        .category-nav .nav-item{
+        	display: flex;
+        	align-items: center;
+        	color: black;
+        	gap: 5px;
+        	text-decoration: none;
+        	padding: 10px 15px;
+        	transition: background-color 0.3s ease;
+        }
+
+       
     </style>
 </head>
 <body>
 <!-- Header -->
 <header class="header">
             <a class="logo" href="realmain.jsp">
-                <img id="icon" src="../images/watermelon_icon.png" alt="수박 아이콘">
+                <img id="main-icon" src="../images/watermelon_icon.png" alt="수박 아이콘">
                 <span>수박나라</span>
             </a>
             <div class="header-right">
@@ -112,33 +127,37 @@
         <!-- 카테고리 header.jsp에 포함 -->
     <nav class="category-nav">
         <div class="container">
-            <ul class="nav d-flex justify-content-center">
+            <ul style="display: flex; margin-left: 25%; margin-right: auto" class="nav d-flex justify-content-center">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#" data-category="all"><i class="fas fa-fire me-1"></i> 인기</a>
+                    <a style="text-decoration: none; color: black; " class="nav-link active" href="#" data-category="all"><i class="fas fa-fire me-1"></i> 인기</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-category="electronics"><i class="fas fa-mobile-alt me-1"></i> 디지털</a>
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="electronics"><i class="fas fa-mobile-alt me-1"></i> 디지털</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-category="fashion"><i class="fas fa-tshirt me-1"></i> 패션</a>
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="fashion"><i class="fas fa-tshirt me-1"></i> 패션</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-category="beauty"><i class="fas fa-heart me-1"></i> 뷰티</a>
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="beauty"><img class="icon" src="../images/makeup.png" alt="뷰티 아이콘"> 뷰티</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-category="furniture"><i class="fas fa-couch me-1"></i> 가구</a>
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="furniture"><i class="fas fa-couch me-1"></i> 가구</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-category="books"><i class="fas fa-book me-1"></i> 도서</a>
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="books"><i class="fas fa-book me-1"></i> 도서</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-category="sports"><i class="fas fa-football-ball me-1"></i> 스포츠</a>
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="sports"><i class="fas fa-football-ball me-1"></i> 스포츠</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" data-category="auction"><i class="fas fa-gavel me-1"></i> 경매전용</a>
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="auction"><i class="fas fa-gavel me-1"></i> 생활</a>
+                </li>
+                <li class="nav-item">
+                    <a style="text-decoration: none; color: black;" class="nav-link" href="#" data-category="interest"><img class="icon" src="../images/heart.png" alt="뷰티 아이콘">관심</a>
                 </li>
             </ul>
         </div>
+        <hr>
     </nav>
 </body>
 </html>

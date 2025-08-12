@@ -25,5 +25,7 @@
 <body>
 <!-- header.jsp -->
  <jsp:include page="header.jsp" />
+ <!-- maingrid.jsp -->
+  <jsp:include page="maingrid.jsp" />
 </body>
 </html>

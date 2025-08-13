@@ -22,7 +22,7 @@
 <body>
   <div id="mainCarousel" class="carousel slide mb-5 rounded-4 overflow-hidden"
     data-bs-ride="carousel"
-    data-bs-interval="3000"
+    data-bs-interval="8000"
     data-bs-pause="hover">
     <div class="carousel-inner">
       <div class="carousel-item active">

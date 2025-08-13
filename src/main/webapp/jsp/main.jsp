@@ -19,6 +19,25 @@
 	.item-explan{
 		backgroun-color: #ffffff;
 	}
+	.item-status-label {
+    	position: absolute;
+    	top: 10px;
+    	right: 10px;
+    	z-index: 10;
+  	}
+  	.status {
+    	padding: 4px 8px;
+   		border-radius: 12px;
+    	font-size: 0.8rem;
+    	font-weight: bold;
+    	color: white;
+  	}
+  	.status.active {
+    	background-color: #28a745; /* 판매중 */
+  	}
+	.status.closed {
+    	background-color: #dc3545; /* 마감 */
+  	}
 </style>
 
 <!-- BootStrap -->
@@ -44,23 +63,28 @@
   
 <!-- 실시간 경매 상품 -->
 <div class="container mt-4">
-  <h4 class="mb-4">🔥 실시간 경매 상품</h4>
+  <h4 class="text-center my-4">🔥 실시간 경매 상품</h4>
 
   <div class="row justify-content-center">
     <div class="col-md-4">
-      <div class="card shadow-sm">
-        <a href="../jsp/item.jsp">
-          <img src="http://gd3.alicdn.com/imgextra/i3/54410696/TB2vkTrbrMlyKJjSZFlXXbMoFXa_!!54410696.jpg_640x640.jpg?Text=Image+1"
-               class="card-img-top" alt="상품 이미지">
-        </a>
-        <div class="card-body">
-          <h5 class="card-title">고급스러운 빈티지 기계식 키보드</h5>
-          <p class="card-text text-danger fw-bold">현재가: 75,000원</p>
-        </div>
-      </div>
+      <a href="../jsp/item.jsp" class="text-decoration-none text-dark">
+        <div class="card shadow-sm h-100 position-relative">
+  			<div class="item-status-label">
+    			<span class="status active">판매중</span> <!-- 또는 마감 -->
+  			</div>
+
+  			<img src="http://gd3.alicdn.com/imgextra/i3/54410696/TB2vkTrbrMlyKJjSZFlXXbMoFXa_!!54410696.jpg_640x640.jpg?Text=Image+1"
+       			class="card-img-top" alt="상품 이미지">
+  			<div class="card-body">
+    			<h5 class="card-title">고급스러운 빈티지 기계식 키보드</h5>
+    			<p class="card-text text-danger fw-bold">현재가: 75,000원</p>
+  			</div>
+		</div>
+      </a>
     </div>
   </div>
 </div>
+
 
   <!-- footer.jsp -->
    <jsp:include page="footer.jsp" />

@@ -54,7 +54,7 @@
                 <div class="col-md-4 mb-4">
                     <h6>고객센터</h6>
                     <div class="small">
-                        <p><i class="fas fa-envelope"></i> lhs990209@gmail.com</p>
+                        <p><i class="fas fa-envelope"></i> face@gmail.com</p>
                         <p>평일/주말/공휴일 휴무</p>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
             <hr class="my-4">
             <div class="text-center small">
                 <p>© 2027 수박나라. All rights reserved.</p>
-                <p>서울 종로구 창경궁로 254 7층</p>
+                <p>서울 종로구 창경궁로 254 4층</p>
             </div>
         </div>
     </footer>

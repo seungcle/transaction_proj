@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>수박나라 - 국내 최대 중고거래 경매사이트</title>
+<title>수박처럼 시원한 중고 가격</title>
 <style>
 	body{
 		background-color: #f7fff7 !important;

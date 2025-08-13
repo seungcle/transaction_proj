@@ -15,7 +15,7 @@
 				data-bs-dismiss="offcanvas" aria-label="Close">
 				<i class="bi bi-arrow-left fs-4"></i>
 			</button>
-			<h5 class="offcanvas-title" id="offcanvasLabel">내 관심</h5>
+			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">내 관심</h5>
 		</div>
 
 		<div class="offcanvas-body p-0">

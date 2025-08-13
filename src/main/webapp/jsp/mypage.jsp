@@ -79,9 +79,6 @@
 		color: #FF6B6B;
 		font-weight: bold;
 	}
-	.offcanvas-title {
-		margin-left: 40%;
-	}
 	
 </style>
 </head>
@@ -100,8 +97,8 @@
                     <hr>
                     <span class="text-muted small ps-2 mb-2">내 정보</span>
                     <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myAddressOffcanvas" aria-controls="myAddressOffcanvas"><i class="bi bi-geo-alt"></i>배송지 관리</a>
-                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-star"></i>거래 후기</a>
-                    <a class="nav-link text-danger" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-box-arrow-right"></i>탈퇴하기</a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myReviewOffcanvas" aria-controls="myReviewOffcanvas"><i class="bi bi-star"></i>거래 후기</a>
+                    <a class="nav-link text-danger" href="#" data-bs-toggle="offcanvas" data-bs-target="#withdrawOffcanvas" aria-controls="withdrawOffcanvas"><i class="bi bi-box-arrow-right"></i>탈퇴하기</a>
                 </div>
             </div>
         </aside>
@@ -163,7 +160,8 @@
 <jsp:include page="myPurchases.jsp"/>
 <jsp:include page="myInterests.jsp"/>
 <jsp:include page="myAddress.jsp"/>
-<jsp:include page="groupChat.jsp"/>
+<jsp:include page="myReview.jsp"/>
+<jsp:include page="withdraw.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

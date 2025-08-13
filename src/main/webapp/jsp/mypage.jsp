@@ -12,7 +12,7 @@
     /* 전체적인 폰트와 배경색 설정 */
     body {
         background-color: #f8f9fa; /* 연한 회색 배경으로 변경 */
-        font-family: 'Pretendard', sans-serif; /* 'Pretendard' 같은 세련된 폰트 사용 추천 */
+        font-family: 'Pretendard', sans-serif;
     }
 
     /* 사이드바 스타일 */
@@ -70,6 +70,19 @@
         font-size: 4rem;
         color: #dee2e6;
     }
+ 	.offcanvas.offcanvas-end {
+  		 width: 700px;
+  		 max-width: 100%;
+	}
+	.title {
+		padding: 10px;
+		color: #FF6B6B;
+		font-weight: bold;
+	}
+	.offcanvas-title {
+		margin-left: 40%;
+	}
+	
 </style>
 </head>
 <body>
@@ -81,15 +94,14 @@
             <div class="sidebar">
                 <div class="nav flex-column nav-pills">
                     <span class="text-muted small ps-2 mb-2">거래 정보</span>
-                    <a class="nav-link" href="#"><i class="bi bi-receipt"></i>판매내역</a>
-                    <a class="nav-link" href="#"><i class="bi bi-bag"></i>구매내역</a>
-                    <a class="nav-link" href="#"><i class="bi bi-heart"></i>찜한 상품</a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#mySalesOffcanvas" aria-controls="mySalesOffcanvas"><i class="bi bi-receipt"></i>판매내역</a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myPurchasesOffcanvas" aria-controls="myPurchasesOffcanvas"><i class="bi bi-bag"></i>구매내역</a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myInterestsOffcanvas" aria-controls="myInterestsOffcanvas"><i class="bi bi-heart"></i>찜한 상품</a>
                     <hr>
                     <span class="text-muted small ps-2 mb-2">내 정보</span>
-                    <a class="nav-link" aria-current="page" href="#"><i class="bi bi-person-circle"></i>프로필 관리</a>
-                    <a class="nav-link" href="#"><i class="bi bi-geo-alt"></i>배송지 관리</a>
-                    <a class="nav-link" href="#"><i class="bi bi-star"></i>거래 후기</a>
-                    <a class="nav-link text-danger" href="#"><i class="bi bi-box-arrow-right"></i>탈퇴하기</a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-geo-alt"></i>배송지 관리</a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-star"></i>거래 후기</a>
+                    <a class="nav-link text-danger" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-box-arrow-right"></i>탈퇴하기</a>
                 </div>
             </div>
         </aside>
@@ -147,6 +159,10 @@
         </main>
     </div>
 </div>
+<jsp:include page="mySales.jsp"/>
+<jsp:include page="myPurchases.jsp"/>
+<jsp:include page="myInterests.jsp"/>
+<jsp:include page="groupChat.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>

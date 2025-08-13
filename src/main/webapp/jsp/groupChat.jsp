@@ -7,8 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div class="offcanvas offcanvas-end" tabindex="-1" id="chatOffcanvas"
-		aria-labelledby="chatOffcanvasLabel">
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="chatOffcanvas" aria-labelledby="chatOffcanvasLabel">
 		<div class="offcanvas-header">
 			<h5 class="offcanvas-title" id="chatOffcanvasLabel">
 				<i class="bi bi-chat-dots-fill"></i> 물품 단체 채팅방

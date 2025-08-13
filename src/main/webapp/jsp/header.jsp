@@ -160,7 +160,7 @@
       		 		<div id="high-icon">
                     <a style="text-decoration: none; color: white;" href="#" class="text-white"><i class="fas fa-heart"></i> 관심</a>
                     <a style="text-decoration: none; color: white;" href="#" class="text-white"><i class="fas fa-bell"></i> 알림</a>
-                    <a style="text-decoration: none; color: white;" href="#" class="text-white"><i class="fas fa-user"></i> 로그인</a>
+                    <a style="text-decoration: none; color: white;" href="../jsp/login.jsp" class="text-white"><i class="fas fa-user"></i> 로그인</a>
                     </div>
              </div>
     </header>

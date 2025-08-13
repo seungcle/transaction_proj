@@ -99,7 +99,7 @@
                     <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myInterestsOffcanvas" aria-controls="myInterestsOffcanvas"><i class="bi bi-heart"></i>찜한 상품</a>
                     <hr>
                     <span class="text-muted small ps-2 mb-2">내 정보</span>
-                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-geo-alt"></i>배송지 관리</a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myAddressOffcanvas" aria-controls="myAddressOffcanvas"><i class="bi bi-geo-alt"></i>배송지 관리</a>
                     <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-star"></i>거래 후기</a>
                     <a class="nav-link text-danger" href="#" data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas" aria-controls="chatOffcanvas"><i class="bi bi-box-arrow-right"></i>탈퇴하기</a>
                 </div>
@@ -162,6 +162,7 @@
 <jsp:include page="mySales.jsp"/>
 <jsp:include page="myPurchases.jsp"/>
 <jsp:include page="myInterests.jsp"/>
+<jsp:include page="myAddress.jsp"/>
 <jsp:include page="groupChat.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

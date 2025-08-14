@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+/* 카드 컴포넌트 + 상태 배지 공통 */
+.item-status-label {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10;
+}
+
+.status {
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.status.active { background-color: var(--status-active); }
+.status.closed { background-color: var(--status-closed); }

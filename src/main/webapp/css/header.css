@@ -1,0 +1,108 @@
+/* 헤더 상단 바 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+  color: #fff;
+  padding: 1rem 20px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* 오른쪽 영역(검색 + 우측 아이콘들) */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* 로고 */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  padding-left: 6%;
+  color: #fff;
+}
+.logo:hover {
+  color: var(--melon-primary, #00b894);
+}
+
+#main-icon {
+  margin-left: 20px;
+  height: 50px;
+  width: auto;
+}
+
+.logo span {
+  font-size: 2rem;
+  font-family: 'MaplestoryOTFBold', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
+  text-decoration: none;
+  color: #fff;
+  line-height: 1;
+}
+
+/* 검색 박스 */
+.search-box {
+  display: flex;
+  margin-right: 400px;
+  width: 400px;
+}
+.search-txt {
+  flex: 1;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px 0 0 25px;
+  outline: none;
+  font-size: 1rem;
+}
+.search-btn {
+  background: #fff;
+  border: none;
+  border-radius: 0 25px 25px 0;
+  padding: 0 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.search-btn:hover { background: #f0f0f0; }
+.search-btn i { color: #FF6B6B; font-size: 1.2rem; }
+
+/* 우측 고정 아이콘 텍스트 */
+.text-white { padding: 10px; color: #fff; }
+
+/* 공통 아이콘 */
+.icon { height: 15px; width: auto; }
+
+/* 카테고리 내비게이션 */
+.category-nav .nav {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0; margin: 0;
+}
+.category-nav .nav-item a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #000;
+  text-decoration: none;
+  padding: 10px 25px;
+  transition: background-color 0.3s ease;
+  margin: 20px 5px 10px 0;
+  border-radius: 20px;
+}
+.nav-link:hover,
+.nav-link.active {
+  background-color: #FF6B6B;
+  color: #fff !important;
+}
+.nav-link:hover .icon,
+.nav-link.active .icon {
+  filter: brightness(0) invert(1);
+}
+
+/* 보조 여백 */
+#high-icon { margin-right: 10px; }

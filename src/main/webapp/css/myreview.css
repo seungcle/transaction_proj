@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+/* 오프캔버스 헤더 */
+.offcanvas-header {
+  border-bottom: 1px solid #dee2e6;
+}
+.offcanvas-header .btn-close {
+  display: none;
+}
+
+/* 내용 없음 플레이스홀더 */
+.empty-placeholder {
+  padding: 4rem 1rem;
+  text-align: center;
+  color: #6c757d;
+}
+.empty-placeholder .icon {
+  font-size: 3rem;
+  color: #ced4da;
+}
+
+/* 맨 위로 가기 버튼 */
+#scrollTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: none; /* 기본적으로 숨김 */
+  z-index: 1100;  /* 오프캔버스 위로 표시 */
+}

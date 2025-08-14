@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+/* 상품 정보 테이블 */
+.product-info-table th,
+.product-info-table td {
+  padding: 0.75rem;
+  vertical-align: middle;
+}
+
+/* 가격/시간 강조 */
+.price-current {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #d9534f; /* danger 톤 */
+}
+.time-left {
+  font-size: 1.2rem;
+  color: #0275d8; /* primary 톤 */
+}
+
+/* 판매자 정보 박스 */
+.seller-info {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: .25rem;
+}
+
+/* 별점/하트 색상 */
+.rating .bi-star-fill { color: #f0ad4e; }
+.bi-heart-fill { color: red; }
+
+/* 단체 채팅 오프캔버스 너비 */
+#chatOffcanvas {
+  width: 700px;
+  max-width: 100%;
+}
+
+/* 관심(좋아요) 버튼 아이콘 크기 */
+#interest {
+  width: 30px;
+  height: 30px;
+}
+
+/* 캐러셀 컨트롤 시각 보정 */
+#productImageCarousel { position: relative; }
+#productImageCarousel .carousel-control-prev,
+#productImageCarousel .carousel-control-next {
+  opacity: 0.5;
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+}
+#productImageCarousel:hover .carousel-control-prev,
+#productImageCarousel:hover .carousel-control-next {
+  opacity: 0.9;
+}
+
+/* 부트스트랩에 없는 사용자 정의 버튼(원 코드 유지용) */
+.btn-outline-basic {
+  color: #212529;
+  border: 1px solid #ced4da;
+  background-color: #fff;
+}
+.btn-outline-basic:hover {
+  background-color: #f8f9fa;
+  border-color: #adb5bd;
+}

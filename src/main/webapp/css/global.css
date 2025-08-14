@@ -1,0 +1,79 @@
+@charset "UTF-8";
+
+/* ===============================
+   1) 폰트 + 전역 컬러 변수
+   =============================== */
+@font-face {
+  font-family: 'MaplestoryOTFBold';
+  src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/MaplestoryOTFBold.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  --melon-bg: #f7fff7;      /* 전체 배경 */
+  --text-color: #333333;    /* 기본 글자색 */
+  --status-active: #28a745; /* 판매중 (참고: card.css에서 사용) */
+  --status-closed: #dc3545; /* 마감   (참고: card.css에서 사용) */
+}
+
+/* ===============================
+   2) 기본 리셋/유틸
+   =============================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* 링크/이미지 기본 유틸 (필요 없으면 삭제 가능) */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* ===============================
+   3) 전역 타이포/배경
+   =============================== */
+body {
+  background-color: var(--melon-bg) !important; /* 다른 CSS가 덮어써도 유지 */
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
+  line-height: 1.5;
+}
+
+/* 화면 주요 래퍼들이 흰 배경으로 덮지 않도록 보정 */
+main,
+#main,
+.main,
+.page,
+.content,
+#app {
+  background-color: var(--melon-bg) !important;
+  min-height: 100vh; /* 페이지가 짧아도 배경이 꽉 보이게 */
+}
+
+/* 부트스트랩/기타 CSS가 내부 컨테이너에 흰 배경을 줄 때 투명화 */
+.container,
+.container-fluid,
+.row,
+.col,
+.section,
+.wrapper {
+  background-color: transparent !important;
+}
+
+/* 카드 같은 컴포넌트는 의도적으로 흰 배경 유지 (card.css 없을 때의 안전망) */
+/* 실제로는 card.css에서 스타일링 권장 */
+.card {
+  background-color: #ffffff;
+}

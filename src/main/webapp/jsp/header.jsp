@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </form>
 
     <div id="high-icon">
-      <a href="#" class="text-white"><i class="fas fa-heart"></i> 관심</a>
+      <a href="#" class="text-white"><i class="fas fa-shopping-cart"></i> 판매</a>
       <a href="#" class="text-white"><i class="fas fa-bell"></i> 알림</a>
       <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="text-white"><i class="fas fa-user"></i> 로그인</a>
     </div>

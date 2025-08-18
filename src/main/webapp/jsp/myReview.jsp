@@ -28,6 +28,7 @@
       <h5 class="mb-3 fw-bold">이런점이 좋았어요</h5>
       <div class="empty-placeholder">
         <div class="icon"><i class="bi bi-chat-quote"></i></div>
+        <br><br>
         <p class="mt-3">받은 평가가 없습니다.</p>
       </div>
     </section>
@@ -38,6 +39,7 @@
       <h5 class="mb-3 fw-bold">상세한 후기도 있어요</h5>
       <div class="empty-placeholder">
         <div class="icon"><i class="bi bi-chat-quote"></i></div>
+        <br><br>
         <p class="mt-3">작성된 후기가 없습니다.</p>
       </div>
     </section>

@@ -13,8 +13,6 @@
 <link rel="stylesheet" href="/subak/css/layout.css">
 <link rel="stylesheet" href="/subak/css/card.css">
 
-<!-- BootStrap JS (CSS는 header.jsp에서 넣었으면 그대로 두면 됨) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 <body>

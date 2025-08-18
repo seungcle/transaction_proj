@@ -26,9 +26,10 @@
     </form>
 
     <div id="high-icon">
-      <a href="http://localhost:8088/subak/jsp/sell.jsp" class="text-white"><i class="fas fa-shopping-cart"></i> 판매</a>
-      <a href="#" class="text-white"><i class="fas fa-bell"></i> 알림</a>
-      <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="text-white"><i class="fas fa-user"></i> 로그인</a>
+      <a href="http://localhost:8088/subak/jsp/sale.jsp" class="text-white"><i class="fas fa-shopping-cart"></i> 판매</a>
+      <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas"><i class="fas fa-bell"></i> 알림</a>
+      <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="text-white"><i class="fas fa-user"></i> 로그인</a> /
+      <a href="http://localhost:8088/subak/jsp/mypage.jsp" class="text-white"><i class="fas fa-user"></i> 마이페이지</a>
     </div>
   </div>
 </header>
@@ -86,4 +87,6 @@
   </div>
   <hr>
 </nav>
+
+<jsp:include page="notification.jsp"/>
 

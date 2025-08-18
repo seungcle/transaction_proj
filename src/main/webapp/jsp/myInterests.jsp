@@ -20,7 +20,7 @@
 
 		<div class="offcanvas-body p-0">
 			<ul class="nav nav-tabs px-3 custom-tabs">
-				<li class="nav-item title"><img class="icon" src="../images/heart.png"> 찜한 상품</li>
+				<li class="nav-item title">찜한 상품</li>
 			</ul>
 
 			<div class="p-3">

@@ -55,11 +55,6 @@
     .form-control, .input-group-text {
         border-radius: 0.5rem;
     }
-    .form-control:focus {
-        box-shadow: none;
-        border-color: #333;
-    }
-
     .preview-wrapper {
         width: 80px;
         height: 80px;

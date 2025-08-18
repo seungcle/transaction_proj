@@ -82,9 +82,9 @@
             <div class="col-md-auto fw-bold">가격</div>
             <div class="col-md-auto">
                 <div class="input-group">
-                    <input type="number" class="form-control" placeholder="최소 가격">
+                    <input type="text" class="form-control priceInput" placeholder="최소 가격">
                     <span class="input-group-text">~</span>
-                    <input type="number" class="form-control" placeholder="최대 가격">
+                    <input type="text" class="form-control priceInput" placeholder="최대 가격">
                     <button class="btn btn-dark">적용</button>
                 </div>
             </div>
@@ -188,5 +188,17 @@
 </div>
 <jsp:include page="footer.jsp"/>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// 원 단위 ',' 설정
+const inputs = document.getElementsByClassName('priceInput');
+
+Array.from(inputs).forEach(input => {
+  input.addEventListener('input', () => {
+    let value = input.value.replace(/[^\d]/g, '');
+    input.value = value ? Number(value).toLocaleString() : '';
+  });
+});
+
+</script>
 </body>
 </html>

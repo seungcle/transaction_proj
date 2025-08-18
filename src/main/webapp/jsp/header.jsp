@@ -4,9 +4,10 @@
 <!-- 아이콘 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-<!-- 전역/헤더 CSS (부트스트랩 CSS보다 뒤에 오게 배치 권장) -->
+<!-- 전역/헤더 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/header.css">
+
 <%
     String currentCategory = request.getParameter("category");
 %>
@@ -88,5 +89,38 @@
   <hr>
 </nav>
 
+<!-- 숨겨진 동영상 영역 -->
+<div id="easterVideo" style="display:none; position:fixed; top:120px; left:20px; width:400px; background:#fff; border:2px solid #ccc; padding:10px; z-index:9999; box-shadow:0 0 10px rgba(0,0,0,0.3);">
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <h4 style="margin:0;">🎉 수박나라 이스터에그 발견!</h4>
+    <button id="closeVideoBtn" style="background:none; border:none; font-size:20px; cursor:pointer;">&times;</button>
+  </div>
+  <video controls width="100%">
+    <source src="${pageContext.request.contextPath}/videos/watermelon-dance.mp4" type="video/mp4">
+    이 브라우저는 동영상 태그를 지원하지 않습니다.
+  </video>
+</div>
+
+
+<!-- 알림 영역 -->
 <jsp:include page="notification.jsp"/>
 
+<!-- 이스터에그 스크립트 -->
+<script>
+const searchBtn = document.getElementById('searchBtn');
+const searchInput = document.getElementById('searchInput');
+const videoBox = document.getElementById('easterVideo');
+const closeBtn = document.getElementById('closeVideoBtn');
+
+searchBtn.addEventListener('click', () => {
+  const input = searchInput.value.trim().toLowerCase();
+  if (input.includes('이승찬')) {
+    videoBox.style.display = 'block';
+    searchInput.value = '';
+  }
+});
+
+closeBtn.addEventListener('click', () => {
+  videoBox.style.display = 'none';
+});
+</script>

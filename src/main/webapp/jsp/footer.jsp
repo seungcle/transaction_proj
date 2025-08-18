@@ -43,7 +43,7 @@
             <div class="col-md-4 mb-4">
                 <h6>고객센터</h6>
                 <div class="small">
-                    <p><i class="fas fa-envelope"></i> face@gmail.com</p>
+                    <p><i class="fas fa-envelope"></i> fake@gmail.com</p>
                     <p>평일/주말/공휴일 휴무</p>
                 </div>
             </div>

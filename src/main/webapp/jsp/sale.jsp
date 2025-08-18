@@ -178,7 +178,8 @@
     </div>
 </div>
 
-
+<!-- footer.jsp -->
+<jsp:include page="footer.jsp" />
 <script>
     // 설명 글자 수 카운터
     const descriptionTextarea = document.getElementById('description');

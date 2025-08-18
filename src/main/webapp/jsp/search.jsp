@@ -65,12 +65,16 @@
 <div class="container mt-4 mb-5">
     <h2 class="mb-3">검색 결과</h2>
     <hr>
+    <%
+    	String category = request.getParameter("category"); 
+    	if (category == null) category = "전체";
+	%>
     
     <div class="filter-section p-3 mb-4">
         <div class="row align-items-center g-3">
             <div class="col-md-auto fw-bold">카테고리</div>
             <div class="col-md-auto">
-                <button class="btn btn-dark btn-sm">전체</button>
+                <button class="btn btn-dark btn-sm"><%= category %></button>
             </div>
         </div>
         <hr class="my-2">

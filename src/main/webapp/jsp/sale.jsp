@@ -130,7 +130,7 @@
         <!-- 가격 -->
         <div class="input-group mb-4">
             <span class="input-group-text">₩</span>
-            <input type="number" class="form-control form-control-lg" placeholder="판매 시작가" step="1000">
+            <input type="text" class="form-control form-control-lg" placeholder="판매 시작가" min="0" id="priceInput">
         </div>
 
         <!-- 설명 -->
@@ -243,6 +243,7 @@
     imageCount.textContent = selectedFiles.length+"/10";
     
 }
+	// 카테고리 색상 설정
 	document.querySelectorAll('.category-select .list-group-item').forEach(item => {
         item.addEventListener('click', function (e) {
             e.preventDefault();
@@ -250,5 +251,18 @@
             this.classList.add('active');
         });
     });
+	
+// 원 단위 ',' 설정
+const input = document.getElementById('priceInput');
+
+input.addEventListener('input', () => {
+  let value = input.value.replace(/[^\d]/g, '');
+  if (value) {
+    input.value = Number(value).toLocaleString();
+  } else {
+    input.value = '';
+  }
+});
+
 
 </script>

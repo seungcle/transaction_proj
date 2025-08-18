@@ -29,20 +29,21 @@
 %>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="/subak/css/address.css">
 <head>
 <meta charset="UTF-8">
 <title>배송지 관리</title>
-<link rel="stylesheet" href="/subak/css/address.css">
 </head>
 <body>
+
+    <button class="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#addressOffcanvas" aria-controls="addressOffcanvas">
+      배송지 관리 열기
+    </button>
+
     <div class="offcanvas offcanvas-end" tabindex="-1" id="myAddressOffcanvas" aria-labelledby="myAddressOffcanvasLabel">
         <div class="offcanvas-header">
-            <button type="button" class="btn btn-link text-dark"
-				data-bs-dismiss="offcanvas" aria-label="Close">
-				<i class="bi bi-arrow-left fs-4"></i>
-			</button>
-            <h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">배송지 관리</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <button id="back-button" type="button" class="btn btn-link text-dark me-2 d-none"><i class="bi bi-arrow-left fs-4"></i></button>
+            <h5 class="offcanvas-title w-100 text-center" id="addressOffcanvasLabel">배송지 관리</h5>
         </div>
         
         <div class="offcanvas-body">
@@ -54,12 +55,14 @@
                 </div>
 
                 <div id="address-list-container">
+                    <%-- JSTL 대신 스크립트릿 for문 사용 --%>
                     <% for (Map<String, Object> addr : addressList) { %>
                         <% boolean isDefault = (Boolean) addr.get("isDefault"); %>
                         <div class="address-item position-relative <%= isDefault ? "is-default" : "" %>" data-address-id="<%= addr.get("id") %>">
                             <button class="btn-delete d-none" onclick="deleteAddress(this, <%= addr.get("id") %>)">&times;</button>
                             <div class="d-flex align-items-center mb-2">
                                 <strong class="fs-5 me-2"><%= addr.get("nickname") %></strong>
+                                <%-- JSTL <c:if> 대신 스크립트릿 if문 사용 --%>
                                 <% if (isDefault) { %>
                                     <span class="badge bg-primary-subtle text-primary-emphasis rounded-pill">대표 배송지</span>
                                 <% } %>
@@ -103,6 +106,7 @@
             <i class="bi bi-info-circle"></i> 최대 5개까지 등록 가능
         </div>
     </div>
+
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 

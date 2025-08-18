@@ -26,10 +26,10 @@
     </form>
 
     <div id="high-icon">
-      <a href="http://localhost:8088/subak/jsp/sale.jsp" class="text-white"><i class="fas fa-shopping-cart"></i> 판매</a>
+      <a href="/subak/jsp/sale.jsp" class="text-white"><i class="fas fa-shopping-cart"></i> 판매</a>
       <a href="#" class="text-white" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas"><i class="fas fa-bell"></i> 알림</a>
       <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="text-white"><i class="fas fa-user"></i> 로그인</a> /
-      <a href="http://localhost:8088/subak/jsp/mypage.jsp" class="text-white"><i class="fas fa-user"></i> 마이페이지</a>
+      <a href="/subak/jsp/mypage.jsp" class="text-white"><i class="fas fa-user"></i> 마이페이지</a>
     </div>
   </div>
 </header>
@@ -39,47 +39,47 @@
   <div class="container">
     <ul class="nav d-flex justify-content-center">
       <li class="nav-item">
-        <a class="nav-link <%= currentCategory == null ? "active" : "" %>" href="http://localhost:8088/subak/jsp/main.jsp" data-category="all">
+        <a class="nav-link <%= currentCategory == null ? "active" : "" %>" href="/subak/jsp/main.jsp" data-category="all">
           <img class="icon" src="${pageContext.request.contextPath}/images/fire.png" alt="인기 아이콘"> 인기
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "디지털".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=디지털" data-category="electronics">
+        <a class="nav-link <%= "디지털".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=디지털" data-category="electronics">
           <img class="icon" src="${pageContext.request.contextPath}/images/phone.png" alt="핸드폰 아이콘"> 디지털
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "패션".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=패션" data-category="fashion">
+        <a class="nav-link <%= "패션".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=패션" data-category="fashion">
           <img class="icon" src="${pageContext.request.contextPath}/images/cloth.png" alt="옷 아이콘"> 패션
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "뷰티".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=뷰티" data-category="beauty">
+        <a class="nav-link <%= "뷰티".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=뷰티" data-category="beauty">
           <img class="icon" src="${pageContext.request.contextPath}/images/makeup.png" alt="뷰티 아이콘"> 뷰티
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "가구".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=가구" data-category="furniture">
+        <a class="nav-link <%= "가구".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=가구" data-category="furniture">
           <img class="icon" src="${pageContext.request.contextPath}/images/sofar.png" alt="소파 아이콘"> 가구
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "도서".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=도서" data-category="books">
+        <a class="nav-link <%= "도서".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=도서" data-category="books">
           <img class="icon" src="${pageContext.request.contextPath}/images/book.png" alt="책 아이콘"> 도서
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "스포츠".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=스포츠" data-category="sports">
+        <a class="nav-link <%= "스포츠".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=스포츠" data-category="sports">
           <img class="icon" src="${pageContext.request.contextPath}/images/ball.png" alt="공 아이콘"> 스포츠
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "생활".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=생활" data-category="auction">
+        <a class="nav-link <%= "생활".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=생활" data-category="auction">
           <img class="icon" src="${pageContext.request.contextPath}/images/living.png" alt="청소 아이콘"> 생활
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link <%= "관심".equals(currentCategory) ? "active" : "" %>" href="http://localhost:8088/subak/jsp/search.jsp?category=관심" data-category="interest">
+        <a class="nav-link <%= "관심".equals(currentCategory) ? "active" : "" %>" href="/subak/jsp/search.jsp?category=관심" data-category="interest">
           <img class="icon" src="${pageContext.request.contextPath}/images/heart.png" alt="관심 아이콘"> 관심
         </a>
       </li>

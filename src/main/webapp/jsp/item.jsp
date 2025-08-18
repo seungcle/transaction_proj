@@ -76,10 +76,18 @@
         </div>
 
         <div class="input-group mb-3">
-          <span class="input-group-text">희망입찰가</span>
-          <input type="number" class="form-control" placeholder="금액 입력" step="1000">
-          <span class="input-group-text">원</span>
-        </div>
+  			<span class="input-group-text">희망입찰가</span>
+ 			<input type="number" class="form-control" id="bidInput" step="1000" min="75000" value="75000">
+  			<span class="input-group-text">원</span>
+		</div>
+
+		<div class="d-flex gap-2 mb-3 flex-wrap">
+  			<button class="btn btn-outline-secondary" data-increase="1000">+1,000원</button>
+  			<button class="btn btn-outline-secondary" data-increase="10000">+10,000원</button>
+  			<button class="btn btn-outline-secondary" data-increase="100000">+100,000원</button>
+  			<button class="btn btn-outline-secondary" data-increase="1000000">+1,000,000원</button>
+		</div>
+
 
         <div class="d-flex gap-2">
           <button id="likeButton" type="button" class="btn btn-outline-basic">
@@ -140,6 +148,30 @@
         heartIcon.classList.add('bi-heart');
       }
     });
+    // 가격 수정
+    const currentPriceText = document.querySelector('.price-current').innerText;
+    const currentPrice = parseInt(currentPriceText.replace(/[^\d]/g, ''), 10);
+
+    const bidInput = document.getElementById('bidInput');
+    bidInput.value = currentPrice;
+
+    // 버튼들에 이벤트 연결
+    document.querySelectorAll('[data-increase]').forEach(button => {
+      button.addEventListener('click', () => {
+        let value = parseInt(bidInput.value, 10) || currentPrice;
+        let increment = parseInt(button.getAttribute('data-increase'), 10);
+        bidInput.value = value + increment;
+      });
+    });
+
+    // 입력값이 현재가보다 낮으면 자동 보정
+    bidInput.addEventListener('blur', () => {
+      let value = parseInt(bidInput.value, 10);
+      if (isNaN(value) || value < currentPrice) {
+        bidInput.value = currentPrice;
+      }
+    });
+
   </script>
 </body>
 </html>

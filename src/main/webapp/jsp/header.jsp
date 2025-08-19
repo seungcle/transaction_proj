@@ -89,7 +89,7 @@
   <hr>
 </nav>
 
-<!-- 숨겨진 동영상 영역 -->
+<!-- 이승찬 -->
 <div id="easterVideo" style="display:none; position:fixed; top:120px; left:20px; width:400px; background:#fff; border:2px solid #ccc; padding:10px; z-index:9999; box-shadow:0 0 10px rgba(0,0,0,0.3);">
   <div style="display:flex; justify-content:space-between; align-items:center;">
     <h4 style="margin:0;">🎉 수박나라 이스터에그 발견!</h4>
@@ -105,7 +105,7 @@
 <!-- 알림 영역 -->
 <jsp:include page="notification.jsp"/>
 
-<!-- 이스터에그 스크립트 -->
+<!-- 이승찬 스크립트 -->
 <script>
 const searchBtn = document.getElementById('searchBtn');
 const searchInput = document.getElementById('searchInput');

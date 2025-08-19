@@ -33,7 +33,7 @@ body {
   text-align: center;
 }
 .login-card h2 { margin-bottom: 1rem; }
-#login-logo { width: 60%; margin-bottom: 1.5rem; }
+#login-logo { width: 60%; margin: 0 auto 1.5rem auto; display: block; }
 
 /* 아이콘 공통 */
 .login-icon { width: 7%; }

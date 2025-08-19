@@ -19,9 +19,9 @@
     <span>수박나라</span>
   </a>
   <div class="header-right">
-    <form class="search-box">
-      <input type="text" class="search-txt" placeholder="원하는 상품을 검색하세요..." id="searchInput">
-      <button type="button" class="search-btn" id="searchBtn">
+    <form class="search-box" method="get" action="/subak/jsp/search.jsp">
+      <input type="text" class="search-txt" name="keyword" placeholder="원하는 상품을 검색하세요..." id="searchInput">
+      <button type="submit" class="search-btn" id="searchBtn">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </form>

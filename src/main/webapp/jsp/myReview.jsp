@@ -16,11 +16,8 @@
 <body>
 <div class="offcanvas offcanvas-end" tabindex="-1" id="myReviewOffcanvas" aria-labelledby="myReviewOffcanvasLabel">
   <div class="offcanvas-header">
-    <button type="button" class="btn btn-link text-dark" data-bs-dismiss="offcanvas" aria-label="Close">
-      <i class="bi bi-arrow-left fs-4"></i>
-    </button>
     <h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">후기</h5>
-    <div style="width: 40px;"></div>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
 
   <div class="offcanvas-body" id="reviewsBody">

@@ -26,7 +26,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px;
+  padding: 20px 50px;
   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
   color: white;
   
@@ -138,7 +138,7 @@
   .header {
   	display: flex;
   	align-items: center;
-  	justify-content: flex-start;
+  	justify-content: space-between;
     flex-wrap: wrap; /* 공간 부족 시 줄바꿈 */
   }
   .header-right {
@@ -160,7 +160,7 @@
     margin-left: 15px;
   }
   .logo {
-    order: 1;
+    order: 0;
     justify-content: flex-start;
     width: auto;
     display: flex;
@@ -178,8 +178,8 @@
   
   .hamburger-btn {
     display: block; /* 모바일에선 보임 */
-    order: 0; /* 가장 왼쪽에 위치 */
-    margin-right: 10px;
+    order: 1; /* 가장 왼쪽에 위치 */
+    margin-left: 10px;
   }
 
   /* 데스크톱용 가로 카테고리를 숨기고, 모바일용 세로 메뉴로 변경 */

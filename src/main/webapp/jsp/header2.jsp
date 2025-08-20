@@ -18,8 +18,9 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #333;
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
   color: white;
+  
 }
 .logo {
   display: flex;
@@ -40,15 +41,17 @@
 .search-box {
   display: flex;
   align-items: center;
+  max-width: 600px;
 }
 .search-txt {
   border: 1px solid #ccc;
+  min-width: 300px;
   padding: 8px;
   border-radius: 20px 0 0 20px;
   outline: none;
 }
 .search-btn {
-  background-color: #555;
+  background-color: #008000;
   border: none;
   color: white;
   padding: 9px 12px;
@@ -96,13 +99,17 @@
   padding: 5px 15px;
   font-weight: bold;
 }
+.category-nav .nav-link:hover {
+  color: #FF8E53;
+  border-radius: 5px;
+}
 .category-nav .nav-link .icon {
   width: 28px;
   height: 28px;
   margin-bottom: 5px;
 }
 .category-nav .nav-link.active {
-  color: #0d6efd;
+  color: #FF6B6B;
   font-weight: bold;
 }
 .category-nav hr {
@@ -120,8 +127,10 @@
      ================================================================= */
 @media (max-width: 768px) {
   .header {
+  	display: flex;
+  	align-items: center;
+  	justify-content: flex-start;
     flex-wrap: wrap; /* 공간 부족 시 줄바꿈 */
-    padding: 10px 15px;
   }
   .header-right {
     flex-grow: 1; /* 남은 공간을 모두 차지 */
@@ -143,6 +152,10 @@
   }
   .logo {
     order: 1;
+    justify-content: flex-start;
+    width: auto;
+    display: flex;
+    align-items: center;
   }
 
   /* 모바일에서 아이콘 옆 텍스트 숨기기 */
@@ -243,14 +256,14 @@
     <span>수박나라</span>
   </a>
   
-  <div class="header-right">
-    <form class="search-box" method="get" action="${pageContext.request.contextPath}/jsp/search.jsp">
+  <form class="search-box" method="get" action="${pageContext.request.contextPath}/jsp/search.jsp">
       <input type="text" class="search-txt" name="keyword" placeholder="원하는 상품을 검색하세요..." id="searchInput">
       <button type="submit" class="search-btn" id="searchBtn">
         <i class="fa-solid fa-magnifying-glass"></i>
       </button>
     </form>
-
+    
+  <div class="header-right">
     <div id="high-icon">
       <a href="${pageContext.request.contextPath}/jsp/sale.jsp"><i class="fas fa-shopping-cart"></i> <span class="fa-text">판매</span></a>
       <a href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas"><i class="fas fa-bell"></i> <span class="fa-text">알림</span></a>

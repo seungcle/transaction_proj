@@ -16,7 +16,7 @@
 
 <body>
   <!-- header.jsp -->
-  <jsp:include page="header.jsp" />
+  <jsp:include page="header2.jsp" />
 
   <!-- maingrid.jsp -->
   <jsp:include page="maingrid.jsp" />

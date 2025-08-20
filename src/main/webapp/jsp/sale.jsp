@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>상품 등록 페이지</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -18,6 +19,7 @@
         background-color: #fff;
         padding: 2rem 3rem;
         border-radius: 0.5rem;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05);
     }
     .image-uploader {
         width: 100px;
@@ -76,19 +78,24 @@
         line-height: 1;
     }
     .form-control::placeholder {
-    color: #adb5bd; 
-    font-style: italic;
+		color: #adb5bd;
+		font-style: italic;
 	}
+
+    /* 변경/추가된 부분: 미디어 쿼리를 사용해 작은 화면에서 form-container의 좌우 패딩을 줄임 */
+    @media (max-width: 576px) {
+        .form-container {
+            padding: 2rem 1.5rem;
+        }
+    }
 	
 </style>
 </head>
 <body>
-<!-- header.jsp -->
 <jsp:include page="header.jsp" />
 
 <div class="container my-5">
     <div class="form-container mx-auto">
-        <!-- 이미지 업로드 -->
         <div class="mb-4">
             <label for="imageInput" class="form-label fw-bold">상품 이미지 (최대 10장)</label>
             <div id="imagePreviewContainer" class="d-flex flex-wrap gap-3 mb-2"></div>
@@ -101,14 +108,12 @@
             <input type="file" id="imageInput" multiple accept="image/*" style="display:none;">
         </div>
 
-        <!-- 상품명 -->
         <div class="mb-4">
             <input type="text" class="form-control form-control-lg" placeholder="상품명">
         </div>
 
-        <!-- 카테고리 -->
         <div class="row category-select mb-4">
-            <div class="col-7">
+            <div class="col-12 col-md-7">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action active">디지털</a>
                     <a href="#" class="list-group-item list-group-item-action">패션</a>
@@ -119,16 +124,15 @@
                     <a href="#" class="list-group-item list-group-item-action">생활</a>
                 </div>
             </div>
-            <div class="col-6 border-start"></div>
+            <div class="col-12 col-md-5 border-md-start mt-3 mt-md-0">
+                </div>
         </div>
 
-        <!-- 가격 -->
         <div class="input-group mb-4">
             <span class="input-group-text">₩</span>
             <input type="text" class="form-control form-control-lg" placeholder="판매 시작가" min="0" id="priceInput">
         </div>
 
-        <!-- 설명 -->
         <div class="mb-4">
             <textarea class="form-control" id="description" rows="8" placeholder="- 상품명(브랜드)
 - 구매 시기 : (년, 월, 일)
@@ -143,22 +147,8 @@
             </div>
         </div>
 
-    <!--     상품 상태
-        <div class="mb-4">
-            <label class="form-label fw-bold">상품상태</label>
-            <div>
-                <input type="radio" class="btn-check" name="condition" id="condition_used" autocomplete="off" checked>
-                <label class="btn btn-outline-secondary" for="condition_used">중고</label>
-
-                <input type="radio" class="btn-check" name="condition" id="condition_new" autocomplete="off">
-                <label class="btn btn-outline-secondary" for="condition_new">새상품</label>
-            </div>
-        </div> -->
-
-
         <hr class="mb-4">
 
-        <!-- 동의 -->
         <div class="form-check mb-4">
             <input class="form-check-input" type="checkbox" value="" id="agreeCheck">
             <label class="form-check-label small" for="agreeCheck">
@@ -166,14 +156,12 @@
             </label>
         </div>
 
-        <!-- 등록 -->
         <div class="d-grid">
             <button class="btn btn-dark btn-lg">판매 시작하기</button>
         </div>
     </div>
 </div>
 
-<!-- footer.jsp -->
 <jsp:include page="footer.jsp" />
 <script>
     // 설명 글자 수 카운터
@@ -259,6 +247,7 @@ input.addEventListener('input', () => {
     input.value = '';
   }
 });
-
-
 </script>
+
+</body>
+</html>

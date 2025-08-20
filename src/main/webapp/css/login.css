@@ -69,3 +69,34 @@ body {
 .btn-naver:hover  { filter: brightness(0.95); color: #fff; }
 .btn-kakao:hover  { filter: brightness(0.97); color: #000; }
 .btn-google:hover { filter: brightness(0.95); color: #fff; }
+
+/* =================================
+   Responsive Styles (for Mobile)
+   ================================= */
+@media (max-width: 768px) {
+  .login-card {
+    width: 90%; /* 화면 너비의 90%를 차지하도록 변경 */
+    padding: 20px;
+  }
+
+  #login-logo {
+    width: 120px; /* 로고 크기 조정 */
+    margin-bottom: 25px;
+  }
+
+  .btn-social {
+    padding: 12px; /* 버튼 크기 키우기 */
+    font-size: 1rem; /* 글자 크기 키우기 */
+  }
+
+  .login-icon {
+    width: 24px;  /* 아이콘 크기 조정 */
+    height: 24px;
+  }
+
+  .logo {
+    justify-content: center; /* 모바일에서 상단 로고 중앙 정렬 */
+    margin-top: 20px;
+    margin-bottom: 0;
+  }
+}

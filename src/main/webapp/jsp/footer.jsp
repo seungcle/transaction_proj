@@ -8,7 +8,6 @@
 <!-- Footer 전용 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/footer.css">
 
-<!-- 아이콘(Font Awesome) 필요 시 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -24,12 +23,13 @@
             </div>
             <div class="col-md-2 mb-4">
                 <h6>고객지원</h6>
-                <ul class="list-unstyled small">
-                    <li><a href="#">공지사항</a></li>
-                    <li><a href="#">자주하는 질문</a></li>
-                    <li><a href="#">1:1 문의</a></li>
-                    <li><a href="#">신고센터</a></li>
-                </ul>
+			<ul class="list-unstyled small">
+    			<li><a href="${pageContext.request.contextPath}/jsp/complaint_list.jsp">공지사항</a></li>
+    			<li>자주하는 질문</li>
+    			<li><a href="${pageContext.request.contextPath}/jsp/inquiryForm.jsp">1:1 문의</a></li>
+    			<li><a href="#">신고센터</a></li>
+			</ul>
+
             </div>
             <div class="col-md-2 mb-4">
                 <h6>이용안내</h6>

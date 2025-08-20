@@ -112,7 +112,7 @@ const searchInput = document.getElementById('searchInput');
 const videoBox = document.getElementById('easterVideo');
 const closeBtn = document.getElementById('closeVideoBtn');
 
-searchBtn.addEventListener('click', () => {
+searchBtn.addEventListener('mouseover', () => {
   const input = searchInput.value.trim().toLowerCase();
   if (input.includes('이승찬')) {
     videoBox.style.display = 'block';

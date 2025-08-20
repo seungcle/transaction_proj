@@ -80,22 +80,16 @@
         </div>
         <hr class="my-2">
         <div class="row align-items-center g-3">
-            <div class="col-md-auto fw-bold">가격</div>
-            <div class="col-md">
-                <div class="row g-2 align-items-center">
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm priceInput" placeholder="최소 가격">
-                    </div>
-                    <div class="col-auto">~</div>
-                    <div class="col">
-                        <input type="text" class="form-control form-control-sm priceInput" placeholder="최대 가격">
-                    </div>
-                    <div class="col-12 col-sm-auto mt-2 mt-sm-0">
-                        <button class="btn btn-dark btn-sm w-100">적용</button>
-                    </div>
-                </div>
-            </div>
+    <div class="col-md-auto fw-bold">가격</div>
+    <div class="col-md-7 col-lg-5">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control priceInput" placeholder="최소 가격">
+            <span class="input-group-text">~</span>
+            <input type="text" class="form-control priceInput" placeholder="최대 가격">
+            <button class="btn btn-dark">적용</button>
         </div>
+    </div>
+</div>
     </div>
 
     <div class="d-flex justify-content-end align-items-center mb-3">

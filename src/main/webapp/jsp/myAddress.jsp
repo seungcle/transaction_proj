@@ -30,15 +30,12 @@
 <!DOCTYPE html>
 <html>
 <link rel="stylesheet" href="/subak/css/address.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <head>
 <meta charset="UTF-8">
 <title>배송지 관리</title>
 </head>
 <body>
-
-    <button class="btn btn-primary m-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#addressOffcanvas" aria-controls="addressOffcanvas">
-      배송지 관리 열기
-    </button>
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="myAddressOffcanvas" aria-labelledby="myAddressOffcanvasLabel">
         <div class="offcanvas-header">

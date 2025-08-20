@@ -21,12 +21,6 @@
     <h4 class="text-center my-4">📢 공지사항</h4>
     <hr>
 
-    <div class="d-flex justify-content-end mb-3">
-      <a class="btn btn-primary" href="./write.jsp">
-        <i class="bi bi-pencil-square"></i> 공지 등록
-      </a>
-    </div>
-
     <div class="card shadow-sm">
       <div class="card-body p-0">
         <table class="table mb-0">

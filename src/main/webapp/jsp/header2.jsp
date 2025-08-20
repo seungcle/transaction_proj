@@ -13,6 +13,15 @@
 
 <style>
 /* 기본 헤더 스타일 (데스크톱) */
+@font-face {
+    font-family: 'HakgyoansimDunggeunmisoTTF-B';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-5@1.0/HakgyoansimDunggeunmisoTTF-B.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+#title{
+	 font-family: 'HakgyoansimDunggeunmisoTTF-B';
+}
 .header {
   display: flex;
   justify-content: space-between;
@@ -253,7 +262,7 @@
   
   <a class="logo" href="${pageContext.request.contextPath}/jsp/main.jsp">
     <img id="main-icon" src="${pageContext.request.contextPath}/images/watermelon_icon.png" alt="수박 아이콘">
-    <span>수박나라</span>
+    <span id="title">수박나라</span>
   </a>
   
   <form class="search-box" method="get" action="${pageContext.request.contextPath}/jsp/search.jsp">

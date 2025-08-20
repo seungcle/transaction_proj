@@ -278,7 +278,8 @@
     <div id="high-icon">
       <a href="${pageContext.request.contextPath}/jsp/sale.jsp"><i class="fas fa-shopping-cart"></i> <span class="fa-text">판매</span></a>
       <a href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas"><i class="fas fa-bell"></i> <span class="fa-text">알림</span></a>
-      <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-group"><i class="fas fa-user"></i> <span class="fa-text">로그인 / 마이페이지</span></a>
+      <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-group"><i class="fas fa-user"></i> <span class="fa-text">로그인</span></a> /
+      <a href="${pageContext.request.contextPath}/jsp/mypage.jsp" class="login-group"><i class="fas fa-user"></i> <span class="fa-text">마이페이지</span></a>
     </div>
   </div>
 </header>

@@ -50,8 +50,3 @@
 	font-size: 0.85rem;
 	color: #6c757d;
 }
-
-/* Offcanvas 헤더의 기본 닫기 버튼 숨기기 */
-.offcanvas-header .btn-close {
-	display: none;
-}

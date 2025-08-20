@@ -4,9 +4,6 @@
 .offcanvas-header {
   border-bottom: 1px solid #dee2e6;
 }
-.offcanvas-header .btn-close {
-  display: none;
-}
 
 /* 내용 없음 플레이스홀더 */
 .empty-placeholder {

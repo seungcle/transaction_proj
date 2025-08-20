@@ -38,10 +38,15 @@
 <body>
 
     <div class="offcanvas offcanvas-end" tabindex="-1" id="myAddressOffcanvas" aria-labelledby="myAddressOffcanvasLabel">
-        <div class="offcanvas-header">
-            <button id="back-button" type="button" class="btn btn-link text-dark me-2 d-none"><i class="bi bi-arrow-left fs-4"></i></button>
-            <h5 class="offcanvas-title w-100 text-center" id="addressOffcanvasLabel">배송지 관리</h5>
-        </div>
+      <div class="offcanvas-header">
+    <button id="back-button" type="button" class="btn btn-link text-dark me-2 d-none">
+        <i class="bi bi-arrow-left fs-4"></i>
+    </button>
+    
+    <h5 class="offcanvas-title flex-grow-1 text-center" id="addressOffcanvasLabel">배송지 관리</h5>
+
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
         
         <div class="offcanvas-body">
             <div id="address-list-view">

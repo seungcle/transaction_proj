@@ -26,7 +26,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+<<<<<<< HEAD
   padding: 20px 50px;
+=======
+  padding: 10px 20px;
+>>>>>>> 18d18dd0441c929e22ddaf2c5f6e85bffac5ea4f
   background: linear-gradient(135deg, #FF6B6B, #FF8E53);
   color: white;
   
@@ -138,7 +142,11 @@
   .header {
   	display: flex;
   	align-items: center;
+<<<<<<< HEAD
   	justify-content: space-between;
+=======
+  	justify-content: flex-start;
+>>>>>>> 18d18dd0441c929e22ddaf2c5f6e85bffac5ea4f
     flex-wrap: wrap; /* 공간 부족 시 줄바꿈 */
   }
   .header-right {
@@ -160,7 +168,11 @@
     margin-left: 15px;
   }
   .logo {
+<<<<<<< HEAD
     order: 0;
+=======
+    order: 1;
+>>>>>>> 18d18dd0441c929e22ddaf2c5f6e85bffac5ea4f
     justify-content: flex-start;
     width: auto;
     display: flex;
@@ -178,8 +190,13 @@
   
   .hamburger-btn {
     display: block; /* 모바일에선 보임 */
+<<<<<<< HEAD
     order: 1; /* 가장 왼쪽에 위치 */
     margin-left: 10px;
+=======
+    order: 0; /* 가장 왼쪽에 위치 */
+    margin-right: 10px;
+>>>>>>> 18d18dd0441c929e22ddaf2c5f6e85bffac5ea4f
   }
 
   /* 데스크톱용 가로 카테고리를 숨기고, 모바일용 세로 메뉴로 변경 */
@@ -276,7 +293,12 @@
     <div id="high-icon">
       <a href="${pageContext.request.contextPath}/jsp/sale.jsp"><i class="fas fa-shopping-cart"></i> <span class="fa-text">판매</span></a>
       <a href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas"><i class="fas fa-bell"></i> <span class="fa-text">알림</span></a>
+<<<<<<< HEAD
       <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-group"><i class="fas fa-user"></i> <span class="fa-text">로그인 / 마이페이지</span></a>
+=======
+      <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-group"><i class="fas fa-user"></i> <span class="fa-text">로그인</span></a> /
+      <a href="${pageContext.request.contextPath}/jsp/mypage.jsp" class="login-group"><i class="fas fa-user"></i> <span class="fa-text">마이페이지</span></a>
+>>>>>>> 18d18dd0441c929e22ddaf2c5f6e85bffac5ea4f
     </div>
   </div>
 </header>

@@ -13,3 +13,21 @@
 .footer a:hover {
     color: var(--melon-primary, #00b894); /* 글로벌 변수 없으면 기본값 적용 */
 }
+
+/* -------------------- 반응형 스타일 (모바일 화면) -------------------- */
+
+/* 화면 너비가 768px 이하일 때 적용될 스타일 */
+@media (max-width: 768px) {
+    .footer {
+        text-align: center; /* 텍스트를 중앙 정렬하여 통일감 부여 */
+    }
+
+    .footer .row > div {
+        margin-bottom: 2rem; /* 각 섹션(col) 사이에 충분한 세로 간격 추가 */
+    }
+
+    /* 로고와 소셜 미디어 아이콘 정렬 조정 */
+    .footer .d-flex {
+        justify-content: center; /* 아이콘을 중앙으로 정렬 */
+    }
+}

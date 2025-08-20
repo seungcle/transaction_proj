@@ -13,10 +13,10 @@
   <link rel="stylesheet" href="/subak/css/layout.css">
   <link rel="stylesheet" href="/subak/css/card.css">
 </head>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <body>
   <!-- header.jsp -->
-  <jsp:include page="header2.jsp" />
+  <jsp:include page="header.jsp" />
 
   <!-- maingrid.jsp -->
   <jsp:include page="maingrid.jsp" />

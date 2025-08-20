@@ -65,3 +65,26 @@
   background-color: #f8f9fa;
   border-color: #adb5bd;
 }
+
+/* =================================== */
+/* ========== 반응형 디자인 ========== */
+/* =================================== */
+/* md 스크린 사이즈 이하(모바일) */
+@media (max-width: 767.98px) {
+  
+  /* 상품 이미지와 정보가 세로로 쌓일 때 하단에 여백 추가 */
+  #productImageCarousel {
+    margin-bottom: 2rem;
+  }
+
+  /* 모바일에서 현재가 폰트 크기 조정 */
+  .price-current {
+    font-size: 1.75rem;
+  }
+
+  /* 모바일에서 채팅 오프캔버스 너비를 화면에 맞춤 */
+  #chatOffcanvas {
+    width: 90vw; /* 화면 너비의 90% */
+  }
+
+}

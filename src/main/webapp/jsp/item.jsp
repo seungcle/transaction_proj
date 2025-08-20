@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>중고 상품 경매 페이지</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<!-- 전역/페이지 전용 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/item.css">
 </head>
@@ -18,7 +18,7 @@
 
   <div class="container mt-5 mb-5">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <div id="productImageCarousel" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner">
             <div class="carousel-item active">
@@ -39,7 +39,7 @@
         </div>
       </div>
 
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <h2>고급스러운 빈티지 기계식 키보드</h2>
         <hr>
 
@@ -81,13 +81,12 @@
   			<span class="input-group-text">원</span>
 		</div>
 
-		<div class="d-flex gap-2 mb-3 flex-wrap">
+        <div class="d-flex gap-2 mb-3 flex-wrap">
   			<button class="btn btn-outline-secondary" data-increase="1000">+1,000원</button>
   			<button class="btn btn-outline-secondary" data-increase="10000">+10,000원</button>
   			<button class="btn btn-outline-secondary" data-increase="100000">+100,000원</button>
   			<button class="btn btn-outline-secondary" data-increase="1000000">+1,000,000원</button>
 		</div>
-
 
         <div class="d-flex gap-2">
           <button id="likeButton" type="button" class="btn btn-outline-basic">
@@ -111,7 +110,7 @@
           <p>묵직한 타건감과 레트로한 디자인으로 인테리어 소품으로도 활용 가치가 높습니다.</p>
         </div>
 
-        <div class="seller-info d-flex justify-content-between align-items-center">
+        <div class="seller-info d-flex justify-content-between align-items-center flex-wrap gap-2">
           <div>
             <span class="fw-bold fs-5">레트로마스터</span>
             <span class="ms-2 rating">

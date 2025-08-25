@@ -27,15 +27,15 @@
   justify-content: space-between;
   align-items: center;
   padding: 20px 50px;
-  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
-  color: white;
+  background: white;
+  color: black;
   
 }
 .logo {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: white;
+  color: black;
   font-size: 24px;
   font-weight: bold;
 }
@@ -87,7 +87,7 @@
   font-size: 24px;
   background: none;
   border: none;
-  color: white;
+  color: black;
   cursor: pointer;
 }
 
@@ -129,6 +129,53 @@
 .close-btn {
     display: none; /* 평소엔 숨김 */
 }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 50px; /* 완전한 캡슐 형태 */
+  padding: 2px; /* 내부 여백 */
+  max-width: 600px;
+  border: 2px solid transparent; /* 포커스 효과를 위한 투명 테두리 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+
+/* 검색창에 포커스가 갔을 때의 효과 */
+.search-box:focus-within {
+  border-color: #FF8E53;
+  box-shadow: 0 0 0 3px rgba(255, 142, 83, 0.3);
+}
+
+.search-txt {
+  flex-grow: 1; /* 남는 공간을 모두 차지 */
+  border: none;
+  background: none;
+  padding: 8px 20px;
+  outline: none;
+  font-size: 16px;
+  color: #333;
+}
+
+.search-btn {
+  background-color: #FF6B6B; /* 헤더 그라데이션과 어울리는 색상 */
+  border: none;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* 동그란 버튼 모양 */
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #e65a5a; /* 호버 시 살짝 어두운 색 */
+}
+
 
 
 /* =================================================================

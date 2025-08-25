@@ -94,6 +94,19 @@
       font-size: 0.8rem;
       color: #6c757d;
     }
+    
+    .search-box {
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 50px; /* 완전한 캡슐 형태 */
+  padding: 2px; /* 내부 여백 */
+  max-width: 600px;
+  border: 2px solid transparent; /* 포커스 효과를 위한 투명 테두리 */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  transition: all 0.3s ease; /* 부드러운 전환 효과 */
+}
+
   </style>
 </head>
 <body>

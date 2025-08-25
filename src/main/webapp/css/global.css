@@ -11,7 +11,7 @@
 }
 
 :root {
-  --melon-bg: #f7fff7;      /* 전체 배경 */
+  --melon-bg: white;      /* 전체 배경 */
   --text-color: #333333;    /* 기본 글자색 */
   --status-active: #28a745; /* 판매중 (참고: card.css에서 사용) */
   --status-closed: #dc3545; /* 마감   (참고: card.css에서 사용) */

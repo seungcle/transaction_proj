@@ -22,12 +22,12 @@
       <h4 class="mb-4 ps-2">마이페이지</h4>
       <div class="sidebar">
         <div class="nav flex-column nav-pills">
-          <span class="text-muted small ps-2 mb-2">거래 정보</span>
+          <span class="text-muted ps-2 mb-2 fw-bold">거래 정보</span>
           <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#mySalesOffcanvas" aria-controls="mySalesOffcanvas"><i class="bi bi-receipt"></i>판매내역</a>
           <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myPurchasesOffcanvas" aria-controls="myPurchasesOffcanvas"><i class="bi bi-bag"></i>구매내역</a>
           <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myInterestsOffcanvas" aria-controls="myInterestsOffcanvas"><i class="bi bi-heart"></i>찜한 상품</a>
           <hr>
-          <span class="text-muted small ps-2 mb-2">내 정보</span>
+          <span class="text-muted ps-2 mb-2 fw-bold">내 정보</span>
           <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myAddressOffcanvas" aria-controls="myAddressOffcanvas"><i class="bi bi-geo-alt"></i>배송지 관리</a>
           <a class="nav-link" href="#" data-bs-toggle="offcanvas" data-bs-target="#myReviewOffcanvas" aria-controls="myReviewOffcanvas"><i class="bi bi-star"></i>거래 후기</a>
           <a class="nav-link text-danger" href="#" data-bs-toggle="offcanvas" data-bs-target="#withdrawOffcanvas" aria-controls="withdrawOffcanvas"><i class="bi bi-box-arrow-right"></i>탈퇴하기</a>
@@ -46,7 +46,6 @@
             </div>
           </div>
 
-          <h6 class="text-muted">나의 별점</h6>
           <div class="d-flex align-items-center">
             <div class="rating-stars me-2">
               <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>

@@ -136,10 +136,12 @@
      ================================================================= */
 @media (max-width: 768px) {
   .header {
+  	padding: 10px 15px;
   	display: flex;
   	align-items: center;
   	justify-content: space-between;
     flex-wrap: wrap; /* 공간 부족 시 줄바꿈 */
+    overflow-x: hidden; /* 잘림 방지 */
   }
   .header-right {
     flex-grow: 1; /* 남은 공간을 모두 차지 */

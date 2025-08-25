@@ -94,7 +94,7 @@
 /* 카테고리 네비게이션 (데스크톱) */
 .category-nav {
   background-color: #f8f9fa;
-  padding: 5px 0;
+  padding: 10px 0;
   border-bottom: 1px solid #dee2e6;
 }
 .category-nav .nav {
@@ -238,6 +238,9 @@
       border: none;
       cursor: pointer;
       color: #333;
+  }
+  .nav-item{
+  	gap: 1rem;
   }
   
   /* 메뉴가 열렸을 때 뒷 배경을 어둡게 처리 */

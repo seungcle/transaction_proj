@@ -15,7 +15,7 @@
 
 /* 새 알림 스타일 */
 .notification-item.is-new {
-	background-color: #e7f3ff; /* 새 알림일 경우 눈에 띄는 배경색 */
+	background-color: #fceae8; /* 새 알림일 경우 눈에 띄는 배경색 */
 }
 
 .notification-item img {

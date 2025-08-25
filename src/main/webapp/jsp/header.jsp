@@ -217,25 +217,28 @@ String currentCategory = request.getParameter("category");
 /* =================================================================
      반응형 스타일 (화면이 1443px 이하일 때 적용)
    ================================================================= */
-@media ( max-width : 1443px) {
-	.header {
-		display: flex;
-		justify-content: space-between; /* 왼-오 배치 */
-		align-items: center; /* 세로 가운데 정렬 */
-	}
-	.search-box {
-		margin-right: auto; /* 왼쪽 고정 */
-	}
-	.header-right {
-		display: flex;
-		gap: 15px; /* 아이콘 간격 */
-		align-items: center;
-	}
+@media (max-width: 1443px) {
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px; /* 요소들 사이의 최소 간격을 일정하게 유지 */
+    }
 
-	/* 제목 숨기거나 크기 조정 */
-	.header-title {
-		display: none; /* 필요시 제거, 아니면 font-size 줄이기 */
-	}
+    .logo,
+    .header-right {
+        flex-shrink: 0; /* 로고와 오른쪽 아이콘 그룹이 줄어들지 않도록 고정 */
+    }
+
+    .search-box {
+        flex: 1 1 auto; /* 검색창이 남는 공간을 모두 차지하고, 공간이 부족할 때 줄어들도록 설정 */
+        min-width: 200px; /* 검색창이 너무 작아지지 않도록 최소 너비 지정 */
+        margin-right: 0;  /* 기존의 margin-right: auto; 속성 제거 */
+    }
+
+    .header-title {
+        display: none;
+    }
 }
 
 /* =================================================================

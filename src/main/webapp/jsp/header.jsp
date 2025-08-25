@@ -47,26 +47,7 @@
   display: flex;
   align-items: center;
 }
-.search-box {
-  display: flex;
-  align-items: center;
-  max-width: 600px;
-}
-.search-txt {
-  border: 1px solid #ccc;
-  min-width: 300px;
-  padding: 8px;
-  border-radius: 20px 0 0 20px;
-  outline: none;
-}
-.search-btn {
-  background-color: #008000;
-  border: none;
-  color: white;
-  padding: 9px 12px;
-  cursor: pointer;
-  border-radius: 0 20px 20px 0;
-}
+
 #high-icon {
   margin-left: 20px;
   display: flex;
@@ -74,11 +55,13 @@
   gap: 15px;
 }
 #high-icon a {
-  color: white;
+  color: #333; /* 기본 텍스트 색상 수정 */
   text-decoration: none;
+  transition: color 0.2s ease; /* 부드러운 색상 전환 */
 }
 #high-icon a:hover {
-  text-decoration: underline;
+  color: #FF8E53; /* 호버 시 색상 변경 */
+  text-decoration: none;
 }
 
 /* 햄버거 버튼 (모바일에서만 보임) */
@@ -91,45 +74,12 @@
   cursor: pointer;
 }
 
-/* 카테고리 네비게이션 (데스크톱) */
-.category-nav {
-  background-color: #f8f9fa;
-  padding: 5px 0;
-  border-bottom: 1px solid #dee2e6;
-}
-.category-nav .nav {
-  justify-content: center;
-}
-.category-nav .nav-link {
-  color: #333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5px 15px;
-  font-weight: bold;
-}
-.category-nav .nav-link:hover {
-  color: #FF8E53;
-  border-radius: 5px;
-}
-.category-nav .nav-link .icon {
-  width: 28px;
-  height: 28px;
-  margin-bottom: 5px;
-}
-.category-nav .nav-link.active {
-  color: #FF6B6B;
-  font-weight: bold;
-}
-.category-nav hr {
-    display: none; /* 데스크톱에서는 hr 숨김 */
-}
-
 /* 모바일 닫기 버튼 (사이드 메뉴 안에 위치) */
 .close-btn {
     display: none; /* 평소엔 숨김 */
 }
 
+/* 검색창 스타일 */
 .search-box {
   display: flex;
   align-items: center;
@@ -141,13 +91,10 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.05);
   transition: all 0.3s ease; /* 부드러운 전환 효과 */
 }
-
-/* 검색창에 포커스가 갔을 때의 효과 */
 .search-box:focus-within {
   border-color: #FF8E53;
   box-shadow: 0 0 0 3px rgba(255, 142, 83, 0.3);
 }
-
 .search-txt {
   flex-grow: 1; /* 남는 공간을 모두 차지 */
   border: none;
@@ -157,7 +104,6 @@
   font-size: 16px;
   color: #333;
 }
-
 .search-btn {
   background-color: #FF6B6B; /* 헤더 그라데이션과 어울리는 색상 */
   border: none;
@@ -171,16 +117,86 @@
   align-items: center;
   transition: background-color 0.2s ease;
 }
-
 .search-btn:hover {
   background-color: #e65a5a; /* 호버 시 살짝 어두운 색 */
 }
 
 
+/* =================================================================
+     ★★★ 개선된 네비게이션 메뉴 스타일 ★★★
+   ================================================================= */
+.category-nav {
+  /* background-color: white; */ /* 기존 흰색 배경 대신 아래 색상 사용 */
+  background-color: #f8f9fa; /* 은은하고 세련된 연한 회색 배경 */
+  padding: 5px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 은은한 그림자 효과 */
+  border-bottom: 1px solid #dee2e6; /* 배경색과 어울리도록 테두리 색상 조정 */
+}
+
+.category-nav .nav {
+  justify-content: center;
+  position: relative;
+}
+
+.category-nav .nav-link {
+  color: #555; /* 기본 텍스트 색상 */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 20px; /* 좌우 여백 증가 */
+  font-weight: bold;
+  position: relative; /* 밑줄 애니메이션을 위한 기준점 */
+  transition: color 0.3s ease;
+  overflow: hidden;
+}
+
+/* 데스크톱: 호버 시 밑줄 애니메이션 효과 */
+.category-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #FF8E53;
+  transform: scaleX(0); /* 처음엔 안보이게 */
+  transform-origin: center;
+  transition: transform 0.3s ease-out;
+}
+
+.category-nav .nav-link:hover {
+  color: #FF8E53; /* 호버 시 텍스트 색상 변경 */
+}
+
+.category-nav .nav-link:hover::after {
+  transform: scaleX(1); /* 호버 시 밑줄 나타남 */
+}
+
+/* 활성화된 메뉴 아이템 스타일 */
+.category-nav .nav-link.active {
+  color: #FF6B6B; /* 활성화 시 텍스트 색상 */
+  font-weight: bold;
+}
+
+.category-nav .nav-link.active::after {
+  transform: scaleX(1); /* 활성화 시 밑줄 항상 표시 */
+  background-color: #FF6B6B; /* 활성화 시 밑줄 색상 */
+}
+
+.category-nav .nav-link .icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 5px;
+}
+
+.category-nav hr {
+    display: none;
+}
+
 
 /* =================================================================
      반응형 스타일 (화면이 768px 이하일 때 적용)
-     ================================================================= */
+   ================================================================= */
 @media (max-width: 768px) {
   .header {
   	padding: 10px 15px;
@@ -195,7 +211,6 @@
     justify-content: flex-end; /* 오른쪽 정렬 */
   }
   
-  /* 검색창을 로고와 아이콘 사이에 두기 위해 순서 변경 */
   .search-box {
     order: 2;
     width: 100%;
@@ -216,7 +231,6 @@
     align-items: center;
   }
 
-  /* 모바일에서 아이콘 옆 텍스트 숨기기 */
   #high-icon a .fa-text {
       display: none;
   }
@@ -226,12 +240,12 @@
   }
   
   .hamburger-btn {
-    display: block; /* 모바일에선 보임 */
-    order: 1; /* 가장 왼쪽에 위치 */
+    display: block;
+    order: 1;
     margin-left: 10px;
   }
 
-  /* 데스크톱용 가로 카테고리를 숨기고, 모바일용 세로 메뉴로 변경 */
+  /* 모바일용 세로 메뉴로 변경 */
   .category-nav {
     position: fixed;
     top: 0;
@@ -246,16 +260,20 @@
     border-right: 1px solid #ccc;
     box-shadow: 2px 0 10px rgba(0,0,0,0.1);
   }
-  /* 햄버거 클릭 시 .open 클래스가 추가되면 메뉴가 보임 */
   .category-nav.open {
     left: 0;
+  }
+  
+  /* 모바일에서는 밑줄 애니메이션 제거 */
+  .category-nav .nav-link::after {
+      display: none;
   }
 
   .category-nav .container {
     padding: 0;
   }
   .category-nav .nav {
-    flex-direction: column; /* 세로 정렬 */
+    flex-direction: column;
     align-items: flex-start;
     padding: 10px;
   }
@@ -268,13 +286,25 @@
     width: 100%;
     padding: 15px;
     border-bottom: 1px solid #f0f0f0;
+    border-radius: 8px; /* 부드러운 모서리 */
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
+  
+  /* 모바일: 호버/활성 시 배경색 변경으로 피드백 */
+  .category-nav .nav-link:hover {
+      background-color: #f8f9fa;
+      color: #FF8E53;
+  }
+  .category-nav .nav-link.active {
+      background-color: #fff2ed; /* 연한 주황색 배경 */
+      color: #FF6B6B;
+  }
+
   .category-nav .nav-link .icon {
     margin-bottom: 0;
     margin-right: 15px;
   }
   
-  /* 모바일 메뉴의 닫기 버튼 */
   .close-btn {
       display: block;
       position: absolute;
@@ -287,7 +317,6 @@
       color: #333;
   }
   
-  /* 메뉴가 열렸을 때 뒷 배경을 어둡게 처리 */
   .overlay {
     position: fixed;
     top: 0;

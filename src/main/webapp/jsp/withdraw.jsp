@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>회원 탈퇴</title>
+<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/withdraw.css">

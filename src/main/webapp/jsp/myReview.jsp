@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>후기</title>
+<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
 
 <!-- 전역/페이지 전용 CSS -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">

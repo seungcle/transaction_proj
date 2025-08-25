@@ -5,7 +5,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>에러</title>
+<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
 </head>
 <body style="text-align:center">
 <h2>오류 발생했음</h2>

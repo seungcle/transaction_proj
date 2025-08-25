@@ -34,6 +34,7 @@
 <head>
 <meta charset="UTF-8">
 <title>배송지 관리</title>
+<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
 </head>
 <body>
 

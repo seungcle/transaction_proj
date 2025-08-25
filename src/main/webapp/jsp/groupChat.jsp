@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>물품 단체 채팅</title>
+<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
 
 <!-- 필요 시 상위 페이지에서 이미 포함되어 있으면 중복 제거 가능 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/global.css">

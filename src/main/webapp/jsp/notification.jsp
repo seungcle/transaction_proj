@@ -38,6 +38,7 @@
 <head>
 <meta charset="UTF-8">
 <title>알림</title>
+<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
 <link rel="stylesheet" href="/subak/css/notification.css">
 </head>
 <body>

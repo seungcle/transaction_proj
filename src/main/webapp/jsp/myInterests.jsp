@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>찜한 상품</title>
+<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
 <link rel="stylesheet" href="../style/offcanvas.css">
 </head>
 <body>

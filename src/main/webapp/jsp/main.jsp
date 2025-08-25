@@ -166,7 +166,7 @@
         <a href="../jsp/item.jsp?itemId=104" class="text-decoration-none">
           <div class="card product-card h-100">
             <div class="card-img-container">
-              <img src="https://cdn.pixabay.com/photo/2017/09/25/13/14/leica-2784793_1280.jpg" class="card-img-top" alt="필름 카메라">
+              <img src="https://img.danawa.com/prod_img/500000/664/660/img/2660664_1.jpg?_v=20170216113504&shrink=360:360" class="card-img-top" alt="필름 카메라">
               <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-3 status-badge">마감 임박</span>
             </div>
             <div class="card-body d-flex flex-column">
@@ -184,7 +184,7 @@
         <a href="../jsp/item.jsp?itemId=105" class="text-decoration-none">
           <div class="card product-card h-100">
             <div class="card-img-container">
-              <img src="https://cdn.pixabay.com/photo/2019/11/19/15/22/himalayan-4638202_1280.jpg" class="card-img-top" alt="턴테이블">
+              <img src="https://thumbnail.10x10.co.kr/webimage/image/basic600/366/B003662863.jpg?cmd=thumb&w=400&h=400&fit=true&ws=false" class="card-img-top" alt="턴테이블">
               <span class="badge bg-success position-absolute top-0 start-0 m-3 status-badge">경매 진행중</span>
             </div>
             <div class="card-body d-flex flex-column">
@@ -202,7 +202,7 @@
         <a href="../jsp/item.jsp?itemId=106" class="text-decoration-none">
           <div class="card product-card h-100">
             <div class="card-img-container">
-              <img src="https://cdn.pixabay.com/photo/2016/11/29/13/39/analog-1870020_1280.jpg" class="card-img-top" alt="라디오">
+              <img src="https://media.bunjang.co.kr/product/288273745_2_1725711558_w360.jpg" class="card-img-top" alt="라디오">
               <span class="badge bg-danger position-absolute top-0 start-0 m-3 status-badge">경매 종료</span>
             </div>
             <div class="card-body d-flex flex-column">

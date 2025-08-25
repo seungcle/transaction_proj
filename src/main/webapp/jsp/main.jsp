@@ -2,79 +2,225 @@
     pageEncoding="UTF-8" errorPage="subag_errorPage.jsp" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>수박처럼 시원한 중고 가격</title>
 
-  <!-- 공통 CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
   <link rel="stylesheet" href="/subak/css/global.css">
   <link rel="stylesheet" href="/subak/css/layout.css">
-  <link rel="stylesheet" href="/subak/css/card.css">
+  
+  <style>
+    /* -------------------
+       커스텀 스타일 (Modern Design)
+       ------------------- */
+    body {
+      font-family: 'Noto Sans KR', sans-serif;
+      background-color: #f8f9fa; /* 은은한 배경색 추가 */
+    }
+
+    .section-title {
+      font-weight: 700;
+      color: #343a40;
+    }
+    
+    .section-subtitle {
+      color: #6c757d;
+      font-size: 1rem;
+    }
+    
+    /* 상품 카드 디자인 */
+    .product-card {
+      border: 1px solid #e9ecef; /* 테두리를 은은하게 변경 */
+      border-radius: 12px; /* 모서리를 더 둥글게 */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환 효과 */
+      overflow: hidden; /* 이미지 모서리도 둥글게 적용되도록 */
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px); /* 마우스 올리면 살짝 위로 이동 */
+      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08); /* 그림자 효과 강화 */
+    }
+    
+    /* 카드 이미지 비율 고정 */
+    .card-img-container {
+      position: relative;
+      width: 100%;
+      padding-top: 75%; /* 4:3 비율 (100% / 4 * 3) */
+      overflow: hidden;
+    }
+
+    .card-img-top {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* 이미지가 잘리더라도 비율에 맞게 꽉 채움 */
+    }
+    
+    /* 판매 상태 뱃지 */
+    .status-badge {
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.4em 0.8em;
+    }
+
+    .card-title {
+      font-size: 1.05rem; /* 카드 크기가 작아졌으므로 폰트 크기 미세 조정 */
+      font-weight: 500;
+      color: #212529;
+      white-space: nowrap; /* 제목이 길어도 한 줄로 표시 */
+      overflow: hidden;
+      text-overflow: ellipsis; /* ...으로 생략 */
+    }
+    
+    /* 가격 표시 */
+    .price-text {
+      font-size: 1.15rem; /* 카드 크기가 작아졌으므로 폰트 크기 미세 조정 */
+      font-weight: 700;
+      color: #1a8f67; /* 수박을 연상시키는 브랜드 컬러 */
+    }
+    
+    .price-label {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+  </style>
 </head>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <body>
-  <!-- header.jsp -->
   <jsp:include page="header.jsp" />
 
-  <!-- maingrid.jsp -->
   <jsp:include page="maingrid.jsp" />
 
-  <!-- 실시간 경매 상품 -->
-  <div class="container mt-4">
-    <h4 class="text-center my-4">🔥 실시간 경매 상품</h4>
-    <hr>
+  <div class="container my-5">
+    <div class="text-center mb-5">
+      <h2 class="section-title"><i class="bi bi-fire text-danger"></i> 실시간 인기 경매</h2>
+      <p class="section-subtitle">지금 바로 참여하고 특별한 상품을 만나보세요!</p>
+    </div>
 
-    <div class="row justify-content-center">
-      <!-- 빈티지 키보드 -->
-      <div class="col-md-4 mb-4">
-        <a href="../jsp/item.jsp?itemId=101" class="text-decoration-none text-dark">
-          <div class="card shadow-sm h-100 position-relative">
-            <div class="item-status-label"><span class="status active">판매중</span></div>
-            <img src="http://gd3.alicdn.com/imgextra/i3/54410696/TB2vkTrbrMlyKJjSZFlXXbMoFXa_!!54410696.jpg_640x640.jpg?Text=Image+1"
-                 class="card-img-top" alt="빈티지 키보드">
-            <div class="card-body">
-              <h5 class="card-title">빈티지 기계식 키보드</h5>
-              <p class="card-text text-danger fw-bold">현재가: 75,000원</p>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 mb-4">
+        <a href="../jsp/item.jsp?itemId=101" class="text-decoration-none">
+          <div class="card product-card h-100">
+            <div class="card-img-container">
+              <img src="http://gd3.alicdn.com/imgextra/i3/54410696/TB2vkTrbrMlyKJjSZFlXXbMoFXa_!!54410696.jpg_640x640.jpg" class="card-img-top" alt="빈티지 키보드">
+              <span class="badge bg-success position-absolute top-0 start-0 m-3 status-badge">경매 진행중</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mt-2">빈티지 기계식 키보드</h5>
+              <div class="mt-auto">
+                <p class="price-label mb-1">현재 입찰가</p>
+                <p class="price-text mb-0">75,000원</p>
+              </div>
             </div>
           </div>
         </a>
       </div>
 
-      <!-- 캠핑용 랜턴 -->
-      <div class="col-md-4 mb-4">
-        <a href="../jsp/item.jsp?itemId=102" class="text-decoration-none text-dark">
-          <div class="card shadow-sm h-100 position-relative">
-            <div class="item-status-label"><span class="status active">판매중</span></div>
-            <img src="https://image.ohousecdn.com/i/bucketplace-v2-development/uploads/productions/163773272252100026.jpg?w=256&h=256&c=c&q=50"
-                 class="card-img-top" alt="캠핑 랜턴">
-            <div class="card-body">
-              <h5 class="card-title">빈티지 캠핑용 랜턴</h5>
-              <p class="card-text text-danger fw-bold">현재가: 32,000원</p>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <a href="../jsp/item.jsp?itemId=102" class="text-decoration-none">
+          <div class="card product-card h-100">
+            <div class="card-img-container">
+              <img src="https://image.ohousecdn.com/i/bucketplace-v2-development/uploads/productions/163773272252100026.jpg?w=360" class="card-img-top" alt="캠핑 랜턴">
+              <span class="badge bg-success position-absolute top-0 start-0 m-3 status-badge">경매 진행중</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mt-2">빈티지 캠핑용 랜턴</h5>
+              <div class="mt-auto">
+                <p class="price-label mb-1">현재 입찰가</p>
+                <p class="price-text mb-0">32,000원</p>
+              </div>
             </div>
           </div>
         </a>
       </div>
 
-      <!-- 클래식 시계 -->
-      <div class="col-md-4 mb-4">
-        <a href="../jsp/item.jsp?itemId=103" class="text-decoration-none text-dark">
-          <div class="card shadow-sm h-100 position-relative">
-            <div class="item-status-label"><span class="status active">판매중</span></div>
-            <img src="https://img.gqkorea.co.kr/gq/2024/07/style_66823d69d3b4d.jpg"
-                 class="card-img-top" alt="클래식 시계">
-            <div class="card-body">
-              <h5 class="card-title">클래식 손목 시계</h5>
-              <p class="card-text text-danger fw-bold">현재가: 4,380,000,000원</p>
+      <div class="col-lg-3 col-md-6 mb-4">
+        <a href="../jsp/item.jsp?itemId=103" class="text-decoration-none">
+          <div class="card product-card h-100">
+            <div class="card-img-container">
+              <img src="https://img.gqkorea.co.kr/gq/2024/07/style_66823d69d3b4d.jpg" class="card-img-top" alt="클래식 시계">
+              <span class="badge bg-success position-absolute top-0 start-0 m-3 status-badge">경매 진행중</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mt-2">클래식 손목 시계</h5>
+              <div class="mt-auto">
+                <p class="price-label mb-1">현재 입찰가</p>
+                <p class="price-text mb-0">4,380,000,000원</p>
+              </div>
             </div>
           </div>
         </a>
       </div>
+      
+      <div class="col-lg-3 col-md-6 mb-4">
+        <a href="../jsp/item.jsp?itemId=104" class="text-decoration-none">
+          <div class="card product-card h-100">
+            <div class="card-img-container">
+              <img src="https://cdn.pixabay.com/photo/2017/09/25/13/14/leica-2784793_1280.jpg" class="card-img-top" alt="필름 카메라">
+              <span class="badge bg-warning text-dark position-absolute top-0 start-0 m-3 status-badge">마감 임박</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mt-2">라이카 M6 필름 카메라</h5>
+              <div class="mt-auto">
+                <p class="price-label mb-1">현재 입찰가</p>
+                <p class="price-text mb-0">2,150,000원</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 mb-4">
+        <a href="../jsp/item.jsp?itemId=105" class="text-decoration-none">
+          <div class="card product-card h-100">
+            <div class="card-img-container">
+              <img src="https://cdn.pixabay.com/photo/2019/11/19/15/22/himalayan-4638202_1280.jpg" class="card-img-top" alt="턴테이블">
+              <span class="badge bg-success position-absolute top-0 start-0 m-3 status-badge">경매 진행중</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mt-2">LP 레코드판 턴테이블</h5>
+              <div class="mt-auto">
+                <p class="price-label mb-1">현재 입찰가</p>
+                <p class="price-text mb-0">180,000원</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      
+      <div class="col-lg-3 col-md-6 mb-4">
+        <a href="../jsp/item.jsp?itemId=106" class="text-decoration-none">
+          <div class="card product-card h-100">
+            <div class="card-img-container">
+              <img src="https://cdn.pixabay.com/photo/2016/11/29/13/39/analog-1870020_1280.jpg" class="card-img-top" alt="라디오">
+              <span class="badge bg-danger position-absolute top-0 start-0 m-3 status-badge">경매 종료</span>
+            </div>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title mt-2">앤티크 진공관 라디오</h5>
+              <div class="mt-auto">
+                <p class="price-label mb-1">낙찰가</p>
+                <p class="price-text mb-0 text-secondary">98,000원</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+
     </div>
   </div>
 
-  <!-- footer.jsp -->
   <jsp:include page="footer.jsp" />
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

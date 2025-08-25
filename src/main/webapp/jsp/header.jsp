@@ -244,7 +244,7 @@ String currentCategory = request.getParameter("category");
 /* =================================================================
      반응형 스타일 (화면이 768px 이하일 때 적용) (태블릿~모바일)
    ================================================================= */
-@media ( max-width : 768px) {
+@media ( max-width : 880px) {
 	.header {
 		padding: 10px 15px;
 		display: flex;

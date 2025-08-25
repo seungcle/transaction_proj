@@ -63,7 +63,7 @@ String currentCategory = request.getParameter("category");
 #high-icon a {
 	display: inline-flex;
 	align-items: center;
-	gap: 6px; 
+	gap: 6px;
 	color: #333; /* 기본 텍스트 색상 수정 */
 	text-decoration: none;
 	transition: color 0.2s ease; /* 부드러운 색상 전환 */
@@ -77,7 +77,7 @@ String currentCategory = request.getParameter("category");
 .icon-images {
 	width: 20px;
 	height: auto;
-	display: block; 
+	display: block;
 }
 /* 햄버거 버튼 (모바일에서만 보임) */
 .hamburger-btn {
@@ -146,7 +146,7 @@ String currentCategory = request.getParameter("category");
    ================================================================= */
 .category-nav {
 	/* background-color: white; */ /* 기존 흰색 배경 대신 아래 색상 사용 */
-	background-color: #f8f9fa; /* 은은하고 세련된 연한 회색 배경 */
+	background-color: #f4f3f1; /* 은은하고 세련된 연한 회색 배경 */
 	padding: 5px 0;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); /* 은은한 그림자 효과 */
 	border-bottom: 1px solid #dee2e6; /* 배경색과 어울리도록 테두리 색상 조정 */
@@ -161,7 +161,6 @@ String currentCategory = request.getParameter("category");
 
 .category-nav .nav-link {
 	color: #555; /* 기본 텍스트 색상 */
-	
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -215,9 +214,32 @@ String currentCategory = request.getParameter("category");
 	display: none;
 }
 
+/* =================================================================
+     반응형 스타일 (화면이 1443px 이하일 때 적용)
+   ================================================================= */
+@media ( max-width : 1443px) {
+	.header {
+		display: flex;
+		justify-content: space-between; /* 왼-오 배치 */
+		align-items: center; /* 세로 가운데 정렬 */
+	}
+	.search-box {
+		margin-right: auto; /* 왼쪽 고정 */
+	}
+	.header-right {
+		display: flex;
+		gap: 15px; /* 아이콘 간격 */
+		align-items: center;
+	}
+
+	/* 제목 숨기거나 크기 조정 */
+	.header-title {
+		display: none; /* 필요시 제거, 아니면 font-size 줄이기 */
+	}
+}
 
 /* =================================================================
-     반응형 스타일 (화면이 768px 이하일 때 적용)
+     반응형 스타일 (화면이 768px 이하일 때 적용) (태블릿~모바일)
    ================================================================= */
 @media ( max-width : 768px) {
 	.header {
@@ -365,11 +387,9 @@ String currentCategory = request.getParameter("category");
 
 	<div class="header-right">
 		<div id="high-icon">
-			<a href="${pageContext.request.contextPath}/jsp/sale.jsp"><img src="../images/cart.png" class="icon-images"><span class="fa-text">판매</span></a>
-			<a href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas"><img src="../images/bell.png" class="icon-images"> <span class="fa-text">알림</span></a>
-			<a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-group"><img src="../images/human.png" class="icon-images"> <span class="fa-text">로그인</span></a> 
-			/ 
-			<a href="${pageContext.request.contextPath}/jsp/mypage.jsp" class="login-group"><img src="../images/human.png" class="icon-images"> <span class="fa-text">마이페이지</span></a>
+			<a href="${pageContext.request.contextPath}/jsp/sale.jsp"><img src="../images/cart.png" class="icon-images"><span class="fa-text">판매</span></a> <a href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas"><img src="../images/bell.png" class="icon-images"> <span class="fa-text">알림</span></a>
+			<%-- <a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-group"><img src="../images/human.png" class="icon-images"> <span class="fa-text">로그인</span></a> --%>
+			/ <a href="${pageContext.request.contextPath}/jsp/mypage.jsp" class="login-group"><img src="../images/human.png" class="icon-images"> <span class="fa-text">마이페이지</span></a>
 		</div>
 	</div>
 </header>

@@ -1,20 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>구매 내역</title>
 <link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/mypage-components.css">
 </head>
 <body>
 	<div class="offcanvas offcanvas-end" tabindex="-1"
 		id="myPurchasesOffcanvas" aria-labelledby="myPurchasesOffcanvasLabel">
 		<div class="offcanvas-header">
-			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">구매 내역</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">구매
+				내역</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+				aria-label="Close"></button>
 		</div>
-		
+
 		<div class="p-3">
 			<div class="product-item position-relative">
 				<img

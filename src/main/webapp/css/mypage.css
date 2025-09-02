@@ -1,148 +1,124 @@
 @charset "UTF-8";
 
-/* 배경/폰트: global.css의 변수와 궁합 맞춤 */
-body {
-  background-color: var(--melon-bg, #f8f9fa);
-  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, 'Apple SD Gothic Neo', '맑은 고딕', sans-serif;
-}
+/* /css/mypage.css */
 
 /* 사이드바 */
 .sidebar .nav-link {
-  color: #343a40;
-  font-size: 1rem;
-  padding: 0.8rem 1rem;
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  transition: all 0.2s ease-in-out;
-  display: flex;
-  align-items: center;
+	color: #343a40;
+	font-size: 1rem;
+	padding: 0.8rem 1rem;
+	margin-bottom: 0.5rem;
+	border-radius: 0.5rem;
+	transition: all 0.2s ease-in-out;
+	display: flex;
+	align-items: center;
 }
+
 .sidebar .nav-link .bi {
-  margin-right: 0.8rem;
-  font-size: 1.2rem;
+	margin-right: 0.8rem;
+	font-size: 1.2rem;
 }
+
 .sidebar .nav-link:hover {
-  background-color: #FF6B6B;
-  color: white;
+	background-color: #FF6B6B;
+	color: white;
 }
+
 .sidebar .nav-link.active {
-  background-color: #0d6efd;
-  color: #fff;
-  font-weight: 700;
+	background-color: #0d6efd;
+	color: #fff;
+	font-weight: 700;
 }
 
 /* 카드 공통(부드러운 그림자) */
 .card {
-  border: none;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+	border: none;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 /* 별점 */
 .rating-stars {
-  font-size: 2rem;
-  color: #ffc107;
+	font-size: 2rem;
+	color: #ffc107;
 }
 
 /* 상품 탭 */
 .product-tabs .nav-link {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  color: #6c757d;
-  font-weight: 500;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	color: #6c757d;
+	font-weight: 500;
 }
-.product-tabs .nav-link.active,
-.product-tabs .nav-link[aria-current="page"] {
-  background-color: #FF6B6B;
-  color: #fff;
+
+.product-tabs .nav-link.active, .product-tabs .nav-link[aria-current="page"]
+	{
+	background-color: #FF6B6B;
+	color: #fff;
 }
 
 /* 빈 상태 */
 .empty-content {
-  padding: 4rem;
-  text-align: center;
-}
-.empty-content .bi {
-  font-size: 4rem;
-  color: #dee2e6;
+	padding: 4rem;
+	text-align: center;
 }
 
-/* 오프캔버스(마이페이지 모듈 공통) */
-.offcanvas.offcanvas-end {
-  width: 700px;
-  max-width: 100%;
+.empty-content .bi {
+	font-size: 4rem;
+	color: #dee2e6;
 }
 
 /* 섹션 타이틀 강조 */
 .title {
-  padding: 10px;
-  color: #FF6B6B;
-  font-weight: 700;
+	padding: 10px;
+	color: #FF6B6B;
+	font-weight: 700;
 }
 
-/* =================================================================
-   마이페이지 반응형 스타일 (모바일 화면)
-   ================================================================= */
-
-/* 화면 너비가 767.98px (Bootstrap의 md 브레이크포인트) 이하일 때 적용 */
-@media (max-width: 767.98px) {
-
-    /* 1. 전체 컨테이너 여백 조정 */
-    .container.py-5 {
-        padding-top: 2rem !important;
-        padding-bottom: 3rem !important;
-    }
-
-    /* 2. 사이드바와 메인 컨텐츠 사이 간격 추가 */
-    aside.col-md-3 {
-        margin-bottom: 2.5rem;
-    }
-
-    /* 3. 프로필 카드 재배치 */
-    .card-body .d-flex.align-items-center.mb-4 {
-        flex-direction: column; /* 프로필 이미지와 텍스트를 세로로 쌓기 */
-        text-align: center;
-    }
-
-    .card-body .d-flex .rounded-circle.me-3 {
-        margin-right: 0 !important; /* 기존 오른쪽 여백 제거 */
-        margin-bottom: 1rem;       /* 이미지 아래에 여백 추가 */
-    }
-
-    /* 별점 섹션 중앙 정렬 */
-    .card-body h6.text-muted {
-        text-align: center;
-    }
-    .card-body .d-flex.align-items-center:not(.mb-4) {
-        justify-content: center;
-    }
-    
-    /* 카드 내부 여백을 모바일에 맞게 살짝 줄임 */
-    main .card .card-body.p-4 {
-        padding: 1.5rem !important;
-    }
-
-    /* 4. '내 상품' 탭을 가로 스크롤로 변경 */
-    .product-tabs {
-        display: flex;
-        flex-wrap: nowrap;      /* 탭이 줄바꿈되지 않도록 설정 */
-        overflow-x: auto;       /* 가로 스크롤 생성 */
-        -webkit-overflow-scrolling: touch; /* iOS에서 부드러운 스크롤 효과 */
-        scrollbar-width: none;  /* 스크롤바 숨기기 (Firefox) */
-    }
-
-    .product-tabs::-webkit-scrollbar {
-        display: none; /* 스크롤바 숨기기 (Chrome, Safari, Edge) */
-    }
-
-    .product-tabs .nav-item {
-        flex-shrink: 0; /* 탭 아이템이 줄어들지 않도록 설정 */
-    }
-
-    /* 5. '상품 없음' 안내 메시지 텍스트 크기 조정 */
-    .empty-content h5 {
-        font-size: 1.1rem;
-    }
-    .empty-content p {
-        font-size: 0.9rem;
-    }
+/* ============================
+   마이페이지 반응형 스타일
+   ============================ */
+@media ( max-width : 767.98px) {
+	.container.py-5 {
+		padding-top: 2rem !important;
+		padding-bottom: 3rem !important;
+	}
+	aside.col-md-3 {
+		margin-bottom: 2.5rem;
+	}
+	.card-body .d-flex.align-items-center.mb-4 {
+		flex-direction: column;
+		text-align: center;
+	}
+	.card-body .d-flex .rounded-circle.me-3 {
+		margin-right: 0 !important;
+		margin-bottom: 1rem;
+	}
+	.card-body h6.text-muted {
+		text-align: center;
+	}
+	.card-body .d-flex.align-items-center:not(.mb-4) {
+		justify-content: center;
+	}
+	main .card .card-body.p-4 {
+		padding: 1.5rem !important;
+	}
+	.product-tabs {
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+	.product-tabs::-webkit-scrollbar {
+		display: none;
+	}
+	.product-tabs .nav-item {
+		flex-shrink: 0;
+	}
+	.empty-content h5 {
+		font-size: 1.1rem;
+	}
+	.empty-content p {
+		font-size: 0.9rem;
+	}
 }

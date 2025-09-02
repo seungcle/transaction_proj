@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* 알림 항목 스타일 */
+/* /css/notification.css */
 .notification-item {
 	display: flex;
 	align-items: center;
@@ -10,12 +10,11 @@
 }
 
 .notification-item:hover {
-	background-color: #f8f9fa; /* 마우스를 올렸을 때 배경색 */
+	background-color: #f8f9fa;
 }
 
-/* 새 알림 스타일 */
 .notification-item.is-new {
-	background-color: #fceae8; /* 새 알림일 경우 눈에 띄는 배경색 */
+	background-color: #fceae8;
 }
 
 .notification-item img {
@@ -27,7 +26,7 @@
 }
 
 .notification-item .notification-content {
-	flex-grow: 1; /* 내용이 남은 공간을 모두 차지하도록 */
+	flex-grow: 1;
 }
 
 .notification-item .notification-content p {
@@ -40,12 +39,11 @@
 	color: #212529;
 }
 
-/* 닫기 버튼은 링크 클릭에 방해되지 않도록 z-index 설정 */
 .notification-item .btn-close {
 	z-index: 2;
 }
 
 #notificationOffcanvas {
-  width: 500px !important;
-  max-width: 100%;
+	width: 500px !important;
+	max-width: 100%;
 }

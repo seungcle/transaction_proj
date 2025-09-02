@@ -1,34 +1,37 @@
 @charset "UTF-8";
 
-/* 메인 캐러셀 래퍼 */
+/* /css/maingrid.css */
 #mainCarousel {
-  width: 55%;
-  margin: 2rem auto;
-  border-radius: 1rem;           /* rounded-4와 중복되면 이쪽이 우선 */
-  overflow: hidden;              /* 이미지가 라운드 밖으로 나가지 않게 */
+	width: 55%;
+	margin: 2rem auto;
+	border-radius: 1rem;
+	overflow: hidden;
 }
 
-/* 반응형 보정 */
-@media (max-width: 1200px) {
-  #mainCarousel { width: 70%; }
-}
-@media (max-width: 768px) {
-  #mainCarousel { width: 92%; }
+@media ( max-width : 1200px) {
+	#mainCarousel {
+		width: 70%;
+	}
 }
 
-/* 이미지 기본 */
+@media ( max-width : 768px) {
+	#mainCarousel {
+		width: 92%;
+	}
+}
+
 #mainCarousel .carousel-item img {
-  width: 100%;
-  height: auto;
-  display: block;
+	width: 100%;
+	height: auto;
+	display: block;
 }
 
-/* 컨트롤 가시성 살짝 보정(선택) */
-#mainCarousel .carousel-control-prev,
-#mainCarousel .carousel-control-next {
-  opacity: .75;
+#mainCarousel .carousel-control-prev, #mainCarousel .carousel-control-next
+	{
+	opacity: .75;
 }
-#mainCarousel:hover .carousel-control-prev,
-#mainCarousel:hover .carousel-control-next {
-  opacity: 1;
+
+#mainCarousel:hover .carousel-control-prev, #mainCarousel:hover .carousel-control-next
+	{
+	opacity: 1;
 }

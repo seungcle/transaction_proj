@@ -1,55 +1,55 @@
 @charset "UTF-8";
 
-/* 오프캔버스 폭 (제품 상세와 일치) */
+/* /css/groupChat.css */
 #chatOffcanvas {
-  width: 700px;
-  max-width: 100%;
+	width: 700px;
+	max-width: 100%;
 }
 
-/* 채팅 영역 스크롤 */
 .chat-scroll {
-  overflow-y: auto;
-  max-height: 60vh; /* 필요시 조절 */
+	overflow-y: auto;
+	max-height: 60vh;
 }
 
-/* 말풍선 공통 */
 .msg {
-  margin-bottom: .5rem;
+	margin-bottom: .5rem;
 }
+
 .msg .name {
-  font-weight: 600;
+	font-weight: 600;
 }
+
 .msg .bubble {
-  display: inline-block;
-  padding: .5rem .75rem;
-  border-radius: .5rem;
-  max-width: 85%;
-  word-break: break-word;
+	display: inline-block;
+	padding: .5rem .75rem;
+	border-radius: .5rem;
+	max-width: 85%;
+	word-break: break-word;
 }
 
-/* 발신자/수신자 스타일 */
 .msg.me {
-  text-align: right;
+	text-align: right;
 }
+
 .msg.me .bubble {
-  background: var(--bs-primary-bg-subtle, #e7f1ff);
+	background: var(--bs-primary-bg-subtle, #e7f1ff);
 }
+
 .msg.other .bubble {
-  background: #f8f9fa;
+	background: #f8f9fa;
 }
 
-/* 타임스탬프 */
 .msg .time {
-  color: #6c757d;
-  font-size: .875rem;
+	color: #6c757d;
+	font-size: .875rem;
 }
 
-/* 입력창 공간 고정 */
 .chat-input .form-control {
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
 }
+
 .chat-input .btn {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
 }

@@ -1,17 +1,23 @@
 @charset "UTF-8";
 
 /* 페이지 전체 여백/그리드 유틸 (Bootstrap과 병행 사용 가능) */
-.mt-4 { margin-top: 1.5rem !important; }
-.my-4 { margin-top: 1.5rem !important; margin-bottom: 1.5rem !important; }
+.mt-4 {
+	margin-top: 1.5rem !important;
+}
+
+.my-4 {
+	margin-top: 1.5rem !important;
+	margin-bottom: 1.5rem !important;
+}
 
 /* 개별 아이템 레이아웃 (필요 시 유지) */
 .item-left {
-  margin: 10px 30px;
-  margin-left: 200px;
-  width: 20%;
+	margin: 10px 30px;
+	margin-left: 200px;
+	width: 20%;
 }
 
 /* 오탈자 있었던 영역: backgroun-color → background-color */
 .item-explan {
-  background-color: #ffffff;
+	background-color: #ffffff;
 }

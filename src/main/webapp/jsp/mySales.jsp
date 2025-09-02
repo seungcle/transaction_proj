@@ -6,17 +6,20 @@
 <meta charset="UTF-8">
 <title>판매내역</title>
 <link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
-<link rel="stylesheet" href="../style/offcanvas.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/mypage-components.css">
 </head>
 <body>
 	<div class="offcanvas offcanvas-end" tabindex="-1"
 		id="mySalesOffcanvas" aria-labelledby="mySalesOffcanvasLabel">
 		<div class="offcanvas-header">
-			
-			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">판매 내역</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">판매
+				내역</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+				aria-label="Close"></button>
 		</div>
-		
+
 		<div class="p-3">
 			<div class="product-item position-relative">
 				<img

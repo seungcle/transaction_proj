@@ -48,13 +48,34 @@
 			<div class="row category-select mb-4">
 				<div class="col-12 col-md-7">
 					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-action active">디지털</a>
-						<a href="#" class="list-group-item list-group-item-action">패션</a>
-						<a href="#" class="list-group-item list-group-item-action">뷰티</a>
-						<a href="#" class="list-group-item list-group-item-action">가구</a>
-						<a href="#" class="list-group-item list-group-item-action">도서</a>
-						<a href="#" class="list-group-item list-group-item-action">스포츠</a>
-						<a href="#" class="list-group-item list-group-item-action">생활</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+							<span>디지털</span>
+							<img src="../images/phone_subak.png" width="50px" class="ms-auto"> 
+						</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+							<span>패션</span>
+							<img src="../images/cloth_subak.png" width="50px" class="ms-auto"> 
+						</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+							<span>뷰티</span>
+							<img src="../images/makeup_subak.png" width="50px" class="ms-auto"> 
+						</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+							<span>가구</span>
+							<img src="../images/sofar_subak.png" width="50px" class="ms-auto"> 
+						</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+    					<span>도서</span>
+    						<img src="../images/book_subak.png" width="50px" class="ms-auto"> 
+						</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+							<span>스포츠</span>
+							<img src="../images/ball_subak.png" width="50px" class="ms-auto"> 
+						</a>
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+							<span>생활</span>
+							<img src="../images/living_subak.png" width="50px" class="ms-auto"> 
+						</a>
 					</div>
 				</div>
 				<div class="col-12 col-md-5 border-md-start mt-3 mt-md-0"></div>

@@ -7,7 +7,6 @@
 	</settings>
 	
 	<typeAliases>
-<!-- 		<typeAlias alias="MeetingDTO" type="edu.example.springedu.domain.MeetingDTO" />
-		<typeAlias alias="ReplyDTO" type="edu.example.springedu.domain.ReplyDTO" /> -->
+		<typeAlias alias="ItemDTO" type="subak.example.subak.domain.ItemDTO" />
 	</typeAliases>
 </configuration>

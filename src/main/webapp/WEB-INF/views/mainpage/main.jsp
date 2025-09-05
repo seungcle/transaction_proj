@@ -33,6 +33,7 @@
 			<h2 class="section-title">
 				<i class="bi bi-fire text-danger"></i> 실시간 인기 경매
 			</h2>
+			<p>${list}</p>
 			<p class="section-subtitle">지금 바로 참여하고 특별한 상품을 만나보세요!</p>
 		</div>
 
@@ -72,7 +73,7 @@
 							<h5 class="card-title mt-2">빈티지 캠핑용 랜턴</h5>
 							<div class="mt-auto">
 								<p class="price-label mb-1">현재 입찰가</p>
-								<p class="price-text mb-0">32,0000원</p>
+								<p class="price-text mb-0">32,000원</p>
 							</div>
 						</div>
 					</div>

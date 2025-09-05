@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subak.example.subak.dao.ItemDAO">
+	<select id="findAll"  resultType="ItemDTO">
+		SELECT i.id, i.title, i.text, i.start_price AS startPrice, i.current_price AS currentPrice,
+		i.end_time AS endTime, i.status, i.created_at AS createdAt, u.nickname AS sellerNickname, c.name AS categoryName
+		FROM item i
+		JOIN "user" u ON i.seller_id = u.id
+		JOIN category c ON i.category_id = c.id
+	</select> 
+</mapper>
+
+
+
+
+
+
+
+

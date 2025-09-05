@@ -1,0 +1,124 @@
+@charset "UTF-8";
+
+/* /css/mypage.css */
+
+/* 사이드바 */
+.sidebar .nav-link {
+	color: #343a40;
+	font-size: 1rem;
+	padding: 0.8rem 1rem;
+	margin-bottom: 0.5rem;
+	border-radius: 0.5rem;
+	transition: all 0.2s ease-in-out;
+	display: flex;
+	align-items: center;
+}
+
+.sidebar .nav-link .bi {
+	margin-right: 0.8rem;
+	font-size: 1.2rem;
+}
+
+.sidebar .nav-link:hover {
+	background-color: #FF6B6B;
+	color: white;
+}
+
+.sidebar .nav-link.active {
+	background-color: #0d6efd;
+	color: #fff;
+	font-weight: 700;
+}
+
+/* 카드 공통(부드러운 그림자) */
+.card {
+	border: none;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* 별점 */
+.rating-stars {
+	font-size: 2rem;
+	color: #ffc107;
+}
+
+/* 상품 탭 */
+.product-tabs .nav-link {
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	color: #6c757d;
+	font-weight: 500;
+}
+
+.product-tabs .nav-link.active, .product-tabs .nav-link[aria-current="page"]
+	{
+	background-color: #FF6B6B;
+	color: #fff;
+}
+
+/* 빈 상태 */
+.empty-content {
+	padding: 4rem;
+	text-align: center;
+}
+
+.empty-content .bi {
+	font-size: 4rem;
+	color: #dee2e6;
+}
+
+/* 섹션 타이틀 강조 */
+.title {
+	padding: 10px;
+	color: #FF6B6B;
+	font-weight: 700;
+}
+
+/* ============================
+   마이페이지 반응형 스타일
+   ============================ */
+@media ( max-width : 767.98px) {
+	.container.py-5 {
+		padding-top: 2rem !important;
+		padding-bottom: 3rem !important;
+	}
+	aside.col-md-3 {
+		margin-bottom: 2.5rem;
+	}
+	.card-body .d-flex.align-items-center.mb-4 {
+		flex-direction: column;
+		text-align: center;
+	}
+	.card-body .d-flex .rounded-circle.me-3 {
+		margin-right: 0 !important;
+		margin-bottom: 1rem;
+	}
+	.card-body h6.text-muted {
+		text-align: center;
+	}
+	.card-body .d-flex.align-items-center:not(.mb-4) {
+		justify-content: center;
+	}
+	main .card .card-body.p-4 {
+		padding: 1.5rem !important;
+	}
+	.product-tabs {
+		display: flex;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+		-webkit-overflow-scrolling: touch;
+		scrollbar-width: none;
+	}
+	.product-tabs::-webkit-scrollbar {
+		display: none;
+	}
+	.product-tabs .nav-item {
+		flex-shrink: 0;
+	}
+	.empty-content h5 {
+		font-size: 1.1rem;
+	}
+	.empty-content p {
+		font-size: 0.9rem;
+	}
+}

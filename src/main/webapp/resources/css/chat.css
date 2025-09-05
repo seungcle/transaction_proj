@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+/* /css/groupChat.css */
+#chatOffcanvas {
+	width: 700px;
+	max-width: 100%;
+}
+
+.chat-scroll {
+	overflow-y: auto;
+	max-height: 60vh;
+}
+
+.msg {
+	margin-bottom: .5rem;
+}
+
+.msg .name {
+	font-weight: 600;
+}
+
+.msg .bubble {
+	display: inline-block;
+	padding: .5rem .75rem;
+	border-radius: .5rem;
+	max-width: 85%;
+	word-break: break-word;
+}
+
+.msg.me {
+	text-align: right;
+}
+
+.msg.me .bubble {
+	background: var(--bs-primary-bg-subtle, #e7f1ff);
+}
+
+.msg.other .bubble {
+	background: #f8f9fa;
+}
+
+.msg .time {
+	color: #6c757d;
+	font-size: .875rem;
+}
+
+.chat-input .form-control {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+
+.chat-input .btn {
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}

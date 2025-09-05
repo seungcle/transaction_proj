@@ -1,0 +1,108 @@
+@charset "UTF-8";
+
+/* /css/item.css */
+.card {
+	border: none;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+	transition: all 0.3s ease;
+}
+
+.card:hover {
+	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.product-title {
+	font-weight: 700;
+	font-size: 2.25rem;
+	margin-bottom: 1.5rem;
+}
+
+.product-info-table th {
+	font-weight: 600;
+	width: 120px;
+	border-top: none;
+	color: #6c757d;
+}
+
+.product-info-table td {
+	border-top: none;
+	font-weight: 500;
+}
+
+.price-current {
+	font-size: 2rem;
+	font-weight: 700;
+	color: #FF6B6B;
+}
+
+.time-left {
+	font-size: 1.25rem;
+	font-weight: 600;
+	color: #343a40;
+}
+
+.btn-bid-primary {
+	background: linear-gradient(45deg, #FF8E53, #FF6B6B);
+	border: none;
+	color: white;
+	font-weight: bold;
+	padding: 0.75rem 1.5rem;
+	box-shadow: 0 4px 10px rgba(255, 107, 107, 0.4);
+	transition: all 0.3s ease;
+}
+
+.btn-bid-primary:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 6px 15px rgba(255, 107, 107, 0.5);
+	color: white;
+}
+
+#likeButton {
+	padding: 0.75rem;
+	border: 1px solid #ced4da;
+	transition: all 0.2s ease;
+}
+
+#likeButton:hover {
+	background-color: #f1f3f5;
+}
+
+#heartIcon.bi-heart-fill {
+	color: #e54747;
+}
+
+.details-card {
+	padding: 2rem;
+	background-color: #fff;
+	border-radius: 0.5rem;
+	margin-top: 2rem;
+}
+
+.seller-info .rating {
+	color: #ffc107;
+}
+
+.carousel-inner img {
+	border-radius: 12px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media ( min-width : 992px) {
+	.product-row {
+		align-items: stretch;
+	}
+	.product-row .col-lg-6 {
+		display: flex;
+		flex-direction: column;
+	}
+	.product-row .col-lg-6 .card, .product-row .col-lg-6 .carousel {
+		flex-grow: 1;
+	}
+	.carousel, .carousel-inner, .carousel-item {
+		height: 100%;
+	}
+	.carousel-item img {
+		height: 100%;
+		object-fit: cover;
+	}
+}

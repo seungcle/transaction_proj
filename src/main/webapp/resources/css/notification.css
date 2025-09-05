@@ -1,0 +1,49 @@
+@charset "UTF-8";
+
+/* /css/notification.css */
+.notification-item {
+	display: flex;
+	align-items: center;
+	padding: 1rem 0.5rem;
+	border-bottom: 1px solid #dee2e6;
+	transition: background-color 0.2s ease-in-out;
+}
+
+.notification-item:hover {
+	background-color: #f8f9fa;
+}
+
+.notification-item.is-new {
+	background-color: #fceae8;
+}
+
+.notification-item img {
+	width: 100px;
+	height: 100px;
+	border-radius: 0.5rem;
+	object-fit: cover;
+	margin-right: 1rem;
+}
+
+.notification-item .notification-content {
+	flex-grow: 1;
+}
+
+.notification-item .notification-content p {
+	margin: 0;
+	font-size: 0.9rem;
+	color: #6c757d;
+}
+
+.notification-item .notification-content strong {
+	color: #212529;
+}
+
+.notification-item .btn-close {
+	z-index: 2;
+}
+
+#notificationOffcanvas {
+	width: 500px !important;
+	max-width: 100%;
+}

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import subak.example.subak.dao.ItemDAO;
-import subak.example.subak.domain.ItemDTO;
+import subak.example.subak.domain.SimpleItemResponseVO;
 
 @Controller
 public class MainController {
@@ -18,7 +18,7 @@ public class MainController {
 	
 	@GetMapping("/main")
 	public String mainPage(Model model) {
-		List<ItemDTO> list = dao.findAll();
+		List<SimpleItemResponseVO> list = dao.findAll();
 		model.addAttribute("list", list);
 		return "mainpage/main";
 	}

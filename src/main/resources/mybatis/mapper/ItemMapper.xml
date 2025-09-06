@@ -3,13 +3,19 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="subak.example.subak.dao.ItemDAO">
-	<select id="findAll"  resultType="ItemDTO">
-		SELECT i.id, i.title, i.text, i.start_price AS startPrice, i.current_price AS currentPrice,
-		i.end_time AS endTime, i.status, i.created_at AS createdAt, u.nickname AS sellerNickname, c.name AS categoryName
-		FROM item i
-		JOIN "user" u ON i.seller_id = u.id
-		JOIN category c ON i.category_id = c.id
-	</select> 
+	<select id="findAll"  resultType="SimpleItemResponseVO">
+		select i.id, i.title, TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, i.end_time AS endTime,
+		i.status, i.created_at AS createdAt,
+        (
+            SELECT ii.image_url
+            FROM item_image ii
+            WHERE ii.item_id = i.id
+            ORDER BY ii.id ASC
+            FETCH FIRST 1 ROW ONLY
+        ) AS imageUrl
+	    from
+	        item i
+	</select>
 </mapper>
 
 

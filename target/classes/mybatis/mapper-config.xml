@@ -7,6 +7,6 @@
 	</settings>
 	
 	<typeAliases>
-		<typeAlias alias="ItemDTO" type="subak.example.subak.domain.ItemDTO" />
+		<typeAlias alias="SimpleItemResponseVO" type="subak.example.subak.domain.SimpleItemResponseVO" />
 	</typeAliases>
 </configuration>

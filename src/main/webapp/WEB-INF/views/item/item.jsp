@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,19 +25,24 @@
 	<div class="container mt-5 mb-5">
 		<div class="row product-row">
 			<div class="col-lg-6 mb-4 mb-lg-0">
+				<!-- ... 이미지 캐러셀 부분 (변경 없음) ... -->
 				<div id="productImageCarousel" class="carousel slide"
 					data-bs-ride="carousel">
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<img
-								src="http://gd3.alicdn.com/imgextra/i3/54410696/TB2vkTrbrMlyKJjSZFlXXbMoFXa_!!54410696.jpg_640x640.jpg?Text=Image+1"
-								class="d-block w-100" alt="상품 이미지 1">
-						</div>
-						<div class="carousel-item">
-							<img
-								src="http://bitcdn.bit-play.com/fromchina/2018/05/18/18/e2c406415599c6eb327e3699c071ac15_457482_450.jpg?Text=Image+2"
-								class="d-block w-100" alt="상품 이미지 2">
-						</div>
+						<c:forEach var="img" items="${item.imageUrl}" varStatus="status">
+							<c:choose>
+								<c:when test="${status.index == 0}">
+									<div class="carousel-item active">
+										<img src="${img}" class="d-block w-100" alt="상품 이미지 ">
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="carousel-item">
+										<img src="${img}" class="d-block w-100" alt="상품 이미지 ">
+									</div>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
 					</div>
 					<button class="carousel-control-prev" type="button"
 						data-bs-target="#productImageCarousel" data-bs-slide="prev">
@@ -53,22 +59,25 @@
 
 			<div class="col-lg-6">
 				<div class="card p-4 d-flex flex-column">
-					<h2 class="product-title">고급스러운 빈티지 기계식 키보드</h2>
+					<h2 class="product-title">${item.title}</h2>
 
 					<table class="table product-info-table mb-4">
 						<tbody>
 							<tr>
 								<th scope="row">시작가</th>
-								<td>50,000원</td>
+								<td>${item.startPrice}</td>
 							</tr>
 							<tr>
 								<th scope="row">현재가</th>
-								<td class="price-current">75,000원</td>
+								<td class="price-current">${item.currentPrice}</td>
 							</tr>
 							<tr>
 								<th scope="row">남은 시간</th>
-								<td class="time-left"><i class="bi bi-clock-history"></i>
-									2일 15시간 30분</td>
+								<!-- [수정] 타이머 표시를 위해 ID와 data 속성 추가 -->
+								<td class="time-left">
+									<i class="bi bi-clock-history"></i>
+									<span id="countdown-timer" data-remaining-seconds="${item.remainingTimeInSeconds}"></span>
+								</td>
 							</tr>
 							<tr>
 								<th scope="row">입찰 기록</th>
@@ -78,7 +87,8 @@
 							</tr>
 						</tbody>
 					</table>
-
+					
+					<!-- ... 나머지 UI 부분 (변경 없음) ... -->
 					<div class="d-grid gap-2 mb-4">
 						<button class="btn btn-outline-dark" type="button"
 							data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas"
@@ -88,10 +98,8 @@
 					</div>
 
 					<div class="mt-auto">
-						<%-- 이 div는 flex-grow를 통해 위로 밀려난 컨텐츠를 아래에 고정시킵니다 --%>
 						<div class="input-group mb-3">
 							<span class="input-group-text">희망입찰가</span>
-							<%-- 2. type="number" 제거 및 inputmode="numeric" 추가 --%>
 							<input type="text" class="form-control form-control-lg text-end"
 								id="bidInput" inputmode="numeric"> <span
 								class="input-group-text">원</span>
@@ -128,15 +136,13 @@
 					<h3>상세 설명</h3>
 					<hr class="my-3">
 					<div class="p-3">
-						<p>20세기 초반의 타자기 감성을 그대로 재현한 빈티지 기계식 키보드입니다.</p>
-						<p>실사용 횟수 적어 상태 매우 깨끗하며, 모든 키 정상적으로 작동합니다.</p>
-						<p>묵직한 타건감과 레트로한 디자인으로 인테리어 소품으로도 활용 가치가 높습니다.</p>
+						${item.text}
 					</div>
 					<hr class="my-3">
 					<div
 						class="seller-info d-flex justify-content-between align-items-center flex-wrap gap-3 p-3">
 						<div>
-							<span class="fw-bold fs-5">레트로마스터</span> <span
+							<span class="fw-bold fs-5">${item.sellerNickname}</span> <span
 								class="ms-2 rating"> <i class="bi bi-star-fill"></i> <i
 								class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i
 								class="bi bi-star-fill"></i> <i class="bi bi-star-half"></i> <span
@@ -145,7 +151,7 @@
 						</div>
 						<div class="d-grid gap-2 d-md-block">
 							<button type="button" class="btn btn-dark">
-								<i class="bi bi-person-plus-fill"></i> 판매자 팔로우
+								<i class="bi bi-person-plus-fill"></i> 판매자 정보
 							</button>
 							<button type="button" class="btn btn-outline-primary">
 								<i class="bi bi-chat-text-fill"></i> 판매자와 1:1 채팅
@@ -162,66 +168,90 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-    // 좋아요 토글
-    const likeButton = document.getElementById('likeButton');
-    const heartIcon = document.getElementById('heartIcon');
-    likeButton.addEventListener("click", function() {
-      const isNotLiked = heartIcon.classList.contains('bi-heart');
-      if (isNotLiked) {
-        heartIcon.classList.remove('bi-heart');
-        heartIcon.classList.add('bi-heart-fill');
-      } else {
-        heartIcon.classList.remove('bi-heart-fill');
-        heartIcon.classList.add('bi-heart');
-      }
-    });
-
-    // 가격 정보 가져오기
-    const currentPriceText = document.querySelector('.price-current').innerText;
-    const currentPrice = parseInt(currentPriceText.replace(/[^\d]/g, ''), 10);
-    const bidInput = document.getElementById('bidInput');
-    const nextBidPrice = currentPrice + 1000; // 최소 입찰가는 현재가 + 1000원
-
-    // 2. 가격 입력 자동 포맷팅 스크립트
-    function formatNumber(number) {
-        return new Intl.NumberFormat('ko-KR').format(number);
-    }
-
-    function unformatNumber(string) {
-        return parseInt(string.replace(/,/g, ''), 10) || 0;
-    }
-
-    // 페이지 로드 시 초기값 설정 및 포맷팅
-    bidInput.value = formatNumber(nextBidPrice);
-
-    // 입력 시마다 숫자 포맷팅
-    bidInput.addEventListener('input', (e) => {
-        const value = e.target.value;
-        const numericValue = unformatNumber(value);
+    // [추가] 페이지가 로드되면 즉시 실행되도록 이벤트 리스너 추가
+    document.addEventListener('DOMContentLoaded', function() {
         
-        if (!isNaN(numericValue)) {
-            bidInput.value = formatNumber(numericValue);
-        } else {
-            bidInput.value = '';
+        // --- 1. 남은 시간 카운트다운 스크립트 ---
+        const timerElement = document.getElementById('countdown-timer');
+        if (timerElement) {
+            let remainingSeconds = parseInt(timerElement.getAttribute('data-remaining-seconds'), 10) || 0;
+
+            function formatTime(seconds) {
+                if (seconds <= 0) return "00:00:00";
+                const h = Math.floor(seconds / 3600);
+                const m = Math.floor((seconds % 3600) / 60);
+                const s = seconds % 60;
+                return [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
+            }
+            
+            timerElement.textContent = formatTime(remainingSeconds);
+
+            const timerInterval = setInterval(() => {
+                remainingSeconds--;
+                timerElement.textContent = formatTime(remainingSeconds);
+                if (remainingSeconds <= 0) {
+                    clearInterval(timerInterval);
+                    timerElement.textContent = "경매 종료";
+                }
+            }, 1000);
         }
-    });
 
-    // 버튼으로 입찰가 증가
-    document.querySelectorAll('[data-increase]').forEach(button => {
-      button.addEventListener('click', () => {
-        let currentValue = unformatNumber(bidInput.value);
-        let increment = parseInt(button.getAttribute('data-increase'), 10);
-        bidInput.value = formatNumber(currentValue + increment);
-      });
-    });
+        // --- 2. 기존 스크립트 (좋아요, 입찰가 등) ---
+        // 좋아요 토글
+        const likeButton = document.getElementById('likeButton');
+        const heartIcon = document.getElementById('heartIcon');
+        likeButton.addEventListener("click", function() {
+          const isNotLiked = heartIcon.classList.contains('bi-heart');
+          if (isNotLiked) {
+            heartIcon.classList.remove('bi-heart');
+            heartIcon.classList.add('bi-heart-fill');
+          } else {
+            heartIcon.classList.remove('bi-heart-fill');
+            heartIcon.classList.add('bi-heart');
+          }
+        });
 
-    // 입력창에서 포커스가 벗어날 때 최소 입찰가보다 낮으면 보정
-    bidInput.addEventListener('blur', () => {
-      let value = unformatNumber(bidInput.value);
-      if (isNaN(value) || value < nextBidPrice) {
-        bidInput.value = formatNumber(nextBidPrice);
-      }
+        // 가격 정보 가져오기
+        const currentPriceText = document.querySelector('.price-current').innerText;
+        const currentPrice = parseInt(currentPriceText.replace(/[^\d]/g, ''), 10);
+        const bidInput = document.getElementById('bidInput');
+        const nextBidPrice = currentPrice + 1000;
+
+        function formatNumber(number) {
+            return new Intl.NumberFormat('ko-KR').format(number);
+        }
+
+        function unformatNumber(string) {
+            return parseInt(string.replace(/,/g, ''), 10) || 0;
+        }
+
+        bidInput.value = formatNumber(nextBidPrice);
+
+        bidInput.addEventListener('input', (e) => {
+            const value = e.target.value;
+            const numericValue = unformatNumber(value);
+            if (!isNaN(numericValue)) {
+                bidInput.value = formatNumber(numericValue);
+            } else {
+                bidInput.value = '';
+            }
+        });
+
+        document.querySelectorAll('[data-increase]').forEach(button => {
+          button.addEventListener('click', () => {
+            let currentValue = unformatNumber(bidInput.value);
+            let increment = parseInt(button.getAttribute('data-increase'), 10);
+            bidInput.value = formatNumber(currentValue + increment);
+          });
+        });
+
+        bidInput.addEventListener('blur', () => {
+          let value = unformatNumber(bidInput.value);
+          if (isNaN(value) || value < nextBidPrice) {
+            bidInput.value = formatNumber(nextBidPrice);
+          }
+        });
     });
-  </script>
+  </script>
 </body>
 </html>

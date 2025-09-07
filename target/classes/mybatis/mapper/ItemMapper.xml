@@ -16,6 +16,34 @@
 	    from
 	        item i
 	</select>
+	<resultMap id="itemWithImagesResultMap" type="ItemResponseDTO" autoMapping="true">
+    	<result property="sellerNickname" column="nickname"/>
+    
+	    <collection property="imageUrl" ofType="java.lang.String">
+	        <result column="image_url"/>
+	    </collection>
+  	</resultMap>
+  <select id="findItemById" parameterType="long" resultMap="itemWithImagesResultMap">
+    SELECT 
+        i.id,
+        i.title,
+        i.text,
+        TO_CHAR(i.start_price, 'FM999,999,999') || '원' AS startPrice,
+        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice,
+        i.end_time,
+        i.status,
+        i.created_at,
+        u.nickname,
+        ii.image_url
+    FROM 
+        item i
+    LEFT JOIN 
+        "user" u ON i.seller_id = u.id
+    LEFT JOIN 
+        item_image ii ON i.id = ii.item_id
+    WHERE
+        i.id = #{id}
+  </select>
 </mapper>
 
 

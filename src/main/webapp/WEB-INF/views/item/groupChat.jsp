@@ -11,9 +11,9 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/global.css">
+	href="${pageContext.request.contextPath}/resources/css/global.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/chat.css">
+	href="${pageContext.request.contextPath}/resources/css/chat.css">
 </head>
 <body>
 	<div class="offcanvas offcanvas-end" tabindex="-1" id="chatOffcanvas"

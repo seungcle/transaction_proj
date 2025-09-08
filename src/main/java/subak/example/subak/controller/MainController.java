@@ -14,7 +14,7 @@ import subak.example.subak.domain.SimpleItemResponseVO;
 public class MainController {
 
 	@Autowired
-	ItemDAO dao;
+	private ItemDAO dao;
 	
 	@GetMapping("/main")
 	public String mainPage(Model model) {

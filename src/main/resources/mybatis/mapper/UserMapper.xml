@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="subak.example.subak.dao.UserDAO">
+	<!-- 회원가입 -->
+    <insert id="insertUser" parameterType="UserDTO">
+        insert into "user" (username, password, email, nickname, created_at)
+        values (#{username}, #{password}, #{email}, #{nickname}, sysdate)
+    </insert>
+
+    <!-- 아이디 중복 체크 -->
+    <select id="checkUsername" parameterType="string" resultType="int">
+        select count(*)
+        from "user"
+        where username = #{username}
+    </select>
+    
+    <!-- 로그인 -->
+    <select id="login" parameterType="LoginRequestDTO" resultType="SessionUserVO">
+        select id, username, email, nickname
+        from "user"
+        where username = #{username} and password = #{password}
+    </select>
+</mapper>
+
+
+
+
+
+
+
+

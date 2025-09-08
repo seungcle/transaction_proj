@@ -15,8 +15,9 @@ import subak.example.subak.service.ItemService;
 public class ItemController {
 
 	@Autowired
-	ItemService itemService;
+	private ItemService itemService;
 	
+	// 상품 상세페이지
 	@GetMapping("/{itemId}")
 	public String getItem(@PathVariable Long itemId, Model model) {
 		
@@ -25,4 +26,12 @@ public class ItemController {
 		
 		return "item/item";
 	}
+	
+	// 상품 등록 페이지 이동
+	@GetMapping("/enroll")
+	public String enrollPage() {
+		
+		return "mainpage/sale";
+	}
+	
 }

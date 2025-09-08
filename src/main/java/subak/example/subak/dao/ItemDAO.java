@@ -10,7 +10,7 @@ import subak.example.subak.domain.SimpleItemResponseVO;
 @Mapper
 public interface ItemDAO {
 
-	public List<SimpleItemResponseVO> findAll();
+	List<SimpleItemResponseVO> findAll();
 	
 	ItemResponseDTO findItemById(Long id);
 }

@@ -48,31 +48,31 @@
 					<div class="list-group">
 						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
 							<span>디지털</span>
-							<img src="../images/phone_subak.png" width="50px" class="ms-auto"> 
+							<img src="${pageContext.request.contextPath}/resources/images/phone_subak.png" width="50px" class="ms-auto"> 
 						</a>
 						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
 							<span>패션</span>
-							<img src="../images/cloth_subak.png" width="50px" class="ms-auto"> 
+							<img src="${pageContext.request.contextPath}/resources/images/cloth_subak.png" width="50px" class="ms-auto"> 
 						</a>
 						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
 							<span>뷰티</span>
-							<img src="../images/makeup_subak.png" width="50px" class="ms-auto"> 
+							<img src="${pageContext.request.contextPath}/resources/images/makeup_subak.png" width="50px" class="ms-auto"> 
 						</a>
 						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
 							<span>가구</span>
-							<img src="../images/sofar_subak.png" width="50px" class="ms-auto"> 
+							<img src="${pageContext.request.contextPath}/resources/images/sofar_subak.png" width="50px" class="ms-auto"> 
 						</a>
 						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
-    					<span>도서</span>
-    						<img src="../images/book_subak.png" width="50px" class="ms-auto"> 
+							<span>도서</span>
+							<img src="${pageContext.request.contextPath}/resources/images/book_subak.png" width="50px" class="ms-auto"> 
 						</a>
 						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
 							<span>스포츠</span>
-							<img src="../images/ball_subak.png" width="50px" class="ms-auto"> 
+							<img src="${pageContext.request.contextPath}/resources/images/ball_subak.png" width="50px" class="ms-auto"> 
 						</a>
 						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
 							<span>생활</span>
-							<img src="../images/living_subak.png" width="50px" class="ms-auto"> 
+							<img src="${pageContext.request.contextPath}/resources/images/living_subak.png" width="50px" class="ms-auto"> 
 						</a>
 					</div>
 				</div>
@@ -83,6 +83,28 @@
 				<span class="input-group-text">₩</span> <input type="text"
 					class="form-control form-control-lg" placeholder="판매 시작가" min="0"
 					id="priceInput">
+			</div>
+			
+			<div class="mb-4">
+				<label class="form-label fw-bold">등록 기간</label>
+				<div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="registrationDuration" id="duration1" value="1" checked>
+						<label class="form-check-label" for="duration1">1일</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="registrationDuration" id="duration3" value="3">
+						<label class="form-check-label" for="duration3">3일</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="registrationDuration" id="duration5" value="5">
+						<label class="form-check-label" for="duration5">5일</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="registrationDuration" id="duration7" value="7">
+						<label class="form-check-label" for="duration7">7일</label>
+					</div>
+				</div>
 			</div>
 
 			<div class="mb-4">
@@ -110,12 +132,12 @@
 			</div>
 
 			<div class="d-grid">
-				<button class="btn btn-dark btn-lg">판매 시작하기</button>
+                <button class="btn btn-dark btn-lg" id="submitBtn" disabled>판매 시작하기</button>
 			</div>
 		</div>
 	</div>
 
-	<jsp:include page="../component/header.jsp" />
+	<jsp:include page="../component/footer.jsp" />
 	<script>
     // 설명 글자 수 카운터
     const descriptionTextarea = document.getElementById('description');
@@ -166,20 +188,20 @@
             	deleteBtn.innerHTML = '&times;';
             	deleteBtn.className = 'btn btn-sm btn-danger';
             	deleteBtn.onclick = () => {
-                selectedFiles.splice(index, 1);
-                renderPreviews(); 
-            };
+                	selectedFiles.splice(index, 1);
+                	renderPreviews(); 
+            	};
 
-            wrapper.appendChild(img);
-            wrapper.appendChild(deleteBtn);
-            imagePreviewContainer.appendChild(wrapper);
-        };
-        reader.readAsDataURL(file);
-    });
+            	wrapper.appendChild(img);
+            	wrapper.appendChild(deleteBtn);
+            	imagePreviewContainer.appendChild(wrapper);
+        	};
+        	reader.readAsDataURL(file);
+    	});
 
-    imageCount.textContent = selectedFiles.length+"/10";
+    	imageCount.textContent = selectedFiles.length+"/10";
     
-}
+	}
 	// 카테고리 색상 설정
 	document.querySelectorAll('.category-select .list-group-item').forEach(item => {
         item.addEventListener('click', function (e) {
@@ -189,18 +211,25 @@
         });
     });
 	
-// 원 단위 ',' 설정
-const input = document.getElementById('priceInput');
+	// 원 단위 ',' 설정
+	const priceInput = document.getElementById('priceInput');
 
-input.addEventListener('input', () => {
-  let value = input.value.replace(/[^\d]/g, '');
-  if (value) {
-    input.value = Number(value).toLocaleString();
-  } else {
-    input.value = '';
-  }
-});
-</script>
+	priceInput.addEventListener('input', () => {
+	  let value = priceInput.value.replace(/[^\d]/g, '');
+	  if (value) {
+	    priceInput.value = Number(value).toLocaleString();
+	  } else {
+	    priceInput.value = '';
+	  }
+	});
+
+    const agreeCheck = document.getElementById('agreeCheck');
+    const submitBtn = document.getElementById('submitBtn');
+
+    agreeCheck.addEventListener('change', function() {
+        submitBtn.disabled = !this.checked;
+    });
+	</script>
 
 </body>
 </html>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -16,31 +17,22 @@
 </head>
 <body>
 	<div class="container">
-		<a class="logo" href="${pageContext.request.contextPath}/jsp/main.jsp">
+		<a class="logo" href="${pageContext.request.contextPath}/main">
 			<img id="main-icon"
-			src="${pageContext.request.contextPath}/images/watermelon_icon.png"
+			src="${pageContext.request.contextPath}/resources/images/watermelon_icon.png"
 			alt="수박 아이콘"> <span>수박나라</span>
 		</a>
 
 		<div class="login-card">
-			<img id="login-logo"
-				src="${pageContext.request.contextPath}/images/login3.png"
-				alt="수박나라 로고" /> <a class="btn-social btn-naver"
-				href="https://nid.naver.com/oauth2.0/authorize"> <img
-				class="login-icon"
-				src="${pageContext.request.contextPath}/images/naver-icon.png"
-				alt="네이버 아이콘"> 네이버로 로그인
-			</a> <a class="btn-social btn-kakao"
-				href="https://kauth.kakao.com/oauth/authorize"> <img
-				class="login-icon"
-				src="${pageContext.request.contextPath}/images/kakao.png"
-				alt="카카오 아이콘"> 카카오로 로그인
-			</a> <a class="btn-social btn-google"
-				href="https://accounts.google.com/o/oauth2/auth"> <img
-				class="login-icon"
-				src="${pageContext.request.contextPath}/images/google.png"
-				alt="구글 아이콘"> 구글로 로그인
-			</a>
+		<form action="${pageContext.request.contextPath}/login" method="post">
+		    <input type="text" name="username" placeholder="아이디" required>
+		    <input type="password" name="password" placeholder="비밀번호" required>
+		    <button type="submit">로그인</button>
+		    <c:if test="${not empty error}">
+		        <p style="color:red">${error}</p>
+		    </c:if>
+		</form>
+		<a href="${pageContext.request.contextPath}/join">회원가입</a>
 		</div>
 	</div>
 

@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -26,10 +27,16 @@ String currentCategory = request.getParameter("category");
 
 	<div class="header-right">
 		<div id="high-icon">
-			<a href="${pageContext.request.contextPath}/jsp/sale.jsp"><img src="${pageContext.request.contextPath}/resources/images/cart.png" class="icon-images"><span class="fa-text">판매</span></a> <a href="#" data-bs-toggle="offcanvas" data-bs-target="#
+			<a href="${pageContext.request.contextPath}/item/enroll"><img src="${pageContext.request.contextPath}/resources/images/cart.png" class="icon-images"><span class="fa-text">판매</span></a> <a href="#" data-bs-toggle="offcanvas" data-bs-target="#
 ficationOffcanvas" aria-controls="notificationOffcanvas"><img src="${pageContext.request.contextPath}/resources/images/bell.png" class="icon-images"> <span class="fa-text">알림</span></a>
-			<a href="${pageContext.request.contextPath}/jsp/login.jsp" class="login-group"><img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images"> <span class="fa-text">로그인</span></a>
-			/ <a href="${pageContext.request.contextPath}/jsp/mypage.jsp" class="login-group"><img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images"> <span class="fa-text">마이페이지</span></a>
+			<c:choose>
+				<c:when test="${empty user}">
+					<a href="${pageContext.request.contextPath}/login" class="login-group"><img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images"> <span class="fa-text">로그인</span></a>
+				</c:when>
+				<c:otherwise>
+					<a href="${pageContext.request.contextPath}/jsp/mypage.jsp" class="login-group"><img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images"> <span class="fa-text">마이페이지</span></a>
+				</c:otherwise>
+			</c:choose> 
 		</div>
 	</div>
 </header>

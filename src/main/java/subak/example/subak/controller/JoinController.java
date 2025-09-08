@@ -17,9 +17,16 @@ public class JoinController {
 
 	// 회원가입 폼
     @GetMapping("/join")
-    public String registerForm() {
+    public String join1Form() {
     	
-        return "mainpage/join";
+        return "join/join1";
+    }
+    
+    // 회원가입 2페이지
+    @GetMapping("/join2")
+    public String join2Form() {
+    	
+    	return "join/join2";
     }
     
     // 회원가입 처리
@@ -27,10 +34,10 @@ public class JoinController {
     public String register(UserDTO user, Model model) {
         boolean result = userService.join(user);
         if (result) {
-            return "redirect:/login";
+            return "join/joinProcess";
         } else {
             model.addAttribute("error", "이미 존재하는 아이디입니다.");
-            return "mainpage/join";
+            return "join/join2";
         }
     }
 }

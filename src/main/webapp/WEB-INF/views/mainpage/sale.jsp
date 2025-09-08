@@ -39,7 +39,7 @@
 			</div>
 
 			<div class="mb-4">
-				<input type="text" class="form-control form-control-lg"
+				<input type="text" name="title" class="form-control form-control-lg"
 					placeholder="상품명">
 			</div>
 
@@ -80,7 +80,7 @@
 			</div>
 
 			<div class="input-group mb-4">
-				<span class="input-group-text">₩</span> <input type="text"
+				<span class="input-group-text">₩</span> <input type="text" name="startPrice"
 					class="form-control form-control-lg" placeholder="판매 시작가" min="0"
 					id="priceInput">
 			</div>
@@ -108,7 +108,7 @@
 			</div>
 
 			<div class="mb-4">
-				<textarea class="form-control" id="description" rows="8"
+				<textarea class="form-control" name="text" id="description" rows="8"
 					placeholder="- 상품명(브랜드)
 - 구매 시기 : (년, 월, 일)
 - 사용 기간 :

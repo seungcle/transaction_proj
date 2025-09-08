@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+/* 상단 로고 */
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px; /* 로고와 텍스트 사이 간격 */
+	margin: 8rem 10px 20px 10px;
+	text-decoration: none;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #333;
+    transition: transform 0.2s ease-in-out;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+#main-icon {
+	width: 40px;
+	height: 40px;
+}
+
+/* 로그인 카드 */
+.login-card {
+	max-width: 500px;
+	margin: 20px auto;
+	padding: 3rem;
+	border-radius: 1rem;
+	background-color: #fff;
+	text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* 폼 입력란과 버튼 스타일 개선 */
+.form-control-lg {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-control-lg:focus {
+    border-color: #495057;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-2px);
+}
+/*버튼 줄들여쓰기 방지를 위한 설정*/
+.check-button {
+    display: inline-block;
+    min-width: 85px; 
+    white-space: nowrap; 
+}
+
+
+/* 반응형: 768px 이하 (모바일) */
+@media (max-width : 768px) {
+    .login-card {
+        width: 90%;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .logo {
+        justify-content: center;
+        margin-top: 20px;
+        margin-bottom: 0;
+    }
+}

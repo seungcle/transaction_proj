@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+/* /css/login.css */
 
 /* 상단 로고 */
 .logo {
@@ -59,6 +59,19 @@
 	border: none;
 }
 
+/* 기본 상태: 색 없음 */
+.btn-outline-secondary {
+    border-color: #6c757d; 
+    color: #6c757d; 
+    background-color: transparent; 
+}
+
+/* 마우스를 올렸을 때 */
+.btn-outline-secondary:hover {
+    color: #fff;
+    background-color: #28a745;
+    border-color: #28a745; 
+}
 
 /* 반응형: 768px 이하 (모바일) */
 @media ( max-width : 768px) {

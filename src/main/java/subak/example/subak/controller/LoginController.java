@@ -21,7 +21,7 @@ public class LoginController {
 	@GetMapping("/login")
 	public String loginPage() {
 		
-		return "mainpage/login";
+		return "login/login";
 	}
 	
 	@PostMapping("/login")
@@ -33,7 +33,7 @@ public class LoginController {
             return "redirect:/main"; // 로그인 성공 시 메인 페이지
         } else {
             model.addAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
-            return "mainpage/login"; // 다시 로그인 페이지
+            return "login/login"; // 다시 로그인 페이지
         }
 	}
 	

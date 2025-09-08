@@ -25,7 +25,6 @@
 	<div class="container mt-5 mb-5">
 		<div class="row product-row">
 			<div class="col-lg-6 mb-4 mb-lg-0">
-				<!-- ... 이미지 캐러셀 부분 (변경 없음) ... -->
 				<div id="productImageCarousel" class="carousel slide"
 					data-bs-ride="carousel">
 					<div class="carousel-inner">
@@ -73,7 +72,6 @@
 							</tr>
 							<tr>
 								<th scope="row">남은 시간</th>
-								<!-- [수정] 타이머 표시를 위해 ID와 data 속성 추가 -->
 								<td class="time-left">
 									<i class="bi bi-clock-history"></i>
 									<span id="countdown-timer" data-remaining-seconds="${item.remainingTimeInSeconds}"></span>
@@ -88,7 +86,6 @@
 						</tbody>
 					</table>
 					
-					<!-- ... 나머지 UI 부분 (변경 없음) ... -->
 					<div class="d-grid gap-2 mb-4">
 						<button class="btn btn-outline-dark" type="button"
 							data-bs-toggle="offcanvas" data-bs-target="#chatOffcanvas"

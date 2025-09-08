@@ -1,0 +1,125 @@
+@charset "UTF-8";
+
+/* 상단 로고 */
+.logo {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	margin: 8rem 10px 20px 10px;
+	text-decoration: none;
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #333;
+    /* 로고에 부드러운 전환 효과 추가 */
+    transition: transform 0.2s ease-in-out;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+#main-icon {
+	width: 40px;
+	height: 40px;
+}
+
+/* 로그인 카드 */
+.login-card {
+	max-width: 500px; /* 카드의 최대 너비를 500px로 조정 */
+	margin: 20px auto;
+	padding: 3rem; /* 여백을 넓혀 여유로운 느낌을 줍니다 */
+	border-radius: 1rem;
+	background-color: #fff;
+	text-align: center;
+    /* 부드럽고 깊이감 있는 그림자 효과 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05), 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.login-card h2 {
+	margin-bottom: 1rem;
+}
+
+#login-logo {
+	width: 60%;
+	margin: 0 auto 1.5rem auto;
+	display: block;
+}
+
+.login-icon {
+	width: 7%;
+}
+
+/* 소셜 버튼 */
+.btn-social {
+	width: 100%;
+	margin-bottom: 1rem;
+	font-weight: bold;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 10px 16px;
+	text-decoration: none;
+	border-radius: 0.5rem; /* 모서리를 더 둥글게 */
+	border: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-social:hover {
+    transform: translateY(-2px); /* 호버 시 살짝 위로 이동 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 호버 시 그림자 효과 */
+}
+
+/* 폼 입력란과 버튼 스타일 개선 (이메일/비밀번호 찾기 페이지에 사용) */
+.form-control-lg {
+    border-radius: 0.5rem;
+    border: 1px solid #ced4da;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.form-control-lg:focus {
+    border-color: #495057;
+    box-shadow: none;
+}
+
+.btn-primary {
+    background-color: #28a745;
+    border-color: #28a745;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover {
+    background-color: #218838;
+    border-color: #1e7e34;
+    transform: translateY(-2px);
+}
+
+
+/* 반응형: 768px 이하 (모바일) */
+@media ( max-width : 768px) {
+	.login-card {
+		width: 90%;
+		padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+	}
+	#login-logo {
+		width: 120px;
+		margin-bottom: 25px;
+	}
+	.btn-social {
+		padding: 12px;
+		font-size: 1rem;
+	}
+	.login-icon {
+		width: 24px;
+		height: 24px;
+	}
+	.logo {
+		justify-content: center;
+		margin-top: 20px;
+		margin-bottom: 0;
+	}
+}

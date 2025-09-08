@@ -5,7 +5,8 @@
 <head>
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/footer.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/footer.css">
 </head>
 <meta charset="UTF-8">
 
@@ -23,7 +24,7 @@
 					</h5>
 					<p class="small">수익에 박동을 가하다</p>
 					<div class="d-flex gap-3 mt-3">
-						<a href="#"><i class="fab fa-youtube"></i></a>
+						<a href="https://youtube.com/channel/UCromqxUKtK4v6Q5bRIgwPVw?feature=shared" target="_blank"><i class="fab fa-youtube"></i></a>
 					</div>
 				</div>
 				<div class="col-md-2 mb-4">
@@ -42,10 +43,9 @@
 				<div class="col-md-2 mb-4">
 					<h6>이용안내</h6>
 					<ul class="list-unstyled small">
-						<li><a href="#">이용약관</a></li>
-						<li><a href="#">개인정보처리방침</a></li>
-						<li><a href="#">위치기반서비스</a></li>
-						<li><a href="#">청소년보호정책</a></li>
+						<li><a href="../service/tos.jsp">이용약관</a></li>
+						<li><a href="../service/privacy.jsp">개인정보처리방침</a></li>
+						<li><a href="../service/protectio.jsp">청소년보호정책</a></li>
 					</ul>
 				</div>
 				<div class="col-md-4 mb-4">

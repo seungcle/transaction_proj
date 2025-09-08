@@ -6,4 +6,7 @@
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
 	<mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources>
+	
+	<!-- 업로드 파일 리소스 추가 -->
+    <mvc:resources location="file:///C:/upload/" mapping="/upload/**" />
 </beans>

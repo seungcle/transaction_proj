@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>상품 등록 페이지</title>
-<link rel="icon" type="image/png" href="../images/watermelon_icon.ico">
+<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/watermelon_icon.ico">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet">
@@ -20,7 +20,8 @@
 </head>
 <body>
 	<jsp:include page="../component/header.jsp" />
-
+	<form id="itemForm" action="${pageContext.request.contextPath}/item/enroll"
+      method="post" enctype="multipart/form-data">
 	<div class="container my-5">
 		<div class="form-container mx-auto">
 			<div class="mb-4">
@@ -34,7 +35,7 @@
 						class="text-muted small mt-1" id="imageCount">0/10</span>
 				</div>
 
-				<input type="file" id="imageInput" multiple accept="image/*"
+				<input type="file" id="imageInput" name="images" multiple accept="image/*"
 					style="display: none;">
 			</div>
 
@@ -46,31 +47,31 @@
 			<div class="row category-select mb-4">
 				<div class="col-12 col-md-7">
 					<div class="list-group">
-						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center" data-category-id="1">
 							<span>디지털</span>
 							<img src="${pageContext.request.contextPath}/resources/images/phone_subak.png" width="50px" class="ms-auto"> 
 						</a>
-						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center" data-category-id="2">
 							<span>패션</span>
 							<img src="${pageContext.request.contextPath}/resources/images/cloth_subak.png" width="50px" class="ms-auto"> 
 						</a>
-						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center" data-category-id="3">
 							<span>뷰티</span>
 							<img src="${pageContext.request.contextPath}/resources/images/makeup_subak.png" width="50px" class="ms-auto"> 
 						</a>
-						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center" data-category-id="4">
 							<span>가구</span>
 							<img src="${pageContext.request.contextPath}/resources/images/sofar_subak.png" width="50px" class="ms-auto"> 
 						</a>
-						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center" data-category-id="5">
 							<span>도서</span>
 							<img src="${pageContext.request.contextPath}/resources/images/book_subak.png" width="50px" class="ms-auto"> 
 						</a>
-						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center" data-category-id="6">
 							<span>스포츠</span>
 							<img src="${pageContext.request.contextPath}/resources/images/ball_subak.png" width="50px" class="ms-auto"> 
 						</a>
-						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+						<a href="#" class="list-group-item list-group-item-action d-flex align-items-center" data-category-id="7">
 							<span>생활</span>
 							<img src="${pageContext.request.contextPath}/resources/images/living_subak.png" width="50px" class="ms-auto"> 
 						</a>
@@ -78,7 +79,7 @@
 				</div>
 				<div class="col-12 col-md-5 border-md-start mt-3 mt-md-0"></div>
 			</div>
-
+			<input type="hidden" id="categoryIdInput" name="categoryId">
 			<div class="input-group mb-4">
 				<span class="input-group-text">₩</span> <input type="text" name="startPrice"
 					class="form-control form-control-lg" placeholder="판매 시작가" min="0"
@@ -136,6 +137,7 @@
 			</div>
 		</div>
 	</div>
+	</form>
 
 	<jsp:include page="../component/footer.jsp" />
 	<script>
@@ -172,6 +174,30 @@
     	renderPreviews();
     	
 	});
+	
+	document.getElementById("submitBtn").addEventListener("click", function (e) {
+	    e.preventDefault();
+
+	    const form = document.getElementById("itemForm");
+	    const formData = new FormData(form);
+
+	    // 선택한 이미지 추가
+	    selectedFiles.forEach(file => {
+	        formData.append("images", file);
+	    });
+
+	    fetch(form.action, {
+	        method: "POST",
+	        body: formData
+	    })
+	    .then(res => res.text())
+	    .then(data => {
+	        alert("상품이 등록되었습니다!");
+	        location.href = "/item/enroll";
+	    })
+	    .catch(err => console.error(err));
+	});
+	
 	function renderPreviews() {
     	imagePreviewContainer.innerHTML = '';
 
@@ -208,6 +234,8 @@
             e.preventDefault();
             document.querySelectorAll('.category-select .list-group-item').forEach(el => el.classList.remove('active'));
             this.classList.add('active');
+            
+            document.getElementById('categoryIdInput').value = this.dataset.categoryId;
         });
     });
 	

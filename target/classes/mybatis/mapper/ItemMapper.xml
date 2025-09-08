@@ -44,6 +44,15 @@
     WHERE
         i.id = #{id}
   </select>
+	<insert id="insertItem" parameterType="ItemRequestDTO">
+	    INSERT INTO item (title, text, start_price, current_price, end_time, status, seller_id, category_id)
+	    VALUES (#{title}, #{text}, #{startPrice}, #{currentPrice}, #{endTime}, #{status}, #{sellerId}, #{categoryId})
+	</insert>
+	
+	<insert id="insertItemImage" parameterType="ItemImageDTO">
+	    INSERT INTO item_image (image_url, item_id)
+	    VALUES (#{imageUrl}, #{itemId})
+	</insert>
 </mapper>
 
 

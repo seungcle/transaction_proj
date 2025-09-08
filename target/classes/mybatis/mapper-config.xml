@@ -12,5 +12,7 @@
 		<typeAlias alias="UserDTO" type="subak.example.subak.domain.UserDTO" />
 		<typeAlias alias="LoginRequestDTO" type="subak.example.subak.domain.LoginRequestDTO" />
 		<typeAlias alias="SessionUserVO" type="subak.example.subak.domain.SessionUserVO" />
+		<typeAlias alias="ItemRequestDTO" type="subak.example.subak.domain.ItemRequestDTO" />
+		<typeAlias alias="ItemImageDTO" type="subak.example.subak.domain.ItemImageDTO" />
 	</typeAliases>
 </configuration>

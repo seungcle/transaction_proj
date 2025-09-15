@@ -54,7 +54,7 @@
                         <span class="fa-text">마이</span>
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="mypageDropdown">
-                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/jsp/mypage.jsp">마이페이지</a></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/mypage">마이페이지</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
                     </ul>

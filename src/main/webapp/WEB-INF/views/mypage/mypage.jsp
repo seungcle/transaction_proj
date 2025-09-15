@@ -55,11 +55,11 @@
 				<div class="card mb-4">
 					<div class="card-body p-4">
 						<div class="d-flex align-items-center mb-4">
-							<img src="https://i.pravatar.cc/100?u=a042581f4e29026704d"
+							<img src="${user.imageUrl}"
 								class="rounded-circle me-3" alt="avatar" width="80" height="80">
 							<div>
-								<h3 class="card-title mb-0">자상한새벽스피넬</h3>
-								<p class="card-text text-muted">친절하고 안전한 거래를 약속합니다.</p>
+								<h3 class="card-title mb-0">${user.nickname}</h3>
+								<p class="card-text text-muted">${user.bio}</p>
 							</div>
 						</div>
 

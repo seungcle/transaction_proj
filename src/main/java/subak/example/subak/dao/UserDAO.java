@@ -5,6 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 import subak.example.subak.domain.LoginRequestDTO;
 import subak.example.subak.domain.SessionUserVO;
 import subak.example.subak.domain.UserDTO;
+import subak.example.subak.domain.UserInfoVO;
 
 @Mapper
 public interface UserDAO {
@@ -14,4 +15,6 @@ public interface UserDAO {
 	int checkUsername(String username);
 	
 	SessionUserVO login(LoginRequestDTO dto);
+
+	UserInfoVO findById(Long id);
 }

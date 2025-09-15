@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="subak.example.subak.dao.ItemDAO">
-	<select id="findAll"  resultType="SimpleItemResponseVO">
+	<select id="findAll" parameterType="map"  resultType="SimpleItemResponseVO">
 		select i.id, i.title, TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, i.end_time AS endTime,
 		i.status, i.created_at AS createdAt,
         (
@@ -13,8 +13,10 @@
             ORDER BY ii.id ASC
             FETCH FIRST 1 ROW ONLY
         ) AS imageUrl
-	    from
-	        item i
+	    from item i
+	    ORDER BY i.id DESC
+	    OFFSET #{offset} ROWS
+	    FETCH NEXT #{pageSize} ROWS ONLY
 	</select>
 	<resultMap id="itemWithImagesResultMap" type="ItemResponseDTO" autoMapping="true">
     	<result property="sellerNickname" column="nickname"/>
@@ -76,6 +78,58 @@
 	        i.id DESC
 	    OFFSET #{offset} ROWS
 	    FETCH NEXT #{pageSize} ROWS ONLY
+	</select>
+	<select id="findByTitleContainingIgnoreCase" parameterType="map" resultType="SimpleItemResponseVO">
+	    SELECT 
+	        i.id, 
+	        i.title, 
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, 
+	        i.end_time AS endTime,
+	        i.status, 
+	        i.created_at AS createdAt,
+	        (
+	            SELECT ii.image_url
+	            FROM item_image ii
+	            WHERE ii.item_id = i.id
+	            ORDER BY ii.id ASC
+	            FETCH FIRST 1 ROW ONLY
+	        ) AS imageUrl
+	    FROM 
+	        item i
+	    WHERE
+	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%'
+	    ORDER BY 
+	        i.id DESC
+	    OFFSET 
+	        #{offset} ROWS
+	    FETCH NEXT 
+	        #{pageSize} ROWS ONLY
+	</select>
+	<select id="findByTitleContainingIgnoreCaseWithPrice" parameterType="map" resultType="SimpleItemResponseVO">
+	    SELECT 
+	        i.id, 
+	        i.title, 
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, 
+	        i.end_time AS endTime,
+	        i.status, 
+	        i.created_at AS createdAt,
+	        (
+	            SELECT ii.image_url
+	            FROM item_image ii
+	            WHERE ii.item_id = i.id
+	            ORDER BY ii.id ASC
+	            FETCH FIRST 1 ROW ONLY
+	        ) AS imageUrl
+	    FROM 
+	        item i
+	    WHERE
+	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' and i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	    ORDER BY 
+	        i.id DESC
+	    OFFSET 
+	        #{offset} ROWS
+	    FETCH NEXT 
+	        #{pageSize} ROWS ONLY
 	</select>
 </mapper>
 

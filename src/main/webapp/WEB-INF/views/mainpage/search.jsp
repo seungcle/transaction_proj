@@ -27,21 +27,32 @@
 			<div class="row align-items-center g-3">
 				<div class="col-md-auto fw-bold">카테고리</div>
 				<div class="col-md-auto">
-					<button class="btn btn-dark btn-sm">${category}</button>
+					<button class="btn btn-dark btn-sm">
+						<c:if test="${!empty category}">
+							${category}
+						</c:if>
+						<c:if test="${empty category}">
+							전체
+						</c:if>
+					</button>
 				</div>
 			</div>
 			<hr class="my-2">
 			<div class="row align-items-center g-3">
+			<form action="${pageContext.request.contextPath}/item/search/price" method="get" id="priceFilterForm">
+				<input type="hidden" name="title" value="${param.title}">
 				<div class="col-md-auto fw-bold">가격</div>
 				<div class="col-md-7 col-lg-5">
 					<div class="input-group input-group-sm">
-						<input type="text" class="form-control priceInput"
+						<input type="text" class="form-control priceInput" name="minPrice"
 							placeholder="최소 가격"> <span class="input-group-text">~</span>
-						<input type="text" class="form-control priceInput"
+						<input type="text" class="form-control priceInput" name="maxPrice"
 							placeholder="최대 가격">
 						<button class="btn btn-dark">적용</button>
+						
 					</div>
 				</div>
+			</form>
 			</div>
 		</div>
 
@@ -83,16 +94,24 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-// 원 단위 ',' 설정
-const inputs = document.getElementsByClassName('priceInput');
+		// 원 단위 ',' 설정
+		const inputs = document.getElementsByClassName('priceInput');
+		
+		Array.from(inputs).forEach(input => {
+		  input.addEventListener('input', () => {
+		    let value = input.value.replace(/[^\d]/g, '');
+		    input.value = value ? Number(value).toLocaleString() : '';
+		  });
+		});
+		
+		const priceForm = document.getElementById('priceFilterForm');
+		priceForm.addEventListener('submit', function(event) {
+		  const priceInputs = priceForm.getElementsByClassName('priceInput');
+		  Array.from(priceInputs).forEach(input => {
+		    input.value = input.value.replace(/,/g, '');
+		  });
+		});
 
-Array.from(inputs).forEach(input => {
-  input.addEventListener('input', () => {
-    let value = input.value.replace(/[^\d]/g, '');
-    input.value = value ? Number(value).toLocaleString() : '';
-  });
-});
-
-</script>
+	</script>
 </body>
 </html>

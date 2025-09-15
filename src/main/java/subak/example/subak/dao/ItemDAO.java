@@ -13,7 +13,7 @@ import subak.example.subak.domain.SimpleItemResponseVO;
 @Mapper
 public interface ItemDAO {
 
-	List<SimpleItemResponseVO> findAll();
+	List<SimpleItemResponseVO> findAll(Map<String, Integer> params);
 	
 	ItemResponseDTO findItemById(Long id);
 	
@@ -22,4 +22,8 @@ public interface ItemDAO {
 	boolean insertItemImage(ItemImageDTO dto);
 
 	List<SimpleItemResponseVO> findByCategory(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findByTitleContainingIgnoreCase(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findByTitleContainingIgnoreCaseWithPrice(Map<String, Object> params);
 }

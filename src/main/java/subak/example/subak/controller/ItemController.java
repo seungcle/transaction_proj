@@ -70,4 +70,32 @@ public class ItemController {
 		return "mainpage/search";
 	}
 	
+	// 제목 검색
+	@GetMapping("/search/title")
+	public String searchPage(@RequestParam(required = false) String title,
+							 @RequestParam(defaultValue = "1") int page,
+							 Model model) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.searchItemByTitle(title, page, pageSize);
+		model.addAttribute("list", list);
+		
+		return "mainpage/search";
+	}
+	
+	// 가격 설정
+	@GetMapping("/search/price")
+	public String setPrice(@RequestParam(required = false) String title,
+						   					   @RequestParam(defaultValue = "0") int minPrice,
+						   					   @RequestParam(defaultValue = "999999999") int maxPrice,
+						   					   @RequestParam(defaultValue = "1") int page,
+						   					   Model model) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.searchItemByTitleWithPrice(title, minPrice, maxPrice, page, pageSize);
+		model.addAttribute("list", list);
+		
+		return "mainpage/search";
+	}
+	
 }

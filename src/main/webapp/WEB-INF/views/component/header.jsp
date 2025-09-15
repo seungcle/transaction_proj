@@ -18,8 +18,8 @@
 	<a class="logo" href="${pageContext.request.contextPath}/main"> <img id="main-icon" src="${pageContext.request.contextPath}/resources/images/watermelon_icon.png" alt="수박 아이콘"> <span id="title">수박나라</span>
 	</a>
 
-	<form class="search-box" method="get" action="${pageContext.request.contextPath}/jsp/search.jsp">
-		<input type="text" class="search-txt" name="keyword" placeholder="원하는 상품을 검색하세요..." id="searchInput">
+	<form class="search-box" method="get" action="${pageContext.request.contextPath}/item/search/title">
+		<input type="text" class="search-txt" name="title" placeholder="원하는 상품을 검색하세요..." id="searchInput">
 		<button type="submit" class="search-btn" id="searchBtn">
 			<i class="fa-solid fa-magnifying-glass"></i>
 		</button>

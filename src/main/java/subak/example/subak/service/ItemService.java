@@ -110,4 +110,45 @@ public class ItemService {
 		
 		return list;
 	}
+
+	public List<SimpleItemResponseVO> findAll(int page, int pageSize) {
+		
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Integer> params = new HashMap<>();
+		params.put("offset", offset);
+		params.put("pageSize", pageSize);
+		List<SimpleItemResponseVO> list = itemDAO.findAll(params);
+		
+		return list;
+	}
+
+	public List<SimpleItemResponseVO> searchItemByTitle(String title, int page, int pageSize) {
+		
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("search", title);
+		params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+	    List<SimpleItemResponseVO> list = itemDAO.findByTitleContainingIgnoreCase(params);
+	    
+	    return list;
+	}
+
+	public List<SimpleItemResponseVO> searchItemByTitleWithPrice(String title, int minPrice, int maxPrice, int page,
+			int pageSize) {
+		
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("search", title);
+		params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+	    params.put("minPrice", minPrice);
+	    params.put("maxPrice", maxPrice);
+	    List<SimpleItemResponseVO> list = itemDAO.findByTitleContainingIgnoreCaseWithPrice(params);
+	    
+		return list;
+	}
 }

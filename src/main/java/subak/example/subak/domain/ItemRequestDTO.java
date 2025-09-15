@@ -16,6 +16,7 @@ public class ItemRequestDTO {
 	private Long currentPrice;
 	private Timestamp endTime;
 	private String status;
+	private Long duration;
 	private Timestamp createdAt;
 	private Long sellerId;
 	private Long categoryId;

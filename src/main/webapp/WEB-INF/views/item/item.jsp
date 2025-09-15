@@ -32,12 +32,12 @@
 							<c:choose>
 								<c:when test="${status.index == 0}">
 									<div class="carousel-item active">
-										<img src="${img}" class="d-block w-100" alt="상품 이미지 ">
+										<img src="${pageContext.request.contextPath}/${img}" class="d-block w-100" alt="상품 이미지 ">
 									</div>
 								</c:when>
 								<c:otherwise>
 									<div class="carousel-item">
-										<img src="${img}" class="d-block w-100" alt="상품 이미지 ">
+										<img src="${pageContext.request.contextPath}/${img}" class="d-block w-100" alt="상품 이미지 ">
 									</div>
 								</c:otherwise>
 							</c:choose>

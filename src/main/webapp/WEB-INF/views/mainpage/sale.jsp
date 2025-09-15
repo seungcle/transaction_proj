@@ -90,19 +90,19 @@
 				<label class="form-label fw-bold">등록 기간</label>
 				<div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="registrationDuration" id="duration1" value="1" checked>
+						<input class="form-check-input" type="radio" name="duration" id="duration1" value="1" checked>
 						<label class="form-check-label" for="duration1">1일</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="registrationDuration" id="duration3" value="3">
+						<input class="form-check-input" type="radio" name="duration" id="duration3" value="3">
 						<label class="form-check-label" for="duration3">3일</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="registrationDuration" id="duration5" value="5">
+						<input class="form-check-input" type="radio" name="duration" id="duration5" value="5">
 						<label class="form-check-label" for="duration5">5일</label>
 					</div>
 					<div class="form-check form-check-inline">
-						<input class="form-check-input" type="radio" name="registrationDuration" id="duration7" value="7">
+						<input class="form-check-input" type="radio" name="duration" id="duration7" value="7">
 						<label class="form-check-label" for="duration7">7일</label>
 					</div>
 				</div>
@@ -140,6 +140,7 @@
 	</form>
 
 	<jsp:include page="../component/footer.jsp" />
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script>
     // 설명 글자 수 카운터
     const descriptionTextarea = document.getElementById('description');
@@ -176,27 +177,24 @@
 	});
 	
 	document.getElementById("submitBtn").addEventListener("click", function (e) {
-	    e.preventDefault();
-
-	    const form = document.getElementById("itemForm");
-	    const formData = new FormData(form);
-
-	    // 선택한 이미지 추가
-	    selectedFiles.forEach(file => {
-	        formData.append("images", file);
-	    });
-
-	    fetch(form.action, {
-	        method: "POST",
-	        body: formData
-	    })
-	    .then(res => res.text())
-	    .then(data => {
-	        alert("상품이 등록되었습니다!");
-	        location.href = "/item/enroll";
-	    })
-	    .catch(err => console.error(err));
-	});
+		    e.preventDefault();
+		    const form = document.getElementById("itemForm");
+		    const formData = new FormData(form);
+		    // 선택한 이미지 추가
+		    selectedFiles.forEach(file => {
+		        formData.append("images", file);
+		    });
+		    fetch(form.action, {
+		        method: "POST",
+		        body: formData
+		    })
+		    .then(res => res.text())
+		    .then(data => {
+		        alert("상품이 등록되었습니다!");
+		        location.href = "/subak/main";
+		    })
+		    .catch(err => console.error(err));
+		});
 	
 	function renderPreviews() {
     	imagePreviewContainer.innerHTML = '';

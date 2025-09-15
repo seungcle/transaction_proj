@@ -45,12 +45,14 @@ public class ItemController {
 	
 	// 상품 등록
 	@PostMapping("/enroll")
-	public String enrollPage(ItemRequestDTO dto, @RequestParam("images") List<MultipartFile> images, 
+	public String enrollPage(ItemRequestDTO dto, @RequestParam("images") List<MultipartFile> images,
 							 HttpSession session) throws IOException {
 		
-		System.out.println(dto.getCategoryId());
-		//boolean isSuccess = itemService.insertItem(dto, images, session);
-		return "redirect:/main";
+		boolean isSuccess = itemService.insertItem(dto, images, session);
+		if(isSuccess)
+			return "redirect:/main";
+		else
+			return "mainpage/sale";
 	}
 	
 }

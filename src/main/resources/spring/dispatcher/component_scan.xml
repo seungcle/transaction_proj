@@ -15,4 +15,5 @@
 			expression="org.springframework.stereotype.Repository" />
 	</context:component-scan>
 	<mvc:annotation-driven />
+	<mvc:resources mapping="/upload/**" location="file:///C:/upload/" />
 </beans>

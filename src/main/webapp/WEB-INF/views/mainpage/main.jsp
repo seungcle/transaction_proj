@@ -43,7 +43,7 @@
 					<a href="/subak/item/${item.id}" class="text-decoration-none">
 						<div class="card product-card h-100">
 							<div class="card-img-container">
-								<img src="${item.imageUrl}" class="card-img-top" alt="${item.title}">
+								<img src="${pageContext.request.contextPath}/${item.imageUrl}" class="card-img-top" alt="${item.title}">
 								<span class="badge bg-success position-absolute top-0 start-0 m-3 status-badge">경매 진행중</span>
 							</div>
 							<div class="card-body d-flex flex-column">

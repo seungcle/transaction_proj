@@ -44,14 +44,14 @@
     WHERE
         i.id = #{id}
   </select>
-	<insert id="insertItem" parameterType="ItemRequestDTO">
-	    INSERT INTO item (title, text, start_price, current_price, end_time, status, seller_id, category_id)
-	    VALUES (#{title}, #{text}, #{startPrice}, #{currentPrice}, #{endTime}, #{status}, #{sellerId}, #{categoryId})
+	<insert id="insertItem" parameterType="ItemRequestDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+	    INSERT INTO item (title, text, start_price, current_price, end_time, created_at, status, seller_id, category_id)
+	    VALUES (#{title}, #{text}, #{startPrice}, #{currentPrice}, sysdate + #{duration}, sysdate, #{status}, #{sellerId}, #{categoryId})
 	</insert>
 	
 	<insert id="insertItemImage" parameterType="ItemImageDTO">
-	    INSERT INTO item_image (image_url, item_id)
-	    VALUES (#{imageUrl}, #{itemId})
+	    INSERT INTO item_image (image_url, created_at, item_id)
+	    VALUES (#{imageUrl},sysdate, #{itemId})
 	</insert>
 </mapper>
 

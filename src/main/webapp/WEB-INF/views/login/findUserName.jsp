@@ -27,15 +27,13 @@
 		<div class="login-card p-4">
 			<h3 class="text-center mb-4">아이디 찾기</h3>
 			<p class="text-center text-muted">본인 확인을 위해 이름과 이메일 주소를 입력해주세요.</p>
-			<form action="findUsernameProcess.jsp" method="post">
-				<div class="mb-3">
-					<input type="text" class="form-control" id="name" name="name" placeholder="이름을 입력하세요" required>
-				</div>
+			
+			<form action="${pageContext.request.contextPath}/find/username" method="post">
 				<div class="mb-3">
 					<div class="input-group">
-						<input type="text" class="form-control" id="emailId" name="emailId" placeholder="이메일" required>
+						<input type="text" class="form-control" id="emailId" placeholder="이메일" required>
 						<span class="input-group-text">@</span>
-						<input type="text" class="form-control" id="emailDomain" name="emailDomain" placeholder="직접입력" required>
+						<input type="text" class="form-control" id="emailDomain" placeholder="직접입력" required>
 						<select class="form-select" id="emailSelect">
 							<option value="direct">직접입력</option>
 							<option value="naver.com">naver.com</option>
@@ -45,6 +43,7 @@
 							<option value="hotmail.com">hotmail.com</option>
 						</select>
 					</div>
+					<input type="hidden" name="email" id="fullEmail">
 				</div>
 				<div class="d-grid gap-2">
 					<button type="submit" class="btn btn-primary">아이디 찾기</button>
@@ -66,6 +65,15 @@
 				domainInput.value = this.value;
 				domainInput.readOnly = true;
 			}
+		});
+
+		// 폼 제출 시 이메일 값을 하나로 합쳐서 hidden input에 넣는 스크립트
+		document.querySelector('form').addEventListener('submit', function(e) {
+			const emailId = document.getElementById('emailId').value;
+			const emailDomain = document.getElementById('emailDomain').value;
+			const fullEmail = emailId + '@' + emailDomain;
+			
+			document.getElementById('fullEmail').value = fullEmail;
 		});
 	</script>
 </body>

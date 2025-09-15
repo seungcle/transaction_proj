@@ -1,6 +1,7 @@
 package subak.example.subak.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import subak.example.subak.domain.LoginRequestDTO;
 import subak.example.subak.domain.SessionUserVO;
@@ -17,4 +18,6 @@ public interface UserDAO {
 	SessionUserVO login(LoginRequestDTO dto);
 
 	UserInfoVO findById(Long id);
+
+	UserDTO findUserByNameAndEmail(@Param("name") String name, @Param("email") String email);
 }

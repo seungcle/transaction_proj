@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +13,10 @@
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/search.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/global.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/resources/css/search.css">
 
 </head>
 <body>
@@ -39,20 +41,22 @@
 			</div>
 			<hr class="my-2">
 			<div class="row align-items-center g-3">
-			<form action="${pageContext.request.contextPath}/item/search/price" method="get" id="priceFilterForm">
-				<input type="hidden" name="title" value="${param.title}">
-				<div class="col-md-auto fw-bold">가격</div>
-				<div class="col-md-7 col-lg-5">
-					<div class="input-group input-group-sm">
-						<input type="text" class="form-control priceInput" name="minPrice"
-							placeholder="최소 가격"> <span class="input-group-text">~</span>
-						<input type="text" class="form-control priceInput" name="maxPrice"
-							placeholder="최대 가격">
-						<button class="btn btn-dark">적용</button>
-						
+				<form action="${pageContext.request.contextPath}/item/search/price"
+					method="get" id="priceFilterForm">
+					<input type="hidden" name="title" value="${param.title}">
+					<div class="col-md-auto fw-bold">가격</div>
+					<div class="col-md-7 col-lg-5">
+						<div class="input-group input-group-sm">
+							<input type="text" class="form-control priceInput"
+								name="minPrice" placeholder="최소 가격"> <span
+								class="input-group-text">~</span> <input type="text"
+								class="form-control priceInput" name="maxPrice"
+								placeholder="최대 가격">
+							<button class="btn btn-dark">적용</button>
+
+						</div>
 					</div>
-				</div>
-			</form>
+				</form>
 			</div>
 		</div>
 
@@ -67,22 +71,20 @@
 
 			<div class="col">
 				<c:forEach var="item" items="${list}">
-					<a href="${pageContext.request.contextPath}/item/${item.id}" class="text-decoration-none">
+					<a href="${pageContext.request.contextPath}/item/${item.id}"
+						class="text-decoration-none">
 						<div class="product-card">
 							<div class="card-img-container">
-								<img
-									src="${pageContext.request.contextPath}/${item.imageUrl}"
+								<img src="${pageContext.request.contextPath}/${item.imageUrl}"
 									class="card-img-top" alt="상품 이미지">
-								<button class="wish-btn">
-									<i class="bi bi-heart"></i>
+								<button class="wish-btn">	
+										<i class="bi bi-heart"></i>
 								</button>
 							</div>
 							<div class="card-body">
 								<p class="card-title mb-1">${item.title}</p>
 								<p class="card-price mb-1">${item.currentPrice}</p>
-								<div class="card-meta d-flex justify-content-between">
-									<span>다사읍 | 10분 전</span> <span>찜 4 · 채팅 0</span>
-								</div>
+								<div class="card-meta d-flex justify-content-between"></div>
 							</div>
 						</div>
 					</a>
@@ -111,7 +113,25 @@
 		    input.value = input.value.replace(/,/g, '');
 		  });
 		});
+		
+		// 버튼 색 변환
+		document.addEventListener('DOMContentLoaded', function() {
+    const wishBtns = document.querySelectorAll('.wish-btn');
+    
+    wishBtns.forEach(wishBtn => {
+        const heartIcon = wishBtn.querySelector('i');
 
+        wishBtn.addEventListener('click', function(event) {
+            // 상품 페이지로 이동하는 링크의 기본 동작을 막습니다.
+            event.stopPropagation();
+            event.preventDefault();
+
+            // 아이콘 클래스를 토글하여 색상과 모양을 변경합니다.
+            heartIcon.classList.toggle('bi-heart');
+            heartIcon.classList.toggle('bi-heart-fill');
+        });
+    });
+});
 	</script>
 </body>
 </html>

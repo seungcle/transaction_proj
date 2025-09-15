@@ -1,17 +1,22 @@
 @charset "UTF-8";
 
 /* /css/search.css */
+
+/* 필터 섹션 스타일 */
 .filter-section {
 	background-color: #f8f9fa;
 	border-radius: 0.5rem;
 }
 
+/* 상품 카드 스타일 */
 .product-card {
 	border: none;
 }
 
+/* 상품 이미지 컨테이너 (relative 위치 지정) */
 .product-card .card-img-container {
 	position: relative;
+	overflow: hidden;
 }
 
 .product-card .card-img-top {
@@ -20,21 +25,21 @@
 	object-fit: cover;
 }
 
-.product-card .wish-btn {
+/* 경매 남은 시간 오버레이 */
+.auction-time-overlay {
 	position: absolute;
-	bottom: 0.5rem;
-	right: 0.5rem;
-	background-color: rgba(255, 255, 255, 0.7);
-	border: none;
-	border-radius: 50%;
-	width: 30px;
-	height: 30px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: #333;
+	top: 10px;
+	left: 10px;
+	background-color: rgba(0, 0, 0, 0.6);
+	color: #fff;
+	padding: 5px 8px;
+	border-radius: 5px;
+	font-size: 0.8rem;
+	font-weight: bold;
+	z-index: 5;
 }
 
+/* 상품 카드 본문 스타일 */
 .product-card .card-body {
 	padding: 0.75rem 0.25rem;
 }
@@ -55,4 +60,37 @@
 .product-card .card-meta {
 	font-size: 0.8rem;
 	color: #6c757d;
+}
+
+/* 찜하기 버튼 스타일 (위치 변경) */
+.wish-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.7); /* 반투명 흰색 배경 */
+    border: none;
+    border-radius: 5px; /* 모서리를 둥글게 */
+    width: 35px; /* 배경 크기 지정 */
+    height: 35px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.8rem;
+    z-index: 10;
+}
+
+/* 하트 아이콘 색상 및 위치 보정 */
+.wish-btn i {
+    transform: translateY(6px);
+}
+
+/* 하트 아이콘 색상 */
+.wish-btn i.bi-heart {
+	color: #333; /* 기본 색상 */
+}
+
+.wish-btn i.bi-heart-fill {
+	color: #ff0000; /* 채워진 하트 색상 */
 }

@@ -39,7 +39,7 @@
 					<button type="submit" class="btn btn-primary">로그인</button>
 				</div>
 				<div class="d-flex justify-content-between small text-muted">
-					<a href="../find.jsp">아이디/비밀번호 찾기</a> 
+					<a href="${pageContext.request.contextPath}/find">아이디/비밀번호 찾기</a> 
 					<a href="${pageContext.request.contextPath}/join">회원가입</a>
 				</div>
 			</form>

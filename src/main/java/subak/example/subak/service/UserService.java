@@ -38,4 +38,9 @@ public class UserService {
 				
 		return vo;
 	}
+	
+	public UserDTO findUserByNameAndEmail(String name, String email) {
+        // UserDAO를 호출하여 이름과 이메일로 사용자 정보를 조회합니다.
+        return userDAO.findUserByNameAndEmail(name, email);
+    }
 }

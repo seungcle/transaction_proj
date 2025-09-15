@@ -26,19 +26,43 @@ String currentCategory = request.getParameter("category");
 	</form>
 
 	<div class="header-right">
-		<div id="high-icon">
-			<a href="${pageContext.request.contextPath}/item/enroll"><img src="${pageContext.request.contextPath}/resources/images/cart.png" class="icon-images"><span class="fa-text">판매</span></a> <a href="#" data-bs-toggle="offcanvas" data-bs-target="#
-ficationOffcanvas" aria-controls="notificationOffcanvas"><img src="${pageContext.request.contextPath}/resources/images/bell.png" class="icon-images"> <span class="fa-text">알림</span></a>
-			<c:choose>
-				<c:when test="${empty user}">
-					<a href="${pageContext.request.contextPath}/login" class="login-group"><img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images"> <span class="fa-text">로그인</span></a>
-				</c:when>
-				<c:otherwise>
-					<a href="${pageContext.request.contextPath}/jsp/mypage.jsp" class="login-group"><img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images"> <span class="fa-text">마이페이지</span></a>
-				</c:otherwise>
-			</c:choose> 
-		</div>
-	</div>
+    <div id="high-icon" class="d-flex align-items-center">
+        <a href="${pageContext.request.contextPath}/item/enroll">
+            <img src="${pageContext.request.contextPath}/resources/images/cart.png" class="icon-images cart-icon-default">
+            <img src="${pageContext.request.contextPath}/resources/images/cart2.png" class="icon-images cart-icon-hover">
+            <span class="fa-text">판매</span>
+        </a> 
+        <a href="#" data-bs-toggle="offcanvas" data-bs-target="#notificationOffcanvas" aria-controls="notificationOffcanvas">
+            <img src="${pageContext.request.contextPath}/resources/images/bell.png" class="icon-images bell-icon-default">
+            <img src="${pageContext.request.contextPath}/resources/images/bell2.png" class="icon-images bell-icon-hover"> 
+            <span class="fa-text">알림</span>
+        </a>
+        
+        <c:choose>
+            <c:when test="${empty user}">
+                <a href="${pageContext.request.contextPath}/login" class="login-group">
+                    <img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images human-icon-default">
+                    <img src="${pageContext.request.contextPath}/resources/images/human2.png" class="icon-images human-icon-hover"> 
+                    <span class="fa-text">로그인</span>
+                </a>
+            </c:when>
+            <c:otherwise>
+                <div class="dropdown">
+                    <a href="#" class="login-group dropdown-toggle" id="mypageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="${pageContext.request.contextPath}/resources/images/human.png" class="icon-images human-icon-default">
+                        <img src="${pageContext.request.contextPath}/resources/images/human2.png" class="icon-images human-icon-hover"> 
+                        <span class="fa-text">마이</span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="mypageDropdown">
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/jsp/mypage.jsp">마이페이지</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout">로그아웃</a></li>
+                    </ul>
+                </div>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</div>
 </header>
 
 <nav class="category-nav" id="categoryNav">

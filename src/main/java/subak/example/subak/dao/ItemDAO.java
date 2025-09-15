@@ -19,4 +19,6 @@ public interface ItemDAO {
 	boolean insertItem(ItemRequestDTO dto);
 	
 	boolean insertItemImage(ItemImageDTO dto);
+
+	List<SimpleItemResponseVO> findByCategory(String category);
 }

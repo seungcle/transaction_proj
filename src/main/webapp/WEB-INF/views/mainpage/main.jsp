@@ -40,7 +40,7 @@
 		<div class="row">
 			<c:forEach var="item" items="${list}">
 				<div class="col-lg-3 col-md-6 mb-4">
-					<a href="/subak/item/${item.id}" class="text-decoration-none">
+					<a href="${pageContext.request.contextPath}/item/${item.id}" class="text-decoration-none">
 						<div class="card product-card h-100">
 							<div class="card-img-container">
 								<img src="${pageContext.request.contextPath}/${item.imageUrl}" class="card-img-top" alt="${item.title}">

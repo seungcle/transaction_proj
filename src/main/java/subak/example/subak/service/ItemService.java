@@ -19,6 +19,7 @@ import subak.example.subak.domain.ItemImageDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
 import subak.example.subak.domain.SessionUserVO;
+import subak.example.subak.domain.SimpleItemResponseVO;
 
 @Service
 public class ItemService {
@@ -94,5 +95,11 @@ public class ItemService {
 	    }
 	    
 	    return true;
+	}
+
+	public List<SimpleItemResponseVO> getItemByCategory(String category) {
+		
+		List<SimpleItemResponseVO> list = itemDAO.findByCategory(category);
+		return list;
 	}
 }

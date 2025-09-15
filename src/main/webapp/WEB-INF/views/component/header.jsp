@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 
 <%
-String currentCategory = request.getParameter("category");
+	String currentCategory = (String)request.getAttribute("category");
 %>
 
 <header class="header">
@@ -69,23 +69,23 @@ String currentCategory = request.getParameter("category");
 	<button class="close-btn" id="closeNavBtn">&times;</button>
 	<div class="container">
 		<ul class="nav d-flex">
-			<li class="nav-item"><a class="nav-link <%= currentCategory == null ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/main.jsp" data-category="all"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/fire.png" alt="인기 아이콘"> 인기
+			<li class="nav-item"><a class="nav-link <%= currentCategory == null ? "active" : "" %>" href="${pageContext.request.contextPath}/main" data-category="all"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/fire.png" alt="인기 아이콘"> 인기
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "디지털".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=디지털" data-category="electronics"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/phone.png" alt="핸드폰 아이콘"> 디지털
+			<li class="nav-item"><a class="nav-link <%= "디지털".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/디지털" data-category="electronics"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/phone.png" alt="핸드폰 아이콘"> 디지털
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "패션".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=패션" data-category="fashion"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/cloth.png" alt="옷 아이콘"> 패션
+			<li class="nav-item"><a class="nav-link <%= "패션".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/패션" data-category="fashion"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/cloth.png" alt="옷 아이콘"> 패션
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "뷰티".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=뷰티" data-category="beauty"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/makeup.png" alt="뷰티 아이콘"> 뷰티
+			<li class="nav-item"><a class="nav-link <%= "뷰티".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/뷰티" data-category="beauty"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/makeup.png" alt="뷰티 아이콘"> 뷰티
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "가구".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=가구" data-category="furniture"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/sofar.png" alt="소파 아이콘"> 가구
+			<li class="nav-item"><a class="nav-link <%= "가구".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/가구" data-category="furniture"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/sofar.png" alt="소파 아이콘"> 가구
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "도서".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=도서" data-category="books"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/book.png" alt="책 아이콘"> 도서
+			<li class="nav-item"><a class="nav-link <%= "도서".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/도서" data-category="books"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/book.png" alt="책 아이콘"> 도서
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "스포츠".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=스포츠" data-category="sports"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/ball.png" alt="공 아이콘"> 스포츠
+			<li class="nav-item"><a class="nav-link <%= "스포츠".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/스포츠" data-category="sports"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/ball.png" alt="공 아이콘"> 스포츠
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "생활".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=생활" data-category="auction"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/living.png" alt="청소 아이콘"> 생활
+			<li class="nav-item"><a class="nav-link <%= "생활".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/생활" data-category="auction"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/living.png" alt="청소 아이콘"> 생활
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "관심".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/jsp/search.jsp?category=관심" data-category="interest"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/heart.png" alt="관심 아이콘"> 관심
+			<li class="nav-item"><a class="nav-link <%= "관심".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/관심" data-category="interest"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/heart.png" alt="관심 아이콘"> 관심
 			</a></li>
 		</ul>
 	</div>

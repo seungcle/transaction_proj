@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
+import subak.example.subak.domain.SimpleItemResponseVO;
 import subak.example.subak.service.ItemService;
 
 @Controller
@@ -53,6 +54,17 @@ public class ItemController {
 			return "redirect:/main";
 		else
 			return "mainpage/sale";
+	}
+	
+	// 카테고리
+	@GetMapping("/category/{category}")
+	public String categoryPage(@PathVariable String category, Model model) {
+		
+		List<SimpleItemResponseVO> list = itemService.getItemByCategory(category);
+		model.addAttribute("category", category);
+		model.addAttribute("list", list);
+		
+		return "mainpage/search";
 	}
 	
 }

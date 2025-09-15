@@ -58,9 +58,12 @@ public class ItemController {
 	
 	// 카테고리
 	@GetMapping("/category/{category}")
-	public String categoryPage(@PathVariable String category, Model model) {
+	public String categoryPage(@PathVariable String category,
+							   @RequestParam(defaultValue = "1") int page,
+							   Model model) {
 		
-		List<SimpleItemResponseVO> list = itemService.getItemByCategory(category);
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.getItemByCategory(category, page, pageSize);
 		model.addAttribute("category", category);
 		model.addAttribute("list", list);
 		

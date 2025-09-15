@@ -53,19 +53,29 @@
 	    INSERT INTO item_image (image_url, created_at, item_id)
 	    VALUES (#{imageUrl},sysdate, #{itemId})
 	</insert>
-	<select id="findByCategory" parameterType="string" resultType="SimpleItemResponseVO">
-		select i.id, i.title, TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, i.end_time AS endTime,
-		i.status, i.created_at AS createdAt,
-        (
-            SELECT ii.image_url
-            FROM item_image ii
-            WHERE ii.item_id = i.id
-            ORDER BY ii.id ASC
-            FETCH FIRST 1 ROW ONLY
-        ) AS imageUrl
-	    from
+	<select id="findByCategory" parameterType="map" resultType="SimpleItemResponseVO">
+	    SELECT 
+	        i.id, 
+	        i.title, 
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, 
+	        i.end_time AS endTime,
+	        i.status, 
+	        i.created_at AS createdAt,
+	        (
+	            SELECT ii.image_url
+	            FROM item_image ii
+	            WHERE ii.item_id = i.id
+	            ORDER BY ii.id ASC
+	            FETCH FIRST 1 ROW ONLY
+	        ) AS imageUrl
+	    FROM
 	        item i
-	    where category_id = (select id from category where name = #{category})
+	    WHERE 
+	        category_id = (SELECT id FROM category WHERE name = #{category})
+	    ORDER BY 
+	        i.id DESC
+	    OFFSET #{offset} ROWS
+	    FETCH NEXT #{pageSize} ROWS ONLY
 	</select>
 </mapper>
 

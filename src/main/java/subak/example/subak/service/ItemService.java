@@ -2,10 +2,11 @@ package subak.example.subak.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpSession;
@@ -97,9 +98,16 @@ public class ItemService {
 	    return true;
 	}
 
-	public List<SimpleItemResponseVO> getItemByCategory(String category) {
+	public List<SimpleItemResponseVO> getItemByCategory(String category, int page, int pageSize) {
 		
-		List<SimpleItemResponseVO> list = itemDAO.findByCategory(category);
+		int offset = (page - 1) * pageSize;
+
+	    Map<String, Object> params = new HashMap<>();
+	    params.put("category", category);
+	    params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+		List<SimpleItemResponseVO> list = itemDAO.findByCategory(params);
+		
 		return list;
 	}
 }

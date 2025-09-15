@@ -1,6 +1,7 @@
 package subak.example.subak.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -20,5 +21,5 @@ public interface ItemDAO {
 	
 	boolean insertItemImage(ItemImageDTO dto);
 
-	List<SimpleItemResponseVO> findByCategory(String category);
+	List<SimpleItemResponseVO> findByCategory(Map<String, Object> params);
 }

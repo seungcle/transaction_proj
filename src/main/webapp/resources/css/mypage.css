@@ -39,7 +39,14 @@
 /* 별점 */
 .rating-stars {
 	font-size: 2rem;
-	color: #ffc107;
+    display: flex;
+    align-items: center;
+    gap: 4px; /* 별 아이콘 사이 간격 조절 (원하는 값으로 변경 가능) */
+}
+
+/* 별 아이콘 스타일 */
+.rating-stars i {
+    color: #ffc107; /* 별 색상 (bootstrap의 warning 색상) */
 }
 
 /* 상품 탭 */

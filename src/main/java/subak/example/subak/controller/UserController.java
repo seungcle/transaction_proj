@@ -1,7 +1,6 @@
 package subak.example.subak.controller;
 
-import java.util.HashMap;
-import java.util.Map;
+
 
 import javax.servlet.http.HttpSession;
 
@@ -9,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import subak.example.subak.domain.UserInfoVO;
 import subak.example.subak.service.UserService;
@@ -31,23 +27,6 @@ public class UserController {
 		model.addAttribute("user", vo);
 		return "mypage/mypage";
 	}
-	
-	@PostMapping("user/verify-password")
-	@ResponseBody
-	public Map<String, Object> verifyPassword(@RequestBody Map<String, String> payload, HttpSession session) {
-	    Map<String, Object> response = new HashMap<>();
-	    String enteredPassword = payload.get("password");
-	    Long userId =(Long) session.getAttribute("usrId");
-	    
-	    if(userId == null) {
-	    	response.put("success", false);
-	    	response.put("message", "로그인 상태가 아닙니다. 로그인 해주세요.");
-	    	return response;
-	    }
-	    
-		return response;
-	}
-	
 	
 	
 }

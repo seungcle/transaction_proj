@@ -13,7 +13,7 @@
 	        user_id = #{userId} AND item_id = #{itemId}
 	</select>
 	
-	<insert id="insertFavorite" parameterType="FavoriteDTO">
+	<insert id="insertFavorite" parameterType="FavoriteDTO"> 
 		insert into favorite(created_at, user_id, item_id) values(sysdate, #{userId}, #{itemId})
 	</insert>
 	

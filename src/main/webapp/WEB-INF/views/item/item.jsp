@@ -114,13 +114,13 @@
 						</div>
 
 						<div class="d-flex gap-2">
-							<button id="likeButton" type="button" class="btn btn-light" data-item-id="${item.id}">
-								<i id="heartIcon" class="bi bi-heart fs-5"></i>
-							</button>
-							<button class="btn btn-bid-primary btn-lg flex-grow-1"
-								type="button">
-								<i class="bi bi-hammer"></i> 입찰하기
-							</button>
+						    <button id="likeButton" type="button" class="btn btn-light" data-item-id="${item.id}">
+						        <i id="heartIcon" class="bi ${isFavorited ? 'bi-heart-fill' : 'bi-heart'} fs-5"></i>
+						    </button>
+						    <button class="btn btn-bid-primary btn-lg flex-grow-1"
+						        type="button">
+						        <i class="bi bi-hammer"></i> 입찰하기
+						    </button>
 						</div>
 					</div>
 				</div>

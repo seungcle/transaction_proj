@@ -13,9 +13,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import subak.example.subak.dao.ItemDAO;
+import subak.example.subak.domain.BidDTO;
 import subak.example.subak.domain.ItemImageDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
@@ -47,6 +49,7 @@ public class ItemService {
 		return dto;
 	}
 
+	@Transactional
 	public boolean insertItem(ItemRequestDTO dto, List<MultipartFile> images, HttpSession session) throws IOException {
 		
 		String startPrice = dto.getStartPrice().replaceAll(",", "");
@@ -62,7 +65,17 @@ public class ItemService {
 		dto.setCurrentPrice(Long.parseLong(startPrice));
 		dto.setStatus("OPEN");
 		
+		//등록시 bid 자동 생성 후 insert
+		BidDTO bid = new BidDTO();
+		bid.setBidPrice(Long.parseLong(startPrice));
+		bid.setBidUserId(loginUser.getId());
+		
 		if(!itemDAO.insertItem(dto))
+			return false;
+		
+		//db에 item을 넣은 이후에 자동 생성된 id를 bid에 넣음
+		bid.setBidItemId(dto.getId());
+		if(!itemDAO.insertBid(bid))
 			return false;
 	    
 	    // 1. 파일을 저장할 기본 경로를 변수로 지정합니다.

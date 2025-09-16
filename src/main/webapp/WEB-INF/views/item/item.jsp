@@ -17,7 +17,7 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/item.css">
-
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../component/header.jsp" />
@@ -114,7 +114,7 @@
 						</div>
 
 						<div class="d-flex gap-2">
-							<button id="likeButton" type="button" class="btn btn-light">
+							<button id="likeButton" type="button" class="btn btn-light" data-item-id="${item.id}">
 								<i id="heartIcon" class="bi bi-heart fs-5"></i>
 							</button>
 							<button class="btn btn-bid-primary btn-lg flex-grow-1"
@@ -166,89 +166,98 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
     // [추가] 페이지가 로드되면 즉시 실행되도록 이벤트 리스너 추가
-    document.addEventListener('DOMContentLoaded', function() {
+    $(document).ready(function() {
+    // JSP의 contextPath를 JavaScript 변수로 저장하여 AJAX URL에 사용합니다.
+    const contextPath = "${pageContext.request.contextPath}";
+
+    // --- 1. 남은 시간 카운트다운 스크립트 (기존과 동일) ---
+    const timerElement = document.getElementById('countdown-timer');
+    if (timerElement) {
+        let remainingSeconds = parseInt(timerElement.getAttribute('data-remaining-seconds'), 10) || 0;
         
-        // --- 1. 남은 시간 카운트다운 스크립트 ---
-        const timerElement = document.getElementById('countdown-timer');
-        if (timerElement) {
-            let remainingSeconds = parseInt(timerElement.getAttribute('data-remaining-seconds'), 10) || 0;
-
-            function formatTime(seconds) {
-                if (seconds <= 0) return "00:00:00";
-                const h = Math.floor(seconds / 3600);
-                const m = Math.floor((seconds % 3600) / 60);
-                const s = seconds % 60;
-                return [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
-            }
-            
-            timerElement.textContent = formatTime(remainingSeconds);
-
-            const timerInterval = setInterval(() => {
-                remainingSeconds--;
-                timerElement.textContent = formatTime(remainingSeconds);
-                if (remainingSeconds <= 0) {
-                    clearInterval(timerInterval);
-                    timerElement.textContent = "경매 종료";
-                }
-            }, 1000);
+        function formatTime(seconds) {
+            if (seconds <= 0) return "00:00:00";
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = seconds % 60;
+            return [h, m, s].map(v => String(v).padStart(2, '0')).join(':');
         }
+        
+        timerElement.textContent = formatTime(remainingSeconds);
+        const timerInterval = setInterval(() => {
+            remainingSeconds--;
+            timerElement.textContent = formatTime(remainingSeconds);
+            if (remainingSeconds <= 0) {
+                clearInterval(timerInterval);
+                timerElement.textContent = "경매 종료";
+            }
+        }, 1000);
+    }
 
-        // --- 2. 기존 스크립트 (좋아요, 입찰가 등) ---
-        // 좋아요 토글
-        const likeButton = document.getElementById('likeButton');
-        const heartIcon = document.getElementById('heartIcon');
-        likeButton.addEventListener("click", function() {
-          const isNotLiked = heartIcon.classList.contains('bi-heart');
-          if (isNotLiked) {
-            heartIcon.classList.remove('bi-heart');
-            heartIcon.classList.add('bi-heart-fill');
-          } else {
-            heartIcon.classList.remove('bi-heart-fill');
-            heartIcon.classList.add('bi-heart');
-          }
-        });
+    // --- 2. 좋아요 버튼 AJAX 처리 (jQuery로 변경) ---
+    $('#likeButton').on('click', function() {
+        // 버튼에 저장해둔 item id를 가져옵니다.
+        const itemId = $(this).data('item-id');
+        const heartIcon = $('#heartIcon');
 
-        // 가격 정보 가져오기
-        const currentPriceText = document.querySelector('.price-current').innerText;
-        const currentPrice = parseInt(currentPriceText.replace(/[^\d]/g, ''), 10);
-        const bidInput = document.getElementById('bidInput');
-        const nextBidPrice = currentPrice + 1000;
-
-        function formatNumber(number) {
-            return new Intl.NumberFormat('ko-KR').format(number);
-        }
-
-        function unformatNumber(string) {
-            return parseInt(string.replace(/,/g, ''), 10) || 0;
-        }
-
-        bidInput.value = formatNumber(nextBidPrice);
-
-        bidInput.addEventListener('input', (e) => {
-            const value = e.target.value;
-            const numericValue = unformatNumber(value);
-            if (!isNaN(numericValue)) {
-                bidInput.value = formatNumber(numericValue);
-            } else {
-                bidInput.value = '';
-            }
-        });
-
-        document.querySelectorAll('[data-increase]').forEach(button => {
-          button.addEventListener('click', () => {
-            let currentValue = unformatNumber(bidInput.value);
-            let increment = parseInt(button.getAttribute('data-increase'), 10);
-            bidInput.value = formatNumber(currentValue + increment);
-          });
-        });
-
-        bidInput.addEventListener('blur', () => {
-          let value = unformatNumber(bidInput.value);
-          if (isNaN(value) || value < nextBidPrice) {
-            bidInput.value = formatNumber(nextBidPrice);
-          }
-        });
+        $.ajax({
+            type: 'POST',
+            url: "${pageContext.request.contextPath}/favorite/${itemId}",
+            
+            success: function(response) {
+                // 서버 요청이 성공했을 때 실행됩니다.
+                console.log('요청 성공:', response);
+                
+                // 아이콘의 클래스를 변경하여 상태를 시각적으로 업데이트합니다.
+                if (heartIcon.hasClass('bi-heart')) {
+                    heartIcon.removeClass('bi-heart').addClass('bi-heart-fill');
+                } else {
+                    heartIcon.removeClass('bi-heart-fill').addClass('bi-heart');
+                }
+                
+                // (선택) 서버로부터 받은 좋아요 총 개수를 화면에 업데이트 할 수 있습니다.
+                // 예: $('#favorite-count').text(response.favoriteCount);
+            },
+            error: function(xhr, status, error) {
+                // 서버 요청이 실패했을 때 실행됩니다.
+                console.error('요청 실패:', error);
+                alert('요청 처리 중 오류가 발생했습니다. 로그인 상태를 확인해주세요.');
+            }
+        });
     });
+
+    // --- 3. 입찰가 관련 스크립트 (기존과 동일) ---
+    const currentPriceText = document.querySelector('.price-current').innerText;
+    const currentPrice = parseInt(currentPriceText.replace(/[^\d]/g, ''), 10);
+    const bidInput = document.getElementById('bidInput');
+    const nextBidPrice = currentPrice + 1000;
+
+    function formatNumber(number) {
+        return new Intl.NumberFormat('ko-KR').format(number);
+    }
+    function unformatNumber(string) {
+        return parseInt(string.replace(/,/g, ''), 10) || 0;
+    }
+
+    bidInput.value = formatNumber(nextBidPrice);
+    bidInput.addEventListener('input', (e) => {
+        const numericValue = unformatNumber(e.target.value);
+        bidInput.value = !isNaN(numericValue) ? formatNumber(numericValue) : '';
+    });
+    document.querySelectorAll('[data-increase]').forEach(button => {
+        button.addEventListener('click', () => {
+            let currentValue = unformatNumber(bidInput.value);
+            let increment = parseInt(button.getAttribute('data-increase'), 10);
+            bidInput.value = formatNumber(currentValue + increment);
+        });
+    });
+    bidInput.addEventListener('blur', () => {
+        let value = unformatNumber(bidInput.value);
+        if (isNaN(value) || value < nextBidPrice) {
+            bidInput.value = formatNumber(nextBidPrice);
+        }
+    });
+});
   </script>
 </body>
 </html>

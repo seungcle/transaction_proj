@@ -182,4 +182,36 @@ public class ItemService {
 	    
 		return list;
 	}
+
+	public List<SimpleItemResponseVO> searchItemOrderByPriceDesc(String title, int minPrice, int maxPrice, int page,
+			int pageSize) {
+		
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("search", title);
+		params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+	    params.put("minPrice", minPrice);
+	    params.put("maxPrice", maxPrice);
+	    List<SimpleItemResponseVO> list = itemDAO.findOrderByPriceDesc(params);
+	    
+		return list;
+	}
+
+	public List<SimpleItemResponseVO> searchItemOrderByFavoriteDesc(String title, int minPrice, int maxPrice, int page,
+			int pageSize) {
+		
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("search", title);
+		params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+	    params.put("minPrice", minPrice);
+	    params.put("maxPrice", maxPrice);
+	    List<SimpleItemResponseVO> list = itemDAO.findOrderByFavoriteDesc(params);
+	    
+		return list;
+	}
 }

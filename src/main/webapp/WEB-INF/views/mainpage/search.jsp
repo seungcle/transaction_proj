@@ -62,9 +62,9 @@
 
 		<div class="d-flex justify-content-end align-items-center mb-3">
 			<a href="${pageContext.request.contextPath}/item/search/latest?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-dark fw-bold small me-3">최신순</a>
-			<a href="#" class="text-decoration-none text-muted small me-3">추천순</a>
+			<a href="${pageContext.request.contextPath}/item/search/favorite?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-muted small me-3">추천순</a>
 			<a href="${pageContext.request.contextPath}/item/search/low?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-muted small me-3">낮은가격순</a>
-			<a href="#" class="text-decoration-none text-muted small">높은가격순</a>
+			<a href="${pageContext.request.contextPath}/item/search/high?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-muted small">높은가격순</a>
 		</div>
 
 		<div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">

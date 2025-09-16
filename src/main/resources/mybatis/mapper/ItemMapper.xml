@@ -183,6 +183,68 @@
 	    FETCH NEXT 
 	        #{pageSize} ROWS ONLY
 	</select>
+	<select id="findOrderByPriceDesc" parameterType="map" resultType="SimpleItemResponseVO">
+	    SELECT 
+	        i.id, 
+	        i.title, 
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, 
+	        i.end_time AS endTime,
+	        i.status, 
+	        i.created_at AS createdAt,
+	        (
+	            SELECT ii.image_url
+	            FROM item_image ii
+	            WHERE ii.item_id = i.id
+	            ORDER BY ii.id ASC
+	            FETCH FIRST 1 ROW ONLY
+	        ) AS imageUrl
+	    FROM 
+	        item i
+	    WHERE
+	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' and i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	    ORDER BY 
+	        i.current_price DESC
+	    OFFSET 
+	        #{offset} ROWS
+	    FETCH NEXT 
+	        #{pageSize} ROWS ONLY
+	</select>
+	<select id="findOrderByFavoriteDesc" parameterType="map" resultType="SimpleItemResponseVO">
+    SELECT
+        i.id,
+        i.title,
+        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice,
+        i.end_time AS endTime,
+        i.status,
+        i.created_at AS createdAt,
+        (
+            SELECT ii.image_url
+            FROM item_image ii
+            WHERE ii.item_id = i.id
+            ORDER BY ii.id ASC
+            FETCH FIRST 1 ROW ONLY
+        ) AS imageUrl,
+        COUNT(f.id) AS favoriteCount
+    FROM
+        item i
+        LEFT JOIN favorite f ON i.id = f.item_id
+    WHERE
+        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%'
+        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+    GROUP BY
+        i.id,
+        i.title,
+        i.current_price,
+        i.end_time,
+        i.status,
+        i.created_at
+    ORDER BY
+        favoriteCount DESC
+    OFFSET
+        #{offset} ROWS
+    FETCH NEXT
+        #{pageSize} ROWS ONLY
+</select>
 </mapper>
 
 

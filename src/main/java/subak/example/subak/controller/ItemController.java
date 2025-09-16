@@ -128,4 +128,33 @@ public class ItemController {
 		return "mainpage/search";
 	}
 	
+	// 높은가격순
+	@GetMapping("/search/high")
+	public String higherPricePage(@RequestParam(required = false) String title,
+			   					 @RequestParam(defaultValue = "0") int minPrice,
+			   					 @RequestParam(defaultValue = "999999999") int maxPrice,
+			   					 @RequestParam(defaultValue = "1") int page,
+			   					 Model model) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceDesc(title, minPrice, maxPrice, page, pageSize);
+		model.addAttribute("list", list);
+		
+		return "mainpage/search";
+	}
+	
+	// 추천순
+	@GetMapping("/search/favorite")
+	public String Page(@RequestParam(required = false) String title,
+			   					 @RequestParam(defaultValue = "0") int minPrice,
+			   					 @RequestParam(defaultValue = "999999999") int maxPrice,
+			   					 @RequestParam(defaultValue = "1") int page,
+			   					 Model model) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByFavoriteDesc(title, minPrice, maxPrice, page, pageSize);
+		model.addAttribute("list", list);
+		
+		return "mainpage/search";
+	}
 }

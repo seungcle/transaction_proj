@@ -14,8 +14,8 @@
 </head>
 <body>
     <div id="chat-data" 
-         data-room-id="${roomId}" 
-         data-user-id="${user.id}" 
+         data-room-id="1" 
+         data-id="${user.id}" 
          data-nickname="${user.nickname}">
     </div>
 
@@ -44,9 +44,10 @@
     // 전역 변수 선언
     let stompClient = null;
     const chatData = document.getElementById('chat-data');
-    const roomId = chatData.dataset.roomId;
-    const currentUserId = chatData.dataset.userId;
+    const roomId = 1;
+    const currentUserId = chatData.dataset.id;
     const currentUserNickname = chatData.dataset.nickname;
+    console.log(currentUserId);
 
     const chatList = document.getElementById('chat-list');
     const messageInput = document.getElementById('chat-message-input');
@@ -73,7 +74,7 @@
 
     // 1. 웹소켓 연결
     function connect() {
-        const socket = new SockJS('/ws'); // 백엔드 STOMP 엔드포인트
+        const socket = new SockJS('${pageContext.request.contextPath}/ws'); // 백엔드 STOMP 엔드포인트
         stompClient = Stomp.over(socket);
         stompClient.connect({}, onConnected, onError);
     }
@@ -96,7 +97,6 @@
                 userId: currentUserId,
                 nickname: currentUserNickname,
                 message: messageContent
-                // roomId는 DTO에 포함시키지 않고 경로로 전달합니다.
             };
             
             stompClient.send('/app/chat/' + roomId, {}, JSON.stringify(chatRequest));

@@ -1,6 +1,6 @@
 package subak.example.subak.domain;
 
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +14,5 @@ public class ChatRequestDTO {
 	private Long roomId;
 	private Long userId;
 	private String nickname;
-	private LocalDateTime createdAt;
+	private Timestamp createdAt;
 }

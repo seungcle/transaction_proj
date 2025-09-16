@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import subak.example.subak.domain.BidDTO;
 import subak.example.subak.domain.ItemImageDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
@@ -18,6 +19,8 @@ public interface ItemDAO {
 	ItemResponseDTO findItemById(Long id);
 	
 	boolean insertItem(ItemRequestDTO dto);
+	
+	boolean insertBid(BidDTO dto);
 	
 	boolean insertItemImage(ItemImageDTO dto);
 

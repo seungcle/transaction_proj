@@ -51,6 +51,11 @@
 	    VALUES (#{title}, #{text}, #{startPrice}, #{currentPrice}, sysdate + #{duration}, sysdate, #{status}, #{sellerId}, #{categoryId})
 	</insert>
 	
+	<insert id="insertBid" parameterType = "subak.example.subak.domain.BidDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO bid (bid_price, created_at, bid_item_id, bid_user_id)
+        VALUES (#{bidPrice}, sysdate, #{bidItemId}, #{bidUserId}) 
+    </insert>
+	
 	<insert id="insertItemImage" parameterType="ItemImageDTO">
 	    INSERT INTO item_image (image_url, created_at, item_id)
 	    VALUES (#{imageUrl},sysdate, #{itemId})

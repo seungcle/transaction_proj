@@ -135,187 +135,195 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const form = document.getElementById('registerForm');
-			const usernameInput = document.getElementById('username');
-			const nicknameInput = document.getElementById('nickname');
-			const emailInput = document.getElementById('email');
-			const authCodeInput = document.getElementById('authCode');
-			const checkUsernameBtn = document.getElementById('checkUsername');
-			const checkNicknameBtn = document.getElementById('checkNickname');
-			const sendEmailBtn = document.getElementById('sendEmailBtn');
-			const verifyEmailBtn = document.getElementById('verifyEmailBtn');
-			const usernameFeedback = document.getElementById('usernameFeedback');
-			const nicknameFeedback = document.getElementById('nicknameFeedback');
-			const emailFeedback = document.getElementById('emailFeedback');
-			const authCodeFeedback = document.getElementById('authCodeFeedback');
-			const submitBtn = document.getElementById('submitBtn');
-			const authCodeRow = document.getElementById('authCodeRow');
-			
-			// 인증 상태 변수
-			let isUsernameChecked = false;
-			let isNicknameChecked = false;
-			let isEmailVerified = false;
+	document.addEventListener('DOMContentLoaded', function() {
+	    const form = document.getElementById('registerForm');
+	    const usernameInput = document.getElementById('username');
+	    const nicknameInput = document.getElementById('nickname');
+	    const emailInput = document.getElementById('email');
+	    const authCodeInput = document.getElementById('authCode');
+	    const checkUsernameBtn = document.getElementById('checkUsername');
+	    const checkNicknameBtn = document.getElementById('checkNickname');
+	    const sendEmailBtn = document.getElementById('sendEmailBtn');
+	    const verifyEmailBtn = document.getElementById('verifyEmailBtn');
+	    const usernameFeedback = document.getElementById('usernameFeedback');
+	    const nicknameFeedback = document.getElementById('nicknameFeedback');
+	    const emailFeedback = document.getElementById('emailFeedback');
+	    const authCodeFeedback = document.getElementById('authCodeFeedback');
+	    const submitBtn = document.getElementById('submitBtn');
+	    const authCodeRow = document.getElementById('authCodeRow');
 
-			// 아이디 중복 확인
-			checkUsernameBtn.addEventListener('click', function() {
-				const username = usernameInput.value;
-				if (username.length < 4) {
-					usernameFeedback.innerHTML = '<span class="text-danger">아이디는 4자 이상이어야 합니다.</span>';
-					isUsernameChecked = false;
-					updateSubmitButtonState();
-					return;
-				}
+	    // 인증 상태 변수
+	    let isUsernameChecked = false;
+	    let isNicknameChecked = false;
+	    let isEmailVerified = false;
 
-				// 서버 통신 (가상)
-				setTimeout(function() {
-					if (username === 'testuser') {
-						usernameFeedback.innerHTML = '<span class="text-danger">이미 사용 중인 아이디입니다.</span>';
-						isUsernameChecked = false;
-					} else {
-						usernameFeedback.innerHTML = '<span class="text-success">사용 가능한 아이디입니다.</span>';
-						isUsernameChecked = true;
-					}
-					updateSubmitButtonState();
-				}, 500);
-			});
+	    // 아이디 중복 확인
+	    checkUsernameBtn.addEventListener('click', function() {
+	        const username = usernameInput.value.trim();
+	        if (username.length < 4) {
+	            usernameFeedback.innerHTML = '<span class="text-danger">아이디는 4자 이상이어야 합니다.</span>';
+	            isUsernameChecked = false;
+	            updateSubmitButtonState();
+	            return;
+	        }
 
-			// 닉네임 중복 확인
-			checkNicknameBtn.addEventListener('click', function() {
-				const nickname = nicknameInput.value;
-				if (nickname.length < 2) {
-					nicknameFeedback.innerHTML = '<span class="text-danger">닉네임은 2자 이상이어야 합니다.</span>';
-					isNicknameChecked = false;
-					updateSubmitButtonState();
-					return;
-				}
+	        const xhr = new XMLHttpRequest();
+	        xhr.open('POST', '${pageContext.request.contextPath}/ajax/checkUsername', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === XMLHttpRequest.DONE) {
+	                if (xhr.status === 200) {
+	                    const response = xhr.responseText.trim();
+	                    if (response === 'exists') {
+	                        usernameFeedback.innerHTML = '<span class="text-danger">이미 사용 중인 아이디입니다.</span>';
+	                        isUsernameChecked = false;
+	                    } else {
+	                        usernameFeedback.innerHTML = '<span class="text-success">사용 가능한 아이디입니다.</span>';
+	                        isUsernameChecked = true;
+	                    }
+	                    updateSubmitButtonState();
+	                }
+	            }
+	        };
+	        xhr.send('username=' + encodeURIComponent(username));
+	    });
 
-				// 서버 통신 (가상)
-				setTimeout(function() {
-					if (nickname === 'testnick') {
-						nicknameFeedback.innerHTML = '<span class="text-danger">이미 사용 중인 닉네임입니다.</span>';
-						isNicknameChecked = false;
-					} else {
-						nicknameFeedback.innerHTML = '<span class="text-success">사용 가능한 닉네임입니다.</span>';
-						isNicknameChecked = true;
-					}
-					updateSubmitButtonState();
-				}, 500);
-			});
-			
-			// 이메일 인증번호 전송 (실제 서버 통신)
-			sendEmailBtn.addEventListener('click', function() {
-				const email = emailInput.value;
-				if (!email) {
-					emailFeedback.innerHTML = '<span class="text-danger">이메일을 입력하세요.</span>';
-					return;
-				}
-				const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-				if (!emailRegex.test(email)) {
-					emailFeedback.innerHTML = '<span class="text-danger">유효한 이메일 형식이 아닙니다.</span>';
-					return;
-				}
+	    // 닉네임 중복 확인
+	    checkNicknameBtn.addEventListener('click', function() {
+	        const nickname = nicknameInput.value.trim();
+	        if (nickname.length < 2) {
+	            nicknameFeedback.innerHTML = '<span class="text-danger">닉네임은 2자 이상이어야 합니다.</span>';
+	            isNicknameChecked = false;
+	            updateSubmitButtonState();
+	            return;
+	        }
 
-				emailFeedback.innerHTML = '<span class="text-muted">인증번호를 전송 중입니다...</span>';
+	        const xhr = new XMLHttpRequest();
+	        xhr.open('POST', '${pageContext.request.contextPath}/ajax/checkNickname', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === XMLHttpRequest.DONE) {
+	                if (xhr.status === 200) {
+	                    const response = xhr.responseText.trim();
+	                    if (response === 'exists') {
+	                        nicknameFeedback.innerHTML = '<span class="text-danger">이미 사용 중인 닉네임입니다.</span>';
+	                        isNicknameChecked = false;
+	                    } else {
+	                        nicknameFeedback.innerHTML = '<span class="text-success">사용 가능한 닉네임입니다.</span>';
+	                        isNicknameChecked = true;
+	                    }
+	                    updateSubmitButtonState();
+	                }
+	            }
+	        };
+	        xhr.send('nickname=' + encodeURIComponent(nickname));
+	    });
 
-				const xhr = new XMLHttpRequest();
-				xhr.open('POST', '${pageContext.request.contextPath}/ajax/sendAuthEmail', true);
-				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	    // 이메일 인증번호 전송
+	    sendEmailBtn.addEventListener('click', function() {
+	        const email = emailInput.value.trim();
+	        if (!email) {
+	            emailFeedback.innerHTML = '<span class="text-danger">이메일을 입력하세요.</span>';
+	            return;
+	        }
+	        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	        if (!emailRegex.test(email)) {
+	            emailFeedback.innerHTML = '<span class="text-danger">유효한 이메일 형식이 아닙니다.</span>';
+	            return;
+	        }
 
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState === XMLHttpRequest.DONE) {
-						if (xhr.status === 200) {
-							const response = xhr.responseText.trim();
-							if (response === 'success') {
-								emailFeedback.innerHTML = '<span class="text-success">인증번호가 이메일로 전송되었습니다.</span>';
-								authCodeRow.style.display = 'table-row';
-								isEmailVerified = false;
-							} else {
-								emailFeedback.innerHTML = '<span class="text-danger">인증번호 전송에 실패했습니다.</span>';
-							}
-						} else {
-							emailFeedback.innerHTML = '<span class="text-danger">서버 오류가 발생했습니다.</span>';
-						}
-						updateSubmitButtonState();
-					}
-				};
-				xhr.send('email=' + encodeURIComponent(email));
-			});
+	        emailFeedback.innerHTML = '<span class="text-muted">인증번호를 전송 중입니다...</span>';
 
-			// 인증번호 확인 (실제 서버 통신)
-			verifyEmailBtn.addEventListener('click', function() {
-				const inputAuthCode = authCodeInput.value;
-				if (!inputAuthCode) {
-					authCodeFeedback.innerHTML = '<span class="text-danger">인증번호를 입력하세요.</span>';
-					isEmailVerified = false;
-					updateSubmitButtonState();
-					return;
-				}
-				
-				const xhr = new XMLHttpRequest();
-				xhr.open('POST', '${pageContext.request.contextPath}/ajax/verifyAuthCode', true);
-				xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-				
-				xhr.onreadystatechange = function() {
-					if (xhr.readyState === XMLHttpRequest.DONE) {
-						if (xhr.status === 200) {
-							const response = xhr.responseText.trim();
-							if (response === 'success') {
-								authCodeFeedback.innerHTML = '<span class="text-success">인증 성공!</span>';
-								isEmailVerified = true;
-								
-								// 이메일 입력 필드 비활성화 및 인증창 숨기기
-								emailInput.disabled = true;
-								sendEmailBtn.disabled = true;
-								authCodeRow.style.display = 'none';
-								
-							} else {
-								authCodeFeedback.innerHTML = '<span class="text-danger">인증번호가 일치하지 않습니다.</span>';
-								isEmailVerified = false;
-							}
-							updateSubmitButtonState();
-						} else {
-							authCodeFeedback.innerHTML = '<span class="text-danger">서버 오류가 발생했습니다.</span>';
-						}
-					}
-				};
-				xhr.send('authCode=' + encodeURIComponent(inputAuthCode));
-			});
-			
-			// 입력창 내용 변경 시 상태 초기화
-			usernameInput.addEventListener('input', function() {
-				isUsernameChecked = false;
-				usernameFeedback.innerHTML = '';
-				updateSubmitButtonState();
-			});
+	        const xhr = new XMLHttpRequest();
+	        xhr.open('POST', '${pageContext.request.contextPath}/ajax/sendAuthEmail', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === XMLHttpRequest.DONE) {
+	                if (xhr.status === 200) {
+	                    const response = xhr.responseText.trim();
+	                    if (response === 'success') {
+	                        emailFeedback.innerHTML = '<span class="text-success">인증번호가 이메일로 전송되었습니다.</span>';
+	                        authCodeRow.style.display = 'table-row';
+	                        isEmailVerified = false;
+	                    } else {
+	                        emailFeedback.innerHTML = '<span class="text-danger">인증번호 전송에 실패했습니다.</span>';
+	                    }
+	                } else {
+	                    emailFeedback.innerHTML = '<span class="text-danger">서버 오류가 발생했습니다.</span>';
+	                }
+	                updateSubmitButtonState();
+	            }
+	        };
+	        xhr.send('email=' + encodeURIComponent(email));
+	    });
 
-			nicknameInput.addEventListener('input', function() {
-				isNicknameChecked = false;
-				nicknameFeedback.innerHTML = '';
-				updateSubmitButtonState();
-			});
+	    // 인증번호 확인
+	    verifyEmailBtn.addEventListener('click', function() {
+	        const inputAuthCode = authCodeInput.value.trim();
+	        if (!inputAuthCode) {
+	            authCodeFeedback.innerHTML = '<span class="text-danger">인증번호를 입력하세요.</span>';
+	            isEmailVerified = false;
+	            updateSubmitButtonState();
+	            return;
+	        }
 
-			emailInput.addEventListener('input', function() {
-				isEmailVerified = false;
-				emailFeedback.innerHTML = '';
-				authCodeFeedback.innerHTML = '';
-				authCodeRow.style.display = 'none';
-				emailInput.disabled = false;
-				sendEmailBtn.disabled = false;
-				updateSubmitButtonState();
-			});
+	        const xhr = new XMLHttpRequest();
+	        xhr.open('POST', '${pageContext.request.contextPath}/ajax/verifyAuthCode', true);
+	        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	        xhr.onreadystatechange = function() {
+	            if (xhr.readyState === XMLHttpRequest.DONE) {
+	                if (xhr.status === 200) {
+	                    const response = xhr.responseText.trim();
+	                    if (response === 'success') {
+	                        authCodeFeedback.innerHTML = '<span class="text-success">인증 성공!</span>';
+	                        isEmailVerified = true;
+	                        emailInput.disabled = true;
+	                        sendEmailBtn.disabled = true;
+	                        authCodeRow.style.display = 'none';
+	                    } else {
+	                        authCodeFeedback.innerHTML = '<span class="text-danger">인증번호가 일치하지 않습니다.</span>';
+	                        isEmailVerified = false;
+	                    }
+	                    updateSubmitButtonState();
+	                } else {
+	                    authCodeFeedback.innerHTML = '<span class="text-danger">서버 오류가 발생했습니다.</span>';
+	                }
+	            }
+	        };
+	        xhr.send('authCode=' + encodeURIComponent(inputAuthCode) + '&email=' + encodeURIComponent(emailInput.value.trim()));
+	    });
 
-			// 가입하기 버튼 상태 업데이트 함수
-			function updateSubmitButtonState() {
-				if (isUsernameChecked && isNicknameChecked && isEmailVerified) {
-					submitBtn.disabled = false;
-				} else {
-					submitBtn.disabled = true;
-				}
-			}
+	    // 입력창 변경 시 상태 초기화
+	    usernameInput.addEventListener('input', function() {
+	        isUsernameChecked = false;
+	        usernameFeedback.innerHTML = '';
+	        updateSubmitButtonState();
+	    });
 
-			updateSubmitButtonState();
-		});
+	    nicknameInput.addEventListener('input', function() {
+	        isNicknameChecked = false;
+	        nicknameFeedback.innerHTML = '';
+	        updateSubmitButtonState();
+	    });
+
+	    emailInput.addEventListener('input', function() {
+	        isEmailVerified = false;
+	        emailFeedback.innerHTML = '';
+	        authCodeFeedback.innerHTML = '';
+	        authCodeRow.style.display = 'none';
+	        emailInput.disabled = false;
+	        sendEmailBtn.disabled = false;
+	        updateSubmitButtonState();
+	    });
+
+	    // 가입하기 버튼
+	    function updateSubmitButtonState() {
+	        submitBtn.disabled = !(isUsernameChecked && isNicknameChecked && isEmailVerified);
+	    }
+
+	    updateSubmitButtonState();
+	});
+
 	</script>
 </body>
 </html>

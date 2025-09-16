@@ -25,4 +25,5 @@ public class FavoriteController {
 		
 		favoriteService.pushFavorite(itemId, session);
 	}
+	
 }

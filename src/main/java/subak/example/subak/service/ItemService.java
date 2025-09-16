@@ -12,12 +12,15 @@ import java.util.UUID;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import subak.example.subak.dao.ItemDAO;
 import subak.example.subak.domain.BidDTO;
+import subak.example.subak.domain.FavoriteDTO;
 import subak.example.subak.domain.ItemImageDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
@@ -226,5 +229,16 @@ public class ItemService {
 	    List<SimpleItemResponseVO> list = itemDAO.findOrderByFavoriteDesc(params);
 	    
 		return list;
+	}
+
+	public void pushBid(Long price,Long itemId, HttpSession session) {
+		SessionUserVO user = (SessionUserVO)session.getAttribute("user");
+		if(user == null)
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+		BidDTO dto = new BidDTO();
+		dto.setBidItemId(itemId);
+		dto.setBidUserId(user.getId());
+		dto.setBidPrice(price);
+		itemDAO.insertBid(dto);
 	}
 }

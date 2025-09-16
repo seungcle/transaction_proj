@@ -1,22 +1,31 @@
 package subak.example.subak.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import subak.example.subak.dao.FavoriteDAO;
+import subak.example.subak.domain.BidDTO;
+import subak.example.subak.domain.FavoriteDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
+import subak.example.subak.domain.SessionUserVO;
 import subak.example.subak.domain.SimpleItemResponseVO;
 import subak.example.subak.service.ItemService;
 
@@ -26,14 +35,26 @@ public class ItemController {
 
 	@Autowired
 	private ItemService itemService;
+	@Autowired
+	private FavoriteDAO favoriteDAO;
 	
 	// 상품 상세페이지
 	@GetMapping("/{itemId}")
-	public String getItem(@PathVariable Long itemId, Model model) {
+	public String getItem(@PathVariable Long itemId, HttpSession session, Model model) {
 		
 		ItemResponseDTO itemResponseDTO = itemService.getItem(itemId);
 		model.addAttribute("item", itemResponseDTO);
-		
+		SessionUserVO user = (SessionUserVO)session.getAttribute("user");
+		if(user != null) {
+			FavoriteDTO dto = new FavoriteDTO();
+			dto.setItemId(itemId);
+			dto.setUserId(user.getId());
+			int count = favoriteDAO.checkFavoriteExists(dto);
+			if(count > 0)
+				model.addAttribute("isFavorited", true);
+			else
+				model.addAttribute("isFavorited", false);
+		}
 		return "item/item";
 	}
 	
@@ -156,5 +177,12 @@ public class ItemController {
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";
+	}
+	
+	@PostMapping("/{itemId}/bid")
+	@ResponseBody
+	public void UpdateBidPrice(@PathVariable Long price,Long itemId, HttpSession session, Model model) {
+		
+		itemService.pushBid(price, itemId, session);
 	}
 }

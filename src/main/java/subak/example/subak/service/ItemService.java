@@ -166,4 +166,20 @@ public class ItemService {
 	    List<SimpleItemResponseVO> list = itemDAO.findOrderByPriceAsc(params);
 		return list;
 	}
+
+	public List<SimpleItemResponseVO> searchItemOrderByIdDesc(String title, int minPrice, int maxPrice, int page,
+			int pageSize) {
+		
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("search", title);
+		params.put("offset", offset);
+	    params.put("pageSize", pageSize);
+	    params.put("minPrice", minPrice);
+	    params.put("maxPrice", maxPrice);
+	    List<SimpleItemResponseVO> list = itemDAO.findOrderByIdDesc(params);
+	    
+		return list;
+	}
 }

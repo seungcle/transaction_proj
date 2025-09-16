@@ -28,4 +28,6 @@ public interface ItemDAO {
 	List<SimpleItemResponseVO> findByTitleContainingIgnoreCaseWithPrice(Map<String, Object> params);
 
 	List<SimpleItemResponseVO> findOrderByPriceAsc(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findOrderByIdDesc(Map<String, Object> params);
 }

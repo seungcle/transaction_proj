@@ -48,10 +48,10 @@
 					<div class="col-md-7 col-lg-5">
 						<div class="input-group input-group-sm">
 							<input type="text" class="form-control priceInput"
-								name="minPrice" placeholder="최소 가격"> <span
+								name="minPrice" placeholder="최소 가격" value="${param.minPrice}"> <span
 								class="input-group-text">~</span> <input type="text"
 								class="form-control priceInput" name="maxPrice"
-								placeholder="최대 가격">
+								placeholder="최대 가격" value="${param.maxPrice}">
 							<button class="btn btn-dark">적용</button>
 
 						</div>
@@ -61,16 +61,16 @@
 		</div>
 
 		<div class="d-flex justify-content-end align-items-center mb-3">
-			<a href="#" class="text-decoration-none text-dark fw-bold small me-3">추천순</a>
-			<a href="#" class="text-decoration-none text-muted small me-3">최신순</a>
-			<a href="#" class="text-decoration-none text-muted small me-3">낮은가격순</a>
+			<a href="${pageContext.request.contextPath}/item/search/latest?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-dark fw-bold small me-3">최신순</a>
+			<a href="#" class="text-decoration-none text-muted small me-3">추천순</a>
+			<a href="${pageContext.request.contextPath}/item/search/low?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-muted small me-3">낮은가격순</a>
 			<a href="#" class="text-decoration-none text-muted small">높은가격순</a>
 		</div>
 
 		<div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">
-
-			<div class="col">
-				<c:forEach var="item" items="${list}">
+	
+			<c:forEach var="item" items="${list}">
+				<div class="col">
 					<a href="${pageContext.request.contextPath}/item/${item.id}"
 						class="text-decoration-none">
 						<div class="product-card">
@@ -88,8 +88,8 @@
 							</div>
 						</div>
 					</a>
-				</c:forEach>
-			</div>
+				</div>
+			</c:forEach>
 		</div>
 	</div>
 	<jsp:include page="../component/footer.jsp" />

@@ -98,6 +98,21 @@ public class ItemController {
 		return "mainpage/search";
 	}
 	
+	// 최신순
+	@GetMapping("/search/latest")
+	public String latestPage(@RequestParam(required = false) String title,
+				 @RequestParam(defaultValue = "0") int minPrice,
+				 @RequestParam(defaultValue = "999999999") int maxPrice,
+				 @RequestParam(defaultValue = "1") int page,
+				 Model model) {
+
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByIdDesc(title, minPrice, maxPrice, page, pageSize);
+		model.addAttribute("list", list);
+
+		return "mainpage/search";
+	}
+	
 	// 낮은가격순
 	@GetMapping("/search/low")
 	public String lowerPricePage(@RequestParam(required = false) String title,

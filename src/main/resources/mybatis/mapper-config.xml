@@ -15,6 +15,5 @@
 		<typeAlias alias="ItemRequestDTO" type="subak.example.subak.domain.ItemRequestDTO" />
 		<typeAlias alias="ItemImageDTO" type="subak.example.subak.domain.ItemImageDTO" />
 		<typeAlias alias="UserInfoVO" type="subak.example.subak.domain.UserInfoVO" />		
-		<typeAlias alias="FavoriteDTO" type="subak.example.subak.domain.FavoriteDTO" />		
 	</typeAliases>
 </configuration>

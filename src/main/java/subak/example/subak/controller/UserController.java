@@ -44,8 +44,7 @@ public class UserController {
 	    	response.put("message", "로그인 상태가 아닙니다. 로그인 해주세요.");
 	    	return response;
 	    }
-	    boolean is 
-	    else if()
+	    
 		return response;
 	}
 	

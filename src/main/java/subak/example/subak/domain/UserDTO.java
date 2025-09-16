@@ -15,4 +15,6 @@ public class UserDTO {
 	private String email;
 	private String nickname;
 	private Timestamp createdAt;
+	private String bio;
+	private String image_url;
 }

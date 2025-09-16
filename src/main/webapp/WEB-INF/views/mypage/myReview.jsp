@@ -62,10 +62,11 @@
 .offcanvas-title {
 	font-weight: bold;
 }
-.review-item-buttons {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+/* 수정 버튼과 날짜가 겹치지 않도록 flex를 사용 */
+.written-review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .empty-placeholder {
 	text-align: center;
@@ -148,10 +149,16 @@
 							</div>
 						<% } else { %>
 							<% for (Map<String, Object> review : writtenReviews) { %>
-								<div class="review-item mb-4 pb-3 border-bottom position-relative" data-review-id="<%= review.get("reviewId") %>" data-review-content="<%= review.get("content") %>">
-									<div class="d-flex justify-content-between align-items-center mb-2">
+								<div class="review-item mb-4 pb-3 border-bottom"
+									data-review-id="<%= review.get("reviewId") %>"
+									data-review-content="<%= review.get("content") %>"
+									data-review-rating="<%= review.get("rating") %>">
+									<div class="written-review-header">
 										<h6 class="mb-0 fw-bold"><%= review.get("reviewee") %>에게 남긴 후기</h6>
-										<small class="text-muted"><%= review.get("date") %></small>
+										<div class="d-flex align-items-center gap-2">
+											<small class="text-muted"><%= review.get("date") %></small>
+											<button class="btn btn-outline-secondary btn-sm" onclick="editWrittenReview(this)">수정</button>
+										</div>
 									</div>
 									<small class="d-block text-muted mb-2">상품: <%= review.get("productName") %></small>
 									<div class="review-stars mb-2">
@@ -166,9 +173,6 @@
 										<% } %>
 									</div>
 									<p class="text-muted"><%= review.get("content") %></p>
-									<div class="review-item-buttons">
-										<button class="btn btn-outline-secondary btn-sm" onclick="editWrittenReview(this)">수정</button>
-									</div>
 								</div>
 							<% } %>
 						<% } %>
@@ -207,6 +211,7 @@
 		<i class="bi bi-arrow-up"></i>
 	</button>
 
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
 	  const offcanvas = document.getElementById('myReviewOffcanvas');
 	  const views = {
@@ -244,8 +249,8 @@
 	  function editWrittenReview(buttonElement) {
 		const reviewItem = buttonElement.closest('.review-item');
 		const reviewId = reviewItem.dataset.reviewId;
-		const content = reviewItem.querySelector('p.text-muted').textContent;
-		const rating = reviewItem.querySelector('.review-stars').querySelectorAll('i.bi-star-fill').length;
+		const content = reviewItem.dataset.reviewContent;
+		const rating = parseInt(reviewItem.dataset.reviewRating);
 
 		// 폼에 데이터 채우기
 		formReviewId.value = reviewId;

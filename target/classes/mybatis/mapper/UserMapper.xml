@@ -29,6 +29,11 @@
     	from "user"
     	where id = #{id}
     </select>
+    
+    <!--  비밀번호 확인 -->
+    <select id="getPasswordByUserId" resultType="String">
+    	SELECT password FROM user WHERE id = #{id}
+    </select>
 </mapper>
 
 

@@ -40,21 +40,21 @@
 
 		<hr>
 
-		<div class="info-section d-flex justify-content-between align-items-center mb-4" id="introDisplay">
+		<div class="info-section d-flex justify-content-between align-items-center mb-4" id="BioDisplay">
 			<div>
 				<p class="text-muted mb-0">한줄소개</p>
-				<h6 id="currentIntro" class="fw-bold text-dark">친절하고 안전한 거래를 약속합니다.</h6>
+				<h6 id="currentbio" class="fw-bold text-dark">친절하고 안전한 거래를 약속합니다.</h6>
 			</div>
-			<button class="btn btn-sm btn-outline-secondary" id="editIntroBtn">수정</button>
+			<button class="btn btn-sm btn-outline-secondary" id="editBioBtn">수정</button>
 		</div>
-		<div class="edit-section" id="introEdit" style="display: none;">
-			<label for="introInput" class="form-label">새 한줄소개</label>
+		<div class="edit-section" id="BioEdit" style="display: none;">
+			<label for="BioInput" class="form-label">새 한줄소개</label>
 			<div class="d-flex gap-2 mb-2">
-				<input type="text" class="form-control form-control-sm" id="introInput" placeholder="한줄소개" value="친절하고 안전한 거래를 약속합니다.">
+				<input type="text" class="form-control form-control-sm" id="bioInput" placeholder="한줄소개" value="친절하고 안전한 거래를 약속합니다.">
 			</div>
 			<div class="d-flex gap-2 justify-content-end">
-				<button class="btn btn-sm btn-success" id="saveIntroBtn">저장</button>
-				<button class="btn btn-sm btn-secondary" id="cancelIntroBtn">취소</button>
+				<button class="btn btn-sm btn-success" id="saveBioBtn">저장</button>
+				<button class="btn btn-sm btn-secondary" id="cancelBioBtn">취소</button>
 			</div>
 		</div>
 
@@ -109,7 +109,7 @@
 		setupEditSection('nickname');
 		
 		// 한줄소개 수정
-		setupEditSection('intro');
+		setupEditSection('bio');
 
 		// 비밀번호 변경
 		setupEditSection('password');
@@ -179,7 +179,7 @@
 				
 				if (isValid) {
 					// 서버 통신 성공 가정
-					if (sectionName === 'nickname' || sectionName === 'intro') {
+					if (sectionName === 'nickname' || sectionName === 'bio') {
 						currentText.textContent = inputField.value;
 					}
 					alert(sectionName === 'password' ? '비밀번호가 변경되었습니다!' : '정보가 수정되었습니다!');

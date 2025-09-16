@@ -39,8 +39,9 @@
 							상품</a>
 						<hr>
 						<span class="text-muted ps-2 mb-2 fw-bold">내 정보</span> <a
-							class="nav-link" href="#" data-bs-toggle="offcanvas"
-							data-bs-target="#myInfoOffcanvas" aria-controls="myInfoOffcanvas"><i
+							class="nav-link" href="#" data-bs-toggle="modal"
+							data-bs-target="#passwordConfirmModal"
+							aria-controls="myInfoOffcanvas"><i
 							class="bi bi-person-gear"></i>개인정보 수정</a> <a class="nav-link"
 							href="#" data-bs-toggle="offcanvas"
 							data-bs-target="#myAddressOffcanvas"
@@ -142,6 +143,29 @@
 		</div>
 	</div>
 	
+	<div class="modal fade" id="passwordConfirmModal" tabindex="-1" aria-labelledby="passwordConfirmModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="passwordConfirmModalLabel">비밀번호 확인</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<p class="text-muted small">개인정보 보호를 위해 비밀번호를 다시 한 번 입력해 주세요.</p>
+					<div class="mb-3">
+						<label for="confirmPasswordInput" class="form-label visually-hidden">비밀번호</label>
+						<input type="password" class="form-control" id="confirmPasswordInput" placeholder="비밀번호" required>
+						<div class="invalid-feedback d-block" id="passwordConfirmFeedback" style="display: none;"></div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+					<button type="button" class="btn btn-success" id="confirmPasswordBtn">확인</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 	<div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -223,167 +247,221 @@
 	<jsp:include page="withdraw.jsp" />
 	<jsp:include page="myInfo.jsp" />
 	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // 후기 태그와 매핑된 한글 이름
-        const tagMap = {
-            'same': '사진과 실물이 동일',
-            'detail': '상세설명 정확',
-            'good-state': '상품 상태 좋음',
-            'quick-deal': '신속한 거래',
-            'quick-reply': '빠른 응대',
-            'smooth-comm': '원활한 소통',
-            'careful-pack': '꼼꼼한 포장',
-            'on-time': '약속 준수',
-            'again': '또 입찰하고 싶어요'
-        };
-        
-        // 후기 작성 모달 관련 JavaScript
-        const reviewModal = document.getElementById('reviewModal');
-        const ratingStars = document.getElementById('ratingStars');
-        const submitReviewBtn = document.getElementById('submitReviewBtn');
-        let selectedRating = 0;
+    document.addEventListener('DOMContentLoaded', function() {
+        // 후기 태그와 매핑된 한글 이름
+        const tagMap = {
+            'same': '사진과 실물이 동일',
+            'detail': '상세설명 정확',
+            'good-state': '상품 상태 좋음',
+            'quick-deal': '신속한 거래',
+            'quick-reply': '빠른 응대',
+            'smooth-comm': '원활한 소통',
+            'careful-pack': '꼼꼼한 포장',
+            'on-time': '약속 준수',
+            'again': '또 입찰하고 싶어요'
+        };
+        
+        // 후기 작성 모달 관련 JavaScript
+        const reviewModal = document.getElementById('reviewModal');
+        const ratingStars = document.getElementById('ratingStars');
+        const submitReviewBtn = document.getElementById('submitReviewBtn');
+        let selectedRating = 0;
 
-        reviewModal.addEventListener('show.bs.modal', function(event) {
-            const button = event.relatedTarget;
-            // 버튼을 클릭해서 모달이 열린 경우(신규 작성)에만 아래 로직 실행
-            if (button) { 
-                const productId = button.getAttribute('data-product-id');
-                const productName = button.getAttribute('data-product-name');
-                
-                document.getElementById('productName').textContent = productName;
-                document.getElementById('productIdInput').value = productId;
-                
-                // 폼 초기화
-                selectedRating = 0;
-                updateStars();
-                document.getElementById('reviewTextarea').value = '';
-                document.querySelectorAll('#reviewTags .btn-check').forEach(checkbox => checkbox.checked = false);
-            }
-        });
+        reviewModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            // 버튼을 클릭해서 모달이 열린 경우(신규 작성)에만 아래 로직 실행
+            if (button) { 
+                const productId = button.getAttribute('data-product-id');
+                const productName = button.getAttribute('data-product-name');
+                
+                document.getElementById('productName').textContent = productName;
+                document.getElementById('productIdInput').value = productId;
+                
+                // 폼 초기화
+                selectedRating = 0;
+                updateStars();
+                document.getElementById('reviewTextarea').value = '';
+                document.querySelectorAll('#reviewTags .btn-check').forEach(checkbox => checkbox.checked = false);
+            }
+        });
 
-        ratingStars.addEventListener('click', function(event) {
-            const target = event.target;
-            if (target.tagName === 'I') {
-                selectedRating = target.getAttribute('data-rating');
-                updateStars();
-            }
-        });
+        ratingStars.addEventListener('click', function(event) {
+            const target = event.target;
+            if (target.tagName === 'I') {
+                selectedRating = target.getAttribute('data-rating');
+                updateStars();
+            }
+        });
 
-        function updateStars() {
-            const stars = ratingStars.querySelectorAll('i');
-            stars.forEach(star => {
-                if (star.getAttribute('data-rating') <= selectedRating) {
-                    star.classList.replace('bi-star', 'bi-star-fill');
-                } else {
-                    star.classList.replace('bi-star-fill', 'bi-star');
-                }
-            });
-            document.getElementById('ratingInput').value = selectedRating;
-        }
+        function updateStars() {
+            const stars = ratingStars.querySelectorAll('i');
+            stars.forEach(star => {
+                if (star.getAttribute('data-rating') <= selectedRating) {
+                    star.classList.replace('bi-star', 'bi-star-fill');
+                } else {
+                    star.classList.replace('bi-star-fill', 'bi-star');
+                }
+            });
+            document.getElementById('ratingInput').value = selectedRating;
+        }
 
-        submitReviewBtn.addEventListener('click', function() {
-            const productId = document.getElementById('productIdInput').value;
-            const rating = document.getElementById('ratingInput').value;
-            const reviewText = document.getElementById('reviewTextarea').value;
-            const selectedTags = Array.from(document.querySelectorAll('#reviewTags .btn-check:checked')).map(tag => tag.value);
+        submitReviewBtn.addEventListener('click', function() {
+            const productId = document.getElementById('productIdInput').value;
+            const rating = document.getElementById('ratingInput').value;
+            const reviewText = document.getElementById('reviewTextarea').value;
+            const selectedTags = Array.from(document.querySelectorAll('#reviewTags .btn-check:checked')).map(tag => tag.value);
 
-            if (rating === "0" || reviewText.trim() === "") {
-                alert("별점과 후기 내용을 모두 입력해주세요.");
-                return;
-            }
+            if (rating === "0" || reviewText.trim() === "") {
+                alert("별점과 후기 내용을 모두 입력해주세요.");
+                return;
+            }
 
-            console.log(`상품 ID: ${productId}, 별점: ${rating}, 태그: ${selectedTags.join(', ')}, 후기: "${reviewText}"`);
-            
-            alert("후기가 성공적으로 등록되었습니다!");
-            
-            const reviewModalInstance = bootstrap.Modal.getInstance(reviewModal);
-            reviewModalInstance.hide();
-        });
+            console.log(`상품 ID: ${productId}, 별점: ${rating}, 태그: ${selectedTags.join(', ')}, 후기: "${reviewText}"`);
+            
+            alert("후기가 성공적으로 등록되었습니다!");
+            
+            const reviewModalInstance = bootstrap.Modal.getInstance(reviewModal);
+            reviewModalInstance.hide();
+        });
 
-        // 후기 보기 모달 관련 JavaScript
-        const viewReviewModal = document.getElementById('viewReviewModal');
-        const editReviewBtn = document.getElementById('editReviewBtn');
-        
-        let currentProductIdForEdit = null;
+        // 후기 보기 모달 관련 JavaScript
+        const viewReviewModal = document.getElementById('viewReviewModal');
+        const editReviewBtn = document.getElementById('editReviewBtn');
+        
+        let currentProductIdForEdit = null;
 
-        viewReviewModal.addEventListener('show.bs.modal', function(event) {
-            const button = event.relatedTarget;
-            const productName = button.getAttribute('data-product-name');
-            const productTags = button.getAttribute('data-product-tags') ? button.getAttribute('data-product-tags').split(',') : [];
-            
-            currentProductIdForEdit = button.getAttribute('data-product-id');
+        viewReviewModal.addEventListener('show.bs.modal', function(event) {
+            const button = event.relatedTarget;
+            const productName = button.getAttribute('data-product-name');
+            const productTags = button.getAttribute('data-product-tags') ? button.getAttribute('data-product-tags').split(',') : [];
+            
+            currentProductIdForEdit = button.getAttribute('data-product-id');
 
-            // 예시 데이터 (서버에서 실제 데이터 가져오는 로직 필요)
-            const reviewData = {
-                rating: 4,
-                reviewText: "거래가 매우 원활했고, 상품도 설명과 같아서 만족스러웠습니다. 좋은 거래 감사합니다!",
-                tags: productTags.length > 0 ? productTags : ['same', 'quick-deal'] // 예시 태그 추가
-            };
+            // 예시 데이터 (서버에서 실제 데이터 가져오는 로직 필요)
+            const reviewData = {
+                rating: 4,
+                reviewText: "거래가 매우 원활했고, 상품도 설명과 같아서 만족스러웠습니다. 좋은 거래 감사합니다!",
+                tags: productTags.length > 0 ? productTags : ['same', 'quick-deal'] // 예시 태그 추가
+            };
 
-            document.getElementById('reviewProductName').textContent = productName;
-            document.getElementById('reviewTextContent').textContent = reviewData.reviewText;
+            document.getElementById('reviewProductName').textContent = productName;
+            document.getElementById('reviewTextContent').textContent = reviewData.reviewText;
 
-            const ratingContainer = document.getElementById('reviewRatingStars');
-            ratingContainer.innerHTML = '';
-            for (let i = 1; i <= 5; i++) {
-                const iconClass = (i <= reviewData.rating) ? 'bi bi-star-fill' : 'bi bi-star';
-                const icon = document.createElement('i');
-                icon.className = iconClass;
-                icon.style.color = (i <= reviewData.rating) ? 'gold' : '#ccc';
-                ratingContainer.appendChild(icon);
-            }
-            
-            const tagsDisplayContainer = document.getElementById('reviewTagsDisplay');
-            tagsDisplayContainer.innerHTML = '';
-            if (reviewData.tags.length > 0) {
-                reviewData.tags.forEach(tagId => {
-                    const tagLabel = tagMap[tagId.trim()] || tagId.trim();
-                    const tagBadge = document.createElement('span');
-                    tagBadge.className = 'badge rounded-pill text-bg-secondary';
-                    tagBadge.textContent = tagLabel;
-                    tagsDisplayContainer.appendChild(tagBadge);
-                });
-            } else {
-                tagsDisplayContainer.innerHTML = '<span class="text-muted">선택된 태그가 없습니다.</span>';
-            }
+            const ratingContainer = document.getElementById('reviewRatingStars');
+            ratingContainer.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                const iconClass = (i <= reviewData.rating) ? 'bi bi-star-fill' : 'bi bi-star';
+                const icon = document.createElement('i');
+                icon.className = iconClass;
+                icon.style.color = (i <= reviewData.rating) ? 'gold' : '#ccc';
+                ratingContainer.appendChild(icon);
+            }
+            
+            const tagsDisplayContainer = document.getElementById('reviewTagsDisplay');
+            tagsDisplayContainer.innerHTML = '';
+            if (reviewData.tags.length > 0) {
+                reviewData.tags.forEach(tagId => {
+                    const tagLabel = tagMap[tagId.trim()] || tagId.trim();
+                    const tagBadge = document.createElement('span');
+                    tagBadge.className = 'badge rounded-pill text-bg-secondary';
+                    tagBadge.textContent = tagLabel;
+                    tagsDisplayContainer.appendChild(tagBadge);
+                });
+            } else {
+                tagsDisplayContainer.innerHTML = '<span class="text-muted">선택된 태그가 없습니다.</span>';
+            }
 
-            const isFromMyPurchases = button.closest('#myPurchasesOffcanvas');
-            if (editReviewBtn) {
-                if (isFromMyPurchases) {
-                    editReviewBtn.style.display = 'inline-block';
-                    
-                    editReviewBtn.onclick = function() {
-                        const viewReviewModalInstance = bootstrap.Modal.getInstance(viewReviewModal);
-                        viewReviewModalInstance.hide();
-                        
-                        // 'reviewModal'을 열기 전, 수정에 필요한 데이터를 직접 설정
-                        document.getElementById('productName').textContent = productName;
-                        document.getElementById('productIdInput').value = currentProductIdForEdit;
-                        document.getElementById('reviewTextarea').value = reviewData.reviewText;
-                        
-                        selectedRating = reviewData.rating;
-                        updateStars();
-                        
-                        document.querySelectorAll('#reviewTags .btn-check').forEach(checkbox => {
-                            checkbox.checked = reviewData.tags.includes(checkbox.value);
-                        });
-                        
-                        // 데이터 설정이 끝난 후 'reviewModal' 열기
-                        const reviewModalInstance = new bootstrap.Modal(reviewModal);
-                        reviewModalInstance.show();
-                        
-                        console.log("수정 모드로 전환 완료");
-                    };
-                } else {
-                    editReviewBtn.style.display = 'none';
-                }
-            }
-        });
+            const isFromMyPurchases = button.closest('#myPurchasesOffcanvas');
+            if (editReviewBtn) {
+                if (isFromMyPurchases) {
+                    editReviewBtn.style.display = 'inline-block';
+                    
+                    editReviewBtn.onclick = function() {
+                        const viewReviewModalInstance = bootstrap.Modal.getInstance(viewReviewModal);
+                        viewReviewModalInstance.hide();
+                        
+                        // 'reviewModal'을 열기 전, 수정에 필요한 데이터를 직접 설정
+                        document.getElementById('productName').textContent = productName;
+                        document.getElementById('productIdInput').value = currentProductIdForEdit;
+                        document.getElementById('reviewTextarea').value = reviewData.reviewText;
+                        
+                        selectedRating = reviewData.rating;
+                        updateStars();
+                        
+                        document.querySelectorAll('#reviewTags .btn-check').forEach(checkbox => {
+                            checkbox.checked = reviewData.tags.includes(checkbox.value);
+                        });
+                        
+                        // 데이터 설정이 끝난 후 'reviewModal' 열기
+                        const reviewModalInstance = new bootstrap.Modal(reviewModal);
+                        reviewModalInstance.show();
+                        
+                        console.log("수정 모드로 전환 완료");
+                    };
+                } else {
+                    editReviewBtn.style.display = 'none';
+                }
+            }
+        });
+
+		// --- 비밀번호 확인 모달 로직 ---
+		const passwordConfirmModal = document.getElementById('passwordConfirmModal');
+		const confirmPasswordBtn = document.getElementById('confirmPasswordBtn');
+		const confirmPasswordInput = document.getElementById('confirmPasswordInput');
+		const passwordConfirmFeedback = document.getElementById('passwordConfirmFeedback');
+		const myInfoOffcanvas = document.getElementById('myInfoOffcanvas');
+
+		// 모달이 열릴 때 입력 필드 초기화
+		passwordConfirmModal.addEventListener('show.bs.modal', function() {
+			confirmPasswordInput.value = '';
+			passwordConfirmInput.classList.remove('is-invalid');
+			passwordConfirmFeedback.style.display = 'none';
+		});
+
+		confirmPasswordBtn.addEventListener('click', async function() {
+			const password = confirmPasswordInput.value;
+			if (password.trim() === '') {
+				passwordConfirmInput.classList.add('is-invalid');
+				passwordConfirmFeedback.textContent = '비밀번호를 입력하세요.';
+				passwordConfirmFeedback.style.display = 'block';
+				return;
+			}
+
+			// 서버에 비밀번호 확인 요청
+			// 이 경로는 실제 서버 API 경로에 맞춰야 합니다.
+			try {
+				const response = await fetch('/api/user?action=verifyPassword', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify({ password: password })
+				});
+				const result = await response.json();
+
+				if (result.success) {
+					// 비밀번호 일치 시, 확인 모달을 닫고 개인정보 수정 오프캔버스 열기
+					const passwordModalInstance = bootstrap.Modal.getInstance(passwordConfirmModal);
+					passwordModalInstance.hide();
+					
+					const infoOffcanvasInstance = new bootstrap.Offcanvas(myInfoOffcanvas);
+					infoOffcanvasInstance.show();
+				} else {
+					// 비밀번호 불일치 시
+					passwordConfirmInput.classList.add('is-invalid');
+					passwordConfirmFeedback.textContent = '비밀번호가 일치하지 않습니다.';
+					passwordConfirmFeedback.style.display = 'block';
+				}
+			} catch (error) {
+				// 서버 통신 오류
+				passwordConfirmInput.classList.add('is-invalid');
+				passwordConfirmFeedback.textContent = '비밀번호 확인 중 오류가 발생했습니다.';
+				passwordConfirmFeedback.style.display = 'block';
+				console.error('Error:', error);
+			}
+		});
     });
-    </script>
-
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+	</script>
+	
 </body>
 </html>

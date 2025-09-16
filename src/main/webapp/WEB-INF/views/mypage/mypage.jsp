@@ -247,7 +247,6 @@
 	<jsp:include page="withdraw.jsp" />
 	<jsp:include page="myInfo.jsp" />
 	
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
     document.addEventListener('DOMContentLoaded', function() {
         // 후기 태그와 매핑된 한글 이름

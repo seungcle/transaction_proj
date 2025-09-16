@@ -18,6 +18,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	// 마이페이지 이동
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
 		
@@ -27,6 +28,5 @@ public class UserController {
 		model.addAttribute("user", vo);
 		return "mypage/mypage";
 	}
-	
-	
+
 }

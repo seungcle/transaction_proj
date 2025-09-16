@@ -15,6 +15,8 @@ public interface UserDAO {
 	
 	int checkUsername(String username);
 	
+	int checkNickname(String nickname);
+	
 	SessionUserVO login(LoginRequestDTO dto);
 
 	UserInfoVO findById(Long id);

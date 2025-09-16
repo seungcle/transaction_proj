@@ -19,12 +19,25 @@ public class UserService {
 
 	public boolean join(UserDTO user) {
 		
+		//아이디 중복 체크
 		if (userDAO.checkUsername(user.getUsername()) > 0) {
+            return false;
+        }
+		 // 닉네임 중복 체크 
+        if (userDAO.checkNickname(user.getNickname()) > 0) {
             return false;
         }
         userDAO.insertUser(user);
         return true;
 	}
+	
+	 public boolean isUsernameExists(String username) {
+	        return userDAO.checkUsername(username) > 0;
+	    }
+
+	    public boolean isNicknameExists(String nickname) {
+	        return userDAO.checkNickname(nickname) > 0;
+	    }
 
 	public SessionUserVO login(LoginRequestDTO dto) {
 		

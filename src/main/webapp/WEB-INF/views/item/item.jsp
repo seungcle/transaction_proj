@@ -208,7 +208,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: `${contextPath}/favorite/${itemId}`,
+                url: `${pageContext.request.contextPath}/favorite/\${itemId}`,
                 success: function(response) {
                     console.log('좋아요 요청 성공:', response);
                     if (heartIcon.hasClass('bi-heart')) {

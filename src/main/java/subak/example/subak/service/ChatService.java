@@ -1,6 +1,7 @@
 package subak.example.subak.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,11 @@ public class ChatService {
 		dto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
 		return dto;
+	}
+
+	public List<ChatResponseDTO> getAllChats(Long roomId) {
+		
+		return chatDAO.findMessagesByRoomId(roomId);
 	}
 
 }

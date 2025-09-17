@@ -17,5 +17,6 @@
 		<typeAlias alias="UserInfoVO" type="subak.example.subak.domain.UserInfoVO" />	
 		<typeAlias alias="FavoriteDTO" type="subak.example.subak.domain.FavoriteDTO" />			
 		<typeAlias alias="ChatRequestDTO" type="subak.example.subak.domain.ChatRequestDTO" />			
+		<typeAlias alias="ChatResponseDTO" type="subak.example.subak.domain.ChatResponseDTO" />			
 	</typeAliases>
 </configuration>

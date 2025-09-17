@@ -7,4 +7,18 @@
 	<insert id="saveChat" parameterType="ChatRequestDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id"> 
 		insert into auction_chat_message(msg, room_id, user_id, created_at) values(#{message}, #{roomId}, #{userId}, sysdate)
 	</insert>
+	<select id="findMessagesByRoomId" parameterType="long" resultType="ChatResponseDTO">
+        SELECT
+            m.id,
+            m.msg        AS message,
+            u.nickname,
+            m.created_at AS createdAt
+        FROM
+            auction_chat_message m
+            INNER JOIN "user" u ON m.user_id = u.id
+        WHERE
+            m.room_id = #{roomId}
+        ORDER BY
+            m.created_at ASC
+    </select>
 </mapper>

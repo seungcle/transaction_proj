@@ -39,4 +39,10 @@ public interface ItemDAO {
 	List<SimpleItemResponseVO> findOrderByFavoriteDesc(Map<String, Object> params);
 
 	List<SimpleItemResponseVO> findByUserId(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findByUserIdAndStatusOpen(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findSaleCompleteByUserId(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findPurchaseCompleteByUserId(Map<String, Object> params);
 }

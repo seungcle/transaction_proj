@@ -189,10 +189,45 @@ public class ItemController {
 	// 해당 유저 전체상품
 	@GetMapping("/{userId}/all")
 	@ResponseBody
-	public List<SimpleItemResponseVO> allItemPage(@PathVariable Long userId, @RequestParam(defaultValue = "1") int page) {
+	public List<SimpleItemResponseVO> allItem(@PathVariable Long userId, @RequestParam(defaultValue = "1") int page) {
 		
 		int pageSize = 20;
 		List<SimpleItemResponseVO> list = itemService.userAllItem(userId, page, pageSize);
+		
+		return list;
+	}
+	
+	// 해당 유저 판매중
+	@GetMapping("/{userId}/sale")
+	@ResponseBody
+	public List<SimpleItemResponseVO> saleItem(@PathVariable Long userId, @RequestParam(defaultValue = "1") int page) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.userSaleItem(userId, page, pageSize);
+		
+		return list;
+	}
+	
+	// 해당 유저 입찰중
+	
+	// 해당 유저 판매내역
+	@GetMapping("/{userId}/sale/end")
+	@ResponseBody
+	public List<SimpleItemResponseVO> saleComplete(@PathVariable Long userId, @RequestParam(defaultValue = "1") int page) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.userSaleCompleteItem(userId, page, pageSize);
+		
+		return list;
+	}
+	
+	// 해당 유저 구매내역
+	@GetMapping("/{userId}/purchase/end")
+	@ResponseBody
+	public List<SimpleItemResponseVO> purchaseComplete(@PathVariable Long userId, @RequestParam(defaultValue = "1") int page) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.userPurchaseCompleteItem(userId, page, pageSize);
 		
 		return list;
 	}

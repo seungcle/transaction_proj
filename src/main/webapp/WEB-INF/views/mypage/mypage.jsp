@@ -127,14 +127,16 @@
                         </div>
 
                         <!-- 판매중 탭 -->
-                        <div class="tab-pane fade" id="pills-selling"
-                             role="tabpanel" aria-labelledby="pills-selling-tab" tabindex="0">
-                            <div class="d-flex flex-column align-items-center justify-content-center py-5">
-                                <h5 class="mb-3">판매중인 상품이 없습니다.</h5>
-                                <img src="${pageContext.request.contextPath}/resources/images/404.png"
-                                     class="img-fluid" style="max-width: 200px;">
-                            </div>
-                        </div>
+						<div class="tab-pane fade" id="pills-selling"
+						     role="tabpanel" aria-labelledby="pills-selling-tab" tabindex="0">
+						
+						    <!-- AJAX 결과 들어올 영역 -->
+						    <div id="sale-items" class="row g-3"></div>
+						
+						    <div class="text-center mt-4">
+						        <button id="loadMoreSaleBtn" class="btn btn-outline-primary">더보기</button>
+						    </div>
+						</div>
 
                         <!-- 입찰중 탭 -->
                         <div class="tab-pane fade" id="pills-reserved"
@@ -164,13 +166,18 @@
 <!-- 전체 상품 불러오기 스크립트 -->
 <script>
 $(document).ready(function() {
-    let currentPage = 1;
-    const pageSize = 20;
+    let currentPageAll = 1;
+    let currentPageSale = 1;
     const userId = $('#mypage-data').data('userId');
-    const $allItems = $("#all-items");
-    const $loadMoreBtn = $("#loadMoreBtn");
 
-    function loadItems(page) {
+    const $allItems = $("#all-items");
+    const $saleItems = $("#sale-items");
+
+    const $loadMoreBtn = $("#loadMoreBtn");
+    const $loadMoreSaleBtn = $("#loadMoreSaleBtn");
+
+    // 전체 불러오기
+    function loadAllItems(page) {
         $.ajax({
             url: `${pageContext.request.contextPath}/item/\${userId}/all`,
             type: "GET",
@@ -178,17 +185,17 @@ $(document).ready(function() {
             success: function(data) {
                 if (data && data.length > 0) {
                     data.forEach(item => {
-                    	const cardHtml = `
-                    	    <div class="col-md-3">
-                    	        <div class="card h-100 shadow-sm">
-                    	            <img src="${pageContext.request.contextPath}/\${item.imageUrl}" class="card-img-top">
-                    	            <div class="card-body">
-                    	                <h6 class="card-title text-truncate">\${item.title}</h6>
-                    	                <p class="card-text fw-bold text-success">\${item.currentPrice}</p>
-                    	            </div>
-                    	        </div>
-                    	    </div>
-                    	`;
+                        const cardHtml = `
+                            <div class="col-md-3">
+                                <div class="card h-100 shadow-sm">
+                                    <img src="${pageContext.request.contextPath}/\${item.imageUrl}" class="card-img-top">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-truncate">\${item.title}</h6>
+                                        <p class="card-text fw-bold text-success">\${item.currentPrice}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
                         $allItems.append(cardHtml);
                     });
                 } else {
@@ -199,18 +206,66 @@ $(document).ready(function() {
                 }
             },
             error: function(xhr, status, error) {
-                console.error("상품 불러오기 실패:", error);
+                console.error("전체 상품 불러오기 실패:", error);
             }
         });
     }
 
-    // 첫 로드
-    loadItems(currentPage);
+    // 판매중 불러오기
+    function loadSaleItems(page) {
+        $.ajax({
+            url: `${pageContext.request.contextPath}/item/\${userId}/sale`,
+            type: "GET",
+            data: { page: page },
+            success: function(data) {
+                if (data && data.length > 0) {
+                    data.forEach(item => {
+                        const cardHtml = `
+                            <div class="col-md-3">
+                                <div class="card h-100 shadow-sm">
+                                    <img src="${pageContext.request.contextPath}/\${item.imageUrl}" class="card-img-top">
+                                    <div class="card-body">
+                                        <h6 class="card-title text-truncate">\${item.title}</h6>
+                                        <p class="card-text fw-bold text-success">\${item.currentPrice}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $saleItems.append(cardHtml);
+                    });
+                } else {
+                    $loadMoreSaleBtn.hide();
+                    if(page === 1) {
+                        $saleItems.html(`<p class="text-muted">판매중인 상품이 없습니다.</p>`);
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("판매중 상품 불러오기 실패:", error);
+            }
+        });
+    }
 
-    // 더보기 버튼 클릭
+    // 첫 로드 (전체 탭만)
+    loadAllItems(currentPageAll);
+
+    // 더보기 버튼 (전체)
     $loadMoreBtn.on("click", function() {
-        currentPage++;
-        loadItems(currentPage);
+        currentPageAll++;
+        loadAllItems(currentPageAll);
+    });
+
+    // 판매중 탭 클릭 시 첫 로드
+    $('#pills-selling-tab').on("shown.bs.tab", function() {
+        if(currentPageSale === 1 && $saleItems.children().length === 0) {
+            loadSaleItems(currentPageSale);
+        }
+    });
+
+    // 더보기 버튼 (판매중)
+    $loadMoreSaleBtn.on("click", function() {
+        currentPageSale++;
+        loadSaleItems(currentPageSale);
     });
 });
 </script>

@@ -276,6 +276,88 @@
 	    FETCH NEXT 
 	        #{pageSize} ROWS ONLY
 	</select>
+	<select id="findByUserIdAndStatusOpen" parameterType="map" resultType="SimpleItemResponseVO">
+	    SELECT 
+	        i.id, 
+	        i.title, 
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, 
+	        i.end_time AS endTime,
+	        i.status, 
+	        i.created_at AS createdAt,
+	        (
+	            SELECT ii.image_url
+	            FROM item_image ii
+	            WHERE ii.item_id = i.id
+	            ORDER BY ii.id ASC
+	            FETCH FIRST 1 ROW ONLY
+	        ) AS imageUrl
+	    FROM 
+	        item i
+	    WHERE
+	        i.seller_id = #{userId} and i.status = 'OPEN'
+	    ORDER BY 
+	        i.id DESC
+	    OFFSET 
+	        #{offset} ROWS
+	    FETCH NEXT 
+	        #{pageSize} ROWS ONLY
+	</select>
+	<select id="findSaleCompleteByUserId" parameterType="map" resultType="SimpleItemResponseVO">
+	    SELECT 
+	        i.id, 
+	        i.title, 
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, 
+	        i.end_time AS endTime,
+	        i.status, 
+	        i.created_at AS createdAt,
+	        (
+	            SELECT ii.image_url
+	            FROM item_image ii
+	            WHERE ii.item_id = i.id
+	            ORDER BY ii.id ASC
+	            FETCH FIRST 1 ROW ONLY
+	        ) AS imageUrl
+	    FROM 
+	        item i
+	    WHERE
+	        i.seller_id = #{userId}
+	        AND EXISTS (
+	            SELECT 1 
+	            FROM transaction t 
+	            WHERE t.item_id = i.id
+	        )
+	    ORDER BY 
+	        i.id DESC
+	    OFFSET 
+	        #{offset} ROWS
+	    FETCH NEXT 
+	        #{pageSize} ROWS ONLY
+	</select>
+	<select id="findPurchaseCompleteByUserId" parameterType="map" resultType="SimpleItemResponseVO">
+	    SELECT 
+	        i.id AS itemId, 
+	        i.title, 
+	        TO_CHAR(t.price, 'FM999,999,999') || '원' AS purchasePrice, 
+	        t.created_at AS purchaseDate,
+	        (
+	            SELECT ii.image_url
+	            FROM item_image ii
+	            WHERE ii.item_id = i.id
+	            ORDER BY ii.id ASC
+	            FETCH FIRST 1 ROW ONLY
+	        ) AS imageUrl
+	    FROM 
+	        transaction t
+	        INNER JOIN item i ON t.item_id = i.id
+	    WHERE
+	        t.user_id = #{userId}
+	    ORDER BY 
+	        t.created_at DESC
+	    OFFSET 
+	        #{offset} ROWS
+	    FETCH NEXT 
+	        #{pageSize} ROWS ONLY
+	</select>
 </mapper>
 
 

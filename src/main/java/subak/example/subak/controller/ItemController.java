@@ -191,7 +191,8 @@ public class ItemController {
 		return "mainpage/search";
 	}
 	
-	@PostMapping("/bid")
+	// 입찰 버튼 매핑
+ 	@PostMapping("/bid")
 	@ResponseBody
 	public void UpdateBidPrice(Long price, Long itemId, HttpSession session) {
 		

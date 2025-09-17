@@ -240,6 +240,9 @@ public class ItemService {
 		dto.setBidUserId(user.getId());
 		dto.setBidPrice(price);
 		itemDAO.insertBid(dto);
+		Map<String,Long> m = new HashMap<>();
+		m.put("id", itemId); m.put("price", price);
+		itemDAO.updateItem(m);
 	}
 
 	public List<SimpleItemResponseVO> userAllItem(Long userId, int page, int pageSize) {

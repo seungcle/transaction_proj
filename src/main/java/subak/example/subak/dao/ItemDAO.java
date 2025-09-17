@@ -23,6 +23,9 @@ public interface ItemDAO {
 	boolean insertBid(BidDTO dto);
 	
 	boolean insertItemImage(ItemImageDTO dto);
+	
+	//update item
+	void updateItem(Map<String, Long> params);
 
 	List<SimpleItemResponseVO> findByCategory(Map<String, Object> params);
 

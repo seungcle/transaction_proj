@@ -58,6 +58,13 @@
         INSERT INTO bid (bid_price, created_at, bid_item_id, bid_user_id)
         VALUES (#{bidPrice}, sysdate, #{bidItemId}, #{bidUserId}) 
     </insert>
+    
+    <update id="updateItem" parameterType="map">
+    UPDATE item
+    SET
+        CURRENT_PRICE = #{price}
+    WHERE id = #{id}
+    </update>
 	
 	<insert id="insertItemImage" parameterType="ItemImageDTO">
 	    INSERT INTO item_image (image_url, created_at, item_id)

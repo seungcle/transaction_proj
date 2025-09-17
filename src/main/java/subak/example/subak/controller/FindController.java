@@ -1,5 +1,7 @@
 package subak.example.subak.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,14 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import subak.example.subak.service.UserService;
 import subak.example.subak.domain.UserDTO;
+import subak.example.subak.service.UserService;
 
 @Controller
 public class FindController {
 
     @Autowired
-    private UserService userService; // UserService를 주입받아 사용
+    private UserService userService;
 
     @GetMapping("/find")
     public String findPage() {
@@ -32,11 +34,11 @@ public class FindController {
     }
 
     @PostMapping("/find/username")
-    public String findUsername(@RequestParam("name") String name, @RequestParam("email") String email, Model model) {
-        
-        // 서비스 계층의 메서드를 호출하여 이름과 이메일로 사용자 정보 조회
-        UserDTO foundUser = userService.findUserByNameAndEmail(name, email);
-        
+    public String findUsername(@RequestParam("email") String email, Model model) {
+
+        // 이메일로 사용자 조회
+        UserDTO foundUser = userService.findUserByEmail(email);
+
         if (foundUser != null) {
             model.addAttribute("foundUsername", foundUser.getUsername());
             return "login/findUsernameResult";

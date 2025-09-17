@@ -9,22 +9,15 @@
 <link rel="icon" type="image/png"
 	href="${pageContext.request.contextPath}/resources/images/watermelon_icon.ico">
 
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-	rel="stylesheet" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/global.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/register2.css">
-<style>
-</style>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/register2.css">
 </head>
 <body>
 <div class="container">
-	<a class="logo" href="${pageContext.request.contextPath}/main"> <img
-		id="main-icon"
-		src="${pageContext.request.contextPath}/resources/images/watermelon_icon.png"
-		alt="수박 아이콘"> <span>수박나라</span>
+	<a class="logo" href="${pageContext.request.contextPath}/main"> 
+		<img id="main-icon" src="${pageContext.request.contextPath}/resources/images/watermelon_icon.png" alt="수박 아이콘"> 
+		<span>수박나라</span>
 	</a>
 
 	<div class="login-card p-4">
@@ -32,16 +25,13 @@
 		<p class="text-center text-muted">필수 정보를 입력하고 회원가입을 완료하세요.</p>
 
 		<nav class="mb-4">
-			<ol
-				class="list-unstyled d-flex justify-content-between text-muted fw-bold">
+			<ol class="list-unstyled d-flex justify-content-between text-muted fw-bold">
 				<li>1. 약관동의</li>
 				<li style="color: #2E8B57;">2. 정보입력</li>
 				<li>3. 가입완료</li>
 			</ol>
 			<div class="progress" style="height: 10px;">
-				<div class="progress-bar bg-success" role="progressbar"
-					style="width: 50%;" aria-valuenow="50" aria-valuemin="0"
-					aria-valuemax="100"></div>
+				<div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
 			</div>
 		</nav>
 
@@ -49,82 +39,57 @@
 			<table class="table table-borderless">
 				<tbody>
 					<tr>
-						<td class="text-start align-middle label-cell"><label
-							for="username" class="col-form-label">아이디</label></td>
+						<td class="text-start align-middle label-cell"><label for="username" class="col-form-label">아이디</label></td>
 						<td class="text-start">
 							<div class="d-flex input-group-gap">
-								<input type="text" class="form-control" id="username"
-									name="username" placeholder="아이디를 입력하세요" required>
-								<button type="button"
-									class="btn btn-outline-success btn-sm check-button"
-									id="checkUsername">중복확인</button>
+								<input type="text" class="form-control" id="username" name="username" placeholder="아이디를 입력하세요" required>
+								<button type="button" class="btn btn-outline-success btn-sm check-button" id="checkUsername">중복확인</button>
 							</div>
-							<div id="usernameFeedback" class="mt-2"
-								style="font-size: 0.875em;"></div>
+							<div id="usernameFeedback" class="mt-2" style="font-size: 0.875em;"></div>
 						</td>
 					</tr>
 					<tr>
-						<td class="text-start align-middle label-cell"><label
-							for="password" class="col-form-label">비밀번호</label></td>
-						<td class="text-start"><input type="password"
-							class="form-control" id="password" name="password"
-							placeholder="비밀번호를 입력하세요" required></td>
+						<td class="text-start align-middle label-cell"><label for="password" class="col-form-label">비밀번호</label></td>
+						<td class="text-start"><input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요" required></td>
 					</tr>
 					<tr>
-						<td class="text-start align-middle label-cell"><label
-							for="confirmPassword" class="col-form-label">비밀번호 확인</label></td>
-						<td class="text-start"><input type="password"
-							class="form-control" id="confirmPassword" name="confirmPassword"
-							placeholder="비밀번호를 한 번 더 입력하세요" required></td>
+						<td class="text-start align-middle label-cell"><label for="confirmPassword" class="col-form-label">비밀번호 확인</label></td>
+						<td class="text-start"><input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 한 번 더 입력하세요" required></td>
 					</tr>
 					<tr>
-						<td class="text-start align-middle label-cell"><label
-							for="nickname" class="col-form-label">닉네임</label></td>
+						<td class="text-start align-middle label-cell"><label for="nickname" class="col-form-label">닉네임</label></td>
 						<td class="text-start">
 							<div class="d-flex input-group-gap">
-								<input type="text" class="form-control" id="nickname"
-									name="nickname" placeholder="닉네임을 입력하세요" required>
-								<button type="button"
-									class="btn btn-outline-success btn-sm check-button"
-									id="checkNickname">중복확인</button>
+								<input type="text" class="form-control" id="nickname" name="nickname" placeholder="닉네임을 입력하세요" required>
+								<button type="button" class="btn btn-outline-success btn-sm check-button" id="checkNickname">중복확인</button>
 							</div>
-							<div id="nicknameFeedback" class="mt-2"
-								style="font-size: 0.875em;"></div>
+							<div id="nicknameFeedback" class="mt-2" style="font-size: 0.875em;"></div>
 						</td>
 					</tr>
 					<tr>
-						<td class="text-start align-middle label-cell"><label
-							for="email" class="col-form-label">이메일</label></td>
+						<td class="text-start align-middle label-cell"><label for="email" class="col-form-label">이메일</label></td>
 						<td class="text-start">
 							<div class="d-flex input-group-gap">
-								<input type="email" class="form-control" id="email"
-									name="email" placeholder="이메일 주소를 입력하세요" required>
-								<button type="button"
-									class="btn btn-outline-success btn-sm check-button"
-									id="sendEmailBtn">번호 인증</button>
+								<input type="email" class="form-control" id="email" placeholder="이메일 주소를 입력하세요" required>
+								<button type="button" class="btn btn-outline-success btn-sm check-button" id="sendEmailBtn">번호 인증</button>
 							</div>
 							<div id="emailFeedback" class="mt-2" style="font-size: 0.875em;"></div>
 						</td>
 					</tr>
 					<tr id="authCodeRow" style="display: none;">
-						<td class="text-start align-middle label-cell"><label
-							for="authCode" class="col-form-label">인증번호</label></td>
+						<td class="text-start align-middle label-cell"><label for="authCode" class="col-form-label">인증번호</label></td>
 						<td class="text-start">
 							<div class="d-flex input-group-gap">
-								<input type="text" class="form-control" id="authCode"
-									placeholder="인증번호 입력">
-								<button type="button"
-									class="btn btn-outline-success btn-sm check-button"
-									id="verifyEmailBtn">확인</button>
+								<input type="text" class="form-control" id="authCode" placeholder="인증번호 입력">
+								<button type="button" class="btn btn-outline-success btn-sm check-button" id="verifyEmailBtn">확인</button>
 							</div>
-							<div id="authCodeFeedback" class="mt-2"
-								style="font-size: 0.875em;"></div>
+							<div id="authCodeFeedback" class="mt-2" style="font-size: 0.875em;"></div>
 						</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<!-- hidden email for 서버 전송 -->
+			<!-- 숨김처리-->
 			<input type="hidden" name="email" id="hiddenEmail">
 
 			<div class="d-grid gap-2 mt-4">
@@ -270,6 +235,7 @@ document.addEventListener('DOMContentLoaded', function() {
         authCodeRow.style.display='none';
         emailInput.readOnly=false;
         document.getElementById('sendEmailBtn').disabled=false;
+        hiddenEmail.value = '';
         updateSubmitButtonState();
     });
 

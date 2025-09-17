@@ -5,8 +5,10 @@
 <mapper namespace="subak.example.subak.dao.UserDAO">
 	<!-- 회원가입 -->
 	<insert id="insertUser" parameterType="UserDTO">
-		insert into "user" (username, password, email, nickname, created_at)
-		values (#{username}, #{password}, #{email}, #{nickname}, sysdate)
+		insert into "user"
+		(username, password, email, nickname, created_at)
+		values (#{username},
+		#{password}, #{email}, #{nickname}, sysdate)
 	</insert>
 
 	<!-- 아이디 중복 체크 -->
@@ -29,7 +31,8 @@
 		resultType="SessionUserVO">
 		select id, username, email, nickname
 		from "user"
-		where username = #{username} and password = #{password}
+		where
+		username = #{username} and password = #{password}
 	</select>
 
 	<!-- 내 마이페이지 -->
@@ -37,12 +40,23 @@
 		resultType="UserInfoVO">
 		select id, nickname, bio, image_url
 		from "user"
-		where id = #{id}
+		where id =
+		#{id}
 	</select>
+
+	<!-- 아이디 찾기 -->
+	<select id="findUserByEmail" parameterType="string"
+		resultType="subak.example.subak.domain.UserDTO">
+		SELECT id, username, email
+		FROM "user"
+		WHERE email = #{email}
+	</select>
+
 
 	<!-- 비밀번호 확인 -->
 	<select id="getPasswordByUserId" resultType="String">
-		SELECT password FROM user WHERE id = #{id}
+		SELECT password FROM
+		user WHERE id = #{id}
 	</select>
 </mapper>
 

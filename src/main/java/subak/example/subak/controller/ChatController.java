@@ -18,11 +18,12 @@ import subak.example.subak.domain.ChatResponseDTO;
 import subak.example.subak.service.ChatService;
 
 @Controller
-public class GroupChatController {
+public class ChatController {
 
 	@Autowired
 	private ChatService chatService;
 	
+	// 그룹채팅 웹소켓 연결
 	@MessageMapping("/chat/{roomId}")
     @SendTo("/topic/chat/{roomId}")
 	public ChatResponseDTO sendChatMessage(ChatRequestDTO requestDTO, @DestinationVariable Long roomId) {
@@ -33,6 +34,7 @@ public class GroupChatController {
         return chatService.processMessage(roomId, requestDTO);
     }
 	
+	// 그룹채팅 이전 채팅 가져오기
 	@GetMapping("/{roomId}/chat")
 	@ResponseBody
 	public List<ChatResponseDTO> getAllChats(@PathVariable Long roomId){
@@ -41,4 +43,6 @@ public class GroupChatController {
 		
 		return list;
 	}
+	
+	// 1:1 채팅방 만들기
 }

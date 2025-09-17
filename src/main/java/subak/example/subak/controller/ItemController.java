@@ -179,9 +179,9 @@ public class ItemController {
 		return "mainpage/search";
 	}
 	
-	@PostMapping("/{itemId}/bid")
+	@PostMapping("/bid")
 	@ResponseBody
-	public void UpdateBidPrice(@PathVariable Long price,Long itemId, HttpSession session, Model model) {
+	public void UpdateBidPrice(Long price, Long itemId, HttpSession session) {
 		
 		itemService.pushBid(price, itemId, session);
 	}

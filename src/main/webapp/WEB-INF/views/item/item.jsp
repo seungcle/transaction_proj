@@ -259,8 +259,7 @@
                 return;
             }
 
-            // 컨트롤러의 파라미터에 맞게 URL과 데이터 형식 변경
-            const url = "${contextPath}/item/bid?price=${item.currentPrice}&itemId=${itemId}";
+            const url = "${pageContext.request.contextPath}/item/bid?price=" + bidPrice + "&itemId=" + itemId;
             
             $.ajax({
                 type: 'POST',

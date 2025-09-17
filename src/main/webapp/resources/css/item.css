@@ -63,6 +63,17 @@
 	transition: all 0.2s ease;
 }
 
+.btn-square {
+  width: 58px;  /* 버튼의 너비 (btn-lg 높이와 비슷하게) */
+  height: 58px; /* 버튼의 높이 */
+  padding: 0;   /* 내부 여백을 제거하여 아이콘이 중앙에 오도록 함 */
+  
+  /* 아이콘을 완벽하게 중앙 정렬하기 위한 Flexbox 속성 */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #likeButton:hover {
 	background-color: #f1f3f5;
 }
@@ -85,6 +96,24 @@
 .carousel-inner img {
 	border-radius: 12px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#productImageCarousel {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* 가로 세로 비율을 1:1 (정사각형)으로 강제합니다. */
+  border-radius: 12px;
+  overflow: hidden; /* 모서리가 둥글게 처리되도록 합니다. */
+}
+
+#productImageCarousel .carousel-inner,
+#productImageCarousel .carousel-item {
+  height: 100%;
+}
+
+#productImageCarousel .carousel-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 이미지가 컨테이너를 꽉 채우되, 비율을 유지하며 벗어나는 부분은 잘라냅니다. */
 }
 
 @media ( min-width : 992px) {

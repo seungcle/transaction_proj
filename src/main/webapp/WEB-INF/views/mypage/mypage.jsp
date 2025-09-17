@@ -24,6 +24,7 @@
         <!-- 사이드바 -->
         <aside class="col-md-3">
             <h4 class="mb-4 ps-2">마이페이지</h4>
+            <div id="mypage-data" data-user-id="${user.id}"></div>
             <div class="sidebar">
                 <div class="nav flex-column nav-pills">
                     <span class="text-muted ps-2 mb-2 fw-bold">거래 정보</span>
@@ -165,26 +166,25 @@
 $(document).ready(function() {
     let currentPage = 1;
     const pageSize = 20;
-    const userId = "${user.id}";
+    const userId = $('#mypage-data').data('userId');
     const $allItems = $("#all-items");
     const $loadMoreBtn = $("#loadMoreBtn");
 
     function loadItems(page) {
         $.ajax({
-            url: `${pageContext.request.contextPath}/item/my/all`,
+            url: `${pageContext.request.contextPath}/item/\${userId}/all`,
             type: "GET",
             data: { page: page },
             success: function(data) {
                 if (data && data.length > 0) {
                     data.forEach(item => {
-                    	console.log(item.title);
                     	const cardHtml = `
                     	    <div class="col-md-3">
                     	        <div class="card h-100 shadow-sm">
                     	            <img src="${pageContext.request.contextPath}/\${item.imageUrl}" class="card-img-top">
                     	            <div class="card-body">
                     	                <h6 class="card-title text-truncate">\${item.title}</h6>
-                    	                <p class="card-text fw-bold text-success">\${item.currentPrice}원</p>
+                    	                <p class="card-text fw-bold text-success">\${item.currentPrice}</p>
                     	            </div>
                     	        </div>
                     	    </div>

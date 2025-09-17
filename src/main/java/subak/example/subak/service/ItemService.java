@@ -255,20 +255,4 @@ public class ItemService {
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> myAllItem(HttpSession session, int page, int pageSize) {
-		
-		SessionUserVO user = (SessionUserVO)session.getAttribute("user");
-		if(user == null)
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
-		
-		int offset = (page - 1) * pageSize;
-		
-		Map<String, Object> params = new HashMap<>();
-		params.put("offset", offset);
-		params.put("pageSize", pageSize);
-		params.put("userId", user.getId());
-		List<SimpleItemResponseVO> list = itemDAO.findByUserId(params);
-		
-		return list;
-	}
 }

@@ -186,17 +186,6 @@ public class ItemController {
 		itemService.pushBid(price, itemId, session);
 	}
 	
-	// 내 전체상품
-	@GetMapping("/my/all")
-	@ResponseBody
-	public List<SimpleItemResponseVO> allItemPage(HttpSession session, @RequestParam(defaultValue = "1") int page) {
-		
-		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.myAllItem(session, page, pageSize);
-		
-		return list;
-	}
-	
 	// 해당 유저 전체상품
 	@GetMapping("/{userId}/all")
 	@ResponseBody

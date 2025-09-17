@@ -10,7 +10,7 @@
 	
 	<!--  채팅방 생성 -->
 	<insert id="createChatRoom" parameterType="subak.example.subak.domain.ChatRoomDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id"> 
-		insert into auction_chat_message(item_id, created_at) values(#{itemId}, sysdate)
+		insert into auction_chat_room(item_id, created_at) values(#{itemId}, sysdate)
 	</insert>
 	
 </mapper>

@@ -7,7 +7,6 @@ import subak.example.subak.domain.ChatRoomDTO;
 
 @Mapper
 public interface ChatDAO {
-
 	void saveChat(ChatRequestDTO requestDTO);
 	void createChatRoom(ChatRoomDTO dto);
 }

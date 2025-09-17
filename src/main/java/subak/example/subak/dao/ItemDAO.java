@@ -37,4 +37,6 @@ public interface ItemDAO {
 	List<SimpleItemResponseVO> findOrderByPriceDesc(Map<String, Object> params);
 
 	List<SimpleItemResponseVO> findOrderByFavoriteDesc(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findByUserId(Map<String, Object> params);
 }

@@ -35,7 +35,7 @@
 	<!-- 내 마이페이지 -->
 	<select id="findById" parameterType="long"
 		resultType="UserInfoVO">
-		select nickname, bio, image_url
+		select id, nickname, bio, image_url
 		from "user"
 		where id = #{id}
 	</select>

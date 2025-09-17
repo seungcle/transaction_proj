@@ -180,6 +180,13 @@ $(document).ready(function() {
 
     const $loadMoreBtn = $("#loadMoreBtn");
     const $loadMoreSaleBtn = $("#loadMoreSaleBtn");
+    
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("openChat") === "true") {
+        // Bootstrap Offcanvas 열기
+        const offcanvas = new bootstrap.Offcanvas(document.getElementById("myChatOffcanvas"));
+        offcanvas.show();
+    }
 
     // 전체 불러오기
     function loadAllItems(page) {

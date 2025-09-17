@@ -147,10 +147,13 @@
 							</span>
 						</div>
 						<div class="d-grid gap-2 d-md-block">
+						<form id="chatForm" method="post" action="${pageContext.request.contextPath}/chat/${item.userId}/start">
+							<input type="hidden" name="userId" value="${item.userId}">
+						</form>
 							<button type="button" class="btn btn-dark">
 								<i class="bi bi-person-plus-fill"></i> 판매자 정보
 							</button>
-							<button type="button" class="btn btn-outline-primary">
+							<button id="chatBtn" type="button" class="btn btn-outline-primary">
 								<i class="bi bi-chat-text-fill"></i> 판매자와 1:1 채팅
 							</button>
 						</div>
@@ -173,6 +176,10 @@
     function unformatNumber(string) {
         return parseInt(string.replace(/,/g, ''), 10) || 0;
     }
+    
+    $("#chatBtn").on("click", function() {
+        $("#chatForm").submit();
+      });
 
     $(document).ready(function() {
         const contextPath = "${pageContext.request.contextPath}";

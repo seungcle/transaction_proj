@@ -22,4 +22,5 @@ public class ItemResponseDTO {
     private String sellerNickname;
     private Long remainingTimeInSeconds;
     private Long roomId;
+    private Long userId;
 }

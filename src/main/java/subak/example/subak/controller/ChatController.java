@@ -2,6 +2,8 @@ package subak.example.subak.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
@@ -10,11 +12,13 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
 import subak.example.subak.domain.ChatRequestDTO;
 import subak.example.subak.domain.ChatResponseDTO;
+import subak.example.subak.domain.SessionUserVO;
 import subak.example.subak.service.ChatService;
 
 @Controller
@@ -45,4 +49,15 @@ public class ChatController {
 	}
 	
 	// 1:1 채팅방 만들기
+	@PostMapping("/chat/{userId}/start")
+	public String makeChatRoom(@PathVariable Long userId, HttpSession session) {
+		
+		SessionUserVO user = (SessionUserVO)session.getAttribute("user");
+		if(user == null)
+			return "redirect:/login";
+		if(user.getId() == userId)
+			return "자신과는 채팅불가";
+		chatService.makeChatRoom(userId, user.getId());
+		return "redirect:/mypage?openChat=true";
+	}
 }

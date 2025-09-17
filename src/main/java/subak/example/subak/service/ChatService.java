@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import subak.example.subak.dao.ChatDAO;
 import subak.example.subak.domain.ChatRequestDTO;
 import subak.example.subak.domain.ChatResponseDTO;
+import subak.example.subak.domain.DmChatRoomDTO;
 
 @Service
 public class ChatService {
@@ -33,6 +34,17 @@ public class ChatService {
 	public List<ChatResponseDTO> getAllChats(Long roomId) {
 		
 		return chatDAO.findMessagesByRoomId(roomId);
+	}
+
+	// userId1 -> 물건주인, userId2 -> 본인
+	public void makeChatRoom(Long userId1, Long userId2) {
+		
+		DmChatRoomDTO dto = new DmChatRoomDTO();
+		dto.setUserId1(userId1);
+		dto.setUserId2(userId2);
+		
+		chatDAO.createDmChatRoom(dto);
+		
 	}
 
 }

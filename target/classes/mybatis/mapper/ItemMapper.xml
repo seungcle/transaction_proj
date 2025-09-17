@@ -20,31 +20,34 @@
 	</select>
 	<resultMap id="itemWithImagesResultMap" type="ItemResponseDTO" autoMapping="true">
     	<result property="sellerNickname" column="nickname"/>
-    
+    	<result property="roomId" column="room_id"/>
 	    <collection property="imageUrl" ofType="java.lang.String">
 	        <result column="image_url"/>
 	    </collection>
   	</resultMap>
   <select id="findItemById" parameterType="long" resultMap="itemWithImagesResultMap">
-    SELECT 
-        i.id,
-        i.title,
-        i.text,
-        TO_CHAR(i.start_price, 'FM999,999,999') || '원' AS startPrice,
-        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice,
-        i.end_time,
-        i.status,
-        i.created_at,
-        u.nickname,
-        ii.image_url
-    FROM 
-        item i
-    LEFT JOIN 
-        "user" u ON i.seller_id = u.id
-    LEFT JOIN 
-        item_image ii ON i.id = ii.item_id
-    WHERE
-        i.id = #{id}
+	    SELECT 
+	        i.id,
+	        i.title,
+	        i.text,
+	        TO_CHAR(i.start_price, 'FM999,999,999') || '원' AS startPrice,
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice,
+	        i.end_time,
+	        i.status,
+	        i.created_at,
+	        u.nickname,
+	        ii.image_url,
+	        acr.id AS room_id
+	    FROM 
+	        item i
+	    LEFT JOIN 
+	        "user" u ON i.seller_id = u.id
+	    LEFT JOIN 
+	        item_image ii ON i.id = ii.item_id
+	    LEFT JOIN  -- 이 블록이 추가되었습니다.
+        	auction_chat_room acr ON i.id = acr.item_id
+	    WHERE
+	        i.id = #{id}
   </select>
 	<insert id="insertItem" parameterType="ItemRequestDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 	    INSERT INTO item (title, text, start_price, current_price, end_time, created_at, status, seller_id, category_id)

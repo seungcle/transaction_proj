@@ -21,4 +21,5 @@ public class ItemResponseDTO {
     private Timestamp createdAt;
     private String sellerNickname;
     private Long remainingTimeInSeconds;
+    private Long roomId;
 }

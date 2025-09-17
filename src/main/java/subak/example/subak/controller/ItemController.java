@@ -20,13 +20,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import subak.example.subak.dao.ChatDAO;
 import subak.example.subak.dao.FavoriteDAO;
 import subak.example.subak.domain.BidDTO;
+import subak.example.subak.domain.ChatRoomDTO;
 import subak.example.subak.domain.FavoriteDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
 import subak.example.subak.domain.SessionUserVO;
 import subak.example.subak.domain.SimpleItemResponseVO;
+import subak.example.subak.service.ChatService;
 import subak.example.subak.service.ItemService;
 
 @Controller
@@ -37,6 +40,8 @@ public class ItemController {
 	private ItemService itemService;
 	@Autowired
 	private FavoriteDAO favoriteDAO;
+	@Autowired
+	private ChatDAO chatDAO;
 	
 	// 상품 상세페이지
 	@GetMapping("/{itemId}")
@@ -72,7 +77,14 @@ public class ItemController {
 		
 		boolean isSuccess = itemService.insertItem(dto, images, session);
 		if(isSuccess)
+		{
+			//상품 등록 되면 채팅방도 같이 만듬.
+			ChatRoomDTO chatRoom = new ChatRoomDTO();
+			chatRoom.setItemId(dto.getId());
+			System.out.println(chatRoom);
+			chatDAO.createChatRoom(chatRoom);
 			return "redirect:/main";
+		}
 		else
 			return "mainpage/sale";
 	}

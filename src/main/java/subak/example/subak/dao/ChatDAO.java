@@ -6,11 +6,12 @@ import org.apache.ibatis.annotations.Mapper;
 
 import subak.example.subak.domain.ChatRequestDTO;
 import subak.example.subak.domain.ChatResponseDTO;
+import subak.example.subak.domain.ChatRoomDTO;
 
 @Mapper
 public interface ChatDAO {
-
-	void saveChat(ChatRequestDTO requestDTO);
-	
+	void saveChat(ChatRequestDTO requestDTO);	
 	List<ChatResponseDTO> findMessagesByRoomId(Long roomId);
+	void createChatRoom(ChatRoomDTO dto);
+
 }

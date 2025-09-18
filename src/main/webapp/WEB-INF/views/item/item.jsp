@@ -114,13 +114,13 @@
 						</div>
 
 						<div class="d-flex gap-2">
-						    <button id="likeButton" type="button" class="btn btn-light" data-item-id="${item.id}">
-						        <i id="heartIcon" class="bi ${isFavorited ? 'bi-heart-fill' : 'bi-heart'} fs-5"></i>
-						    </button>
-						    <button id="bidButton" class="btn btn-bid-primary btn-lg flex-grow-1"
-						        type="button" data-item-id="${item.id}">
-						        <i class="bi bi-hammer"></i> 입찰하기
-						    </button>
+						    <button id="likeButton" type="button" class="btn btn-light btn-square">
+						        <i id="heartIcon" class="bi ${isFavorited ? 'bi-heart-fill' : 'bi-heart'} fs-5"></i>
+						    </button>
+						    <button id="bidButton" class="btn btn-bid-primary btn-lg flex-grow-1"
+						            type="button" data-item-id="${item.id}">
+						        <i class="bi bi-hammer"></i> 입찰하기
+						    </button>
 						</div>
 					</div>
 				</div>
@@ -147,10 +147,13 @@
 							</span>
 						</div>
 						<div class="d-grid gap-2 d-md-block">
+						<form id="chatForm" method="post" action="${pageContext.request.contextPath}/chat/${item.userId}/start">
+							<input type="hidden" name="userId" value="${item.userId}">
+						</form>
 							<button type="button" class="btn btn-dark">
 								<i class="bi bi-person-plus-fill"></i> 판매자 정보
 							</button>
-							<button type="button" class="btn btn-outline-primary">
+							<button id="chatBtn" type="button" class="btn btn-outline-primary">
 								<i class="bi bi-chat-text-fill"></i> 판매자와 1:1 채팅
 							</button>
 						</div>
@@ -173,6 +176,10 @@
     function unformatNumber(string) {
         return parseInt(string.replace(/,/g, ''), 10) || 0;
     }
+    
+    $("#chatBtn").on("click", function() {
+        $("#chatForm").submit();
+      });
 
     $(document).ready(function() {
         const contextPath = "${pageContext.request.contextPath}";

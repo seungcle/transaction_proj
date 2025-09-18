@@ -21,5 +21,6 @@ public interface UserDAO {
 
 	UserInfoVO findById(Long id);
 
-	UserDTO findUserByNameAndEmail(@Param("name") String name, @Param("email") String email);
+	UserDTO findUserByEmail(@Param("email") String email);
+
 }

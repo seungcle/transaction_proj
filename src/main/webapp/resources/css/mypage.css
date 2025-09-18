@@ -57,6 +57,13 @@
 	font-weight: 500;
 }
 
+/* '내 상품' 탭의 상품 이미지 정사각형으로 고정 */
+#pills-tabContent .card-img-top {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* 가로 세로 비율을 1:1 (정사각형)으로 강제 */
+  object-fit: cover;   /* 이미지가 컨테이너를 꽉 채우되, 찌그러지지 않게 비율을 유지하며 잘라냄 */
+}
+
 .product-tabs .nav-link.active, .product-tabs .nav-link[aria-current="page"]
 	{
 	background-color: #FF6B6B;

@@ -40,6 +40,10 @@
                        data-bs-target="#myInterestsOffcanvas" aria-controls="myInterestsOffcanvas">
                         <i class="bi bi-heart"></i>찜한 상품
                     </a>
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+                       data-bs-target="#myChatOffcanvas" aria-controls="myChatOffcanvas">
+                        <i class="bi bi-chat-dots"></i>채팅
+                    </a>
                     <hr>
                     <span class="text-muted ps-2 mb-2 fw-bold">내 정보</span>
                     <a class="nav-link" href="#" data-bs-toggle="modal"
@@ -158,6 +162,7 @@
 <jsp:include page="mySales.jsp" />
 <jsp:include page="myPurchases.jsp" />
 <jsp:include page="myInterests.jsp" />
+<jsp:include page="myChat.jsp" />
 <jsp:include page="myAddress.jsp" />
 <jsp:include page="myReview.jsp" />
 <jsp:include page="withdraw.jsp" />
@@ -175,6 +180,13 @@ $(document).ready(function() {
 
     const $loadMoreBtn = $("#loadMoreBtn");
     const $loadMoreSaleBtn = $("#loadMoreSaleBtn");
+    
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("openChat") === "true") {
+        // Bootstrap Offcanvas 열기
+        const offcanvas = new bootstrap.Offcanvas(document.getElementById("myChatOffcanvas"));
+        offcanvas.show();
+    }
 
     // 전체 불러오기
     function loadAllItems(page) {

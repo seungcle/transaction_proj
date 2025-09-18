@@ -37,7 +37,8 @@
 	        i.created_at,
 	        u.nickname,
 	        ii.image_url,
-	        acr.id AS room_id
+	        acr.id AS room_id,
+	        u.id AS userId
 	    FROM 
 	        item i
 	    LEFT JOIN 

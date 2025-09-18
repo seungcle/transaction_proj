@@ -24,9 +24,77 @@
             m.created_at ASC
     </select>
 	
-	<!--  채팅방 생성 -->
-	<insert id="createChatRoom" parameterType="subak.example.subak.domain.ChatRoomDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id"> 
+	<!-- 그룹 채팅방 생성 -->
+	<insert id="createChatRoom" parameterType="ChatRoomDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id"> 
 		insert into auction_chat_room(item_id, created_at) values(#{itemId}, sysdate)
 	</insert>
 	
+	<!-- 1:1 채팅방 생성 -->
+	<insert id="createDmChatRoom" parameterType="DmChatRoomDTO"> 
+		insert into dm_chat_room(created_at, user_id1, user_id2) values(sysdate, #{userId1}, #{userId2})
+	</insert>
+	
+	<!-- 1:1 채팅방 이미 있는지 확인 -->
+	<select id="findDmChatRoomByUsers" parameterType="DmChatRoomDTO" resultType="long">
+	    SELECT id
+	    FROM dm_chat_room
+	    WHERE (user_id1 = #{userId1} AND user_id2 = #{userId2})
+	       OR (user_id1 = #{userId2} AND user_id2 = #{userId1})
+	    FETCH FIRST 1 ROWS ONLY 
+    </select>
+    <!-- 내 1:1 채팅방 리스트 -->
+    <select id="findMyChatRooms" parameterType="long" resultType="DmChatRoomInfoDTO">
+	    WITH LastMessage AS (
+	        -- 1. 먼저, 각 채팅방(room_id)별로 메시지를 최신순으로 정렬하고 순번(rn)을 매깁니다.
+	        SELECT
+	            room_id,
+	            msg,
+	            created_at,
+	            ROW_NUMBER() OVER(PARTITION BY room_id ORDER BY created_at DESC) as rn
+	        FROM
+	            dm_chat_message
+	    )
+	    -- 2. 이제 기존 쿼리에 위에서 구한 마지막 메시지(rn = 1)를 JOIN합니다.
+	    SELECT
+	        c.id AS roomId,
+	        u.id AS userId,
+	        u.nickname AS nickname,
+	        u.image_url AS imageUrl,
+	        lm.msg AS msg,
+	        lm.created_at AS createdAt
+	    FROM
+	        dm_chat_room c
+	    JOIN
+	        "user" u ON u.id = (CASE
+	                                WHEN c.user_id1 = #{myUserId} THEN c.user_id2
+	                                ELSE c.user_id1
+	                           END)
+	    -- 채팅방에 메시지가 하나도 없을 수 있으므로 LEFT JOIN을 사용합니다.
+	    LEFT JOIN
+	        LastMessage lm ON c.id = lm.room_id AND lm.rn = 1
+	    WHERE
+	        c.user_id1 = #{myUserId} OR c.user_id2 = #{myUserId}
+	    -- 이제 채팅방 생성순이 아닌, 마지막 메시지 시간 순으로 정렬합니다.
+	    ORDER BY
+	        lm.created_at DESC NULLS LAST
+	</select>
+	<!-- 이전 1:1채팅 불러오기 -->
+	<select id="findDmsByRoomId" parameterType="long" resultType="ChatResponseDTO">
+        SELECT
+            m.id,
+            m.msg        AS message,
+            u.nickname,
+            m.created_at AS createdAt
+        FROM
+            dm_chat_message m
+            INNER JOIN "user" u ON m.user_id = u.id
+        WHERE
+            m.room_id = #{roomId}
+        ORDER BY
+            m.created_at ASC
+    </select>
+    <!-- 1:1 채팅 저장 -->
+	<insert id="saveDm" parameterType="ChatRequestDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id"> 
+		insert into dm_chat_message(msg, room_id, user_id, created_at) values(#{message}, #{roomId}, #{userId}, sysdate)
+	</insert>
 </mapper>

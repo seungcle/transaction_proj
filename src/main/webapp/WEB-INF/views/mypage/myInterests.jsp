@@ -12,16 +12,12 @@
 	<div class="offcanvas offcanvas-end" tabindex="-1"
 		id="myInterestsOffcanvas" aria-labelledby="myInterestsOffcanvasLabel">
 		<div class="offcanvas-header">
-			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">내
-				관심</h5>
+			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">찜한 상품</h5>
 			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
 				aria-label="Close"></button>
 		</div>
 
 		<div class="offcanvas-body p-0">
-			<ul class="nav nav-tabs px-3 custom-tabs">
-				<li class="nav-item title">찜한 상품</li>
-			</ul>
 
 			<div class="p-3">
 				<div class="product-item position-relative">

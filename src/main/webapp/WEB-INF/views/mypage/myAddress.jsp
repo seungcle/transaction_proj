@@ -1,160 +1,97 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.util.*"%>
-<%
-// 실제로는 DB에서 사용자의 배송지 목록을 가져와야 합니다.
-// 여기서는 동적 구현을 보여주기 위해 임시 데이터를 생성합니다.
-List<Map<String, Object>> addressList = new ArrayList<>();
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-Map<String, Object> addr1 = new HashMap<>();
-addr1.put("id", 1);
-addr1.put("nickname", "집");
-addr1.put("isDefault", true);
-addr1.put("recipient", "이혜성");
-addr1.put("phone", "010-6345-4720");
-addr1.put("postcode", "01053");
-addr1.put("address", "서울 강북구 한천로150길 12-16");
-addr1.put("addressDetail", "502호");
-addressList.add(addr1);
-
-Map<String, Object> addr2 = new HashMap<>();
-addr2.put("id", 2);
-addr2.put("nickname", "회사");
-addr2.put("isDefault", false);
-addr2.put("recipient", "이혜성");
-addr2.put("phone", "010-1234-5678");
-addr2.put("postcode", "04538");
-addr2.put("address", "서울 중구 세종대로 110");
-addr2.put("addressDetail", "서울시청");
-addressList.add(addr2);
-%>
 <!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<html lang="ko">
 <head>
-<meta charset="UTF-8">
-<title>배송지 관리</title>
-<link rel="icon" type="image/png" href="${pageContext.request.contextPath}/resources/images/watermelon_icon.ico">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage-components.css">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>배송지 관리</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage-components.css">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-	<div class="offcanvas offcanvas-end" tabindex="-1"
-		id="myAddressOffcanvas" aria-labelledby="myAddressOffcanvasLabel">
+	<div class="offcanvas offcanvas-end" tabindex="-1" id="myAddressOffcanvas">
 		<div class="offcanvas-header">
-			<button id="back-button" type="button"
-				class="btn btn-link text-dark me-2 d-none">
-				<i class="bi bi-arrow-left fs-4"></i>
-			</button>
-			<h5 class="offcanvas-title flex-grow-1 text-center"
-				id="addressOffcanvasLabel">배송지 관리</h5>
-			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-				aria-label="Close"></button>
+			<h5 class="offcanvas-title" id="addressOffcanvasLabel">배송지 관리</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
 		</div>
-
 		<div class="offcanvas-body">
 			<div id="address-list-view">
 				<div class="d-flex justify-content-end mb-2">
-					<a href="javascript:void(0);" id="edit-btn"
-						onclick="toggleEditMode()" class="text-decoration-none text-dark">
+					<a href="javascript:void(0);" id="edit-btn" onclick="toggleEditMode()" class="text-decoration-none text-dark">
 						<i class="bi bi-pencil-square"></i> 편집
 					</a>
 				</div>
 				<div id="address-list-container">
-					<%
-					for (Map<String, Object> addr : addressList) {
-					%>
-					<%
-					boolean isDefault = (Boolean) addr.get("isDefault");
-					%>
-					<div
-						class="address-item position-relative <%=isDefault ? "is-default" : ""%>"
-						data-address-id="<%=addr.get("id")%>"
-						data-nickname="<%=addr.get("nickname")%>"
-						data-recipient="<%=addr.get("recipient")%>"
-						data-phone="<%=addr.get("phone")%>"
-						data-postcode="<%=addr.get("postcode")%>"
-						data-address="<%=addr.get("address")%>"
-						data-address-detail="<%=addr.get("addressDetail")%>"
-						data-is-default="<%=isDefault%>">
-						
-						<div class="d-flex align-items-center mb-2">
-							<strong class="fs-5 me-2"><%=addr.get("nickname")%></strong>
-							<%
-							if (isDefault) {
-							%>
-							<span
-								class="badge bg-primary-subtle text-primary-emphasis rounded-pill">대표
-								배송지</span>
-							<%
-							}
-							%>
-						</div>
-						<p class="mb-1"><%=addr.get("recipient")%></p>
-						<p class="mb-1"><%=addr.get("phone")%></p>
-						<p class="mb-0">
-							[<%=addr.get("postcode")%>]
-							<%=addr.get("address")%>,
-							<%=addr.get("addressDetail")%></p>
-						
-						<div class="edit-buttons d-flex gap-2 position-absolute top-0 end-0 p-3 d-none">
-							<button class="btn btn-outline-secondary btn-sm"
-								onclick="editAddress(this)">수정</button>
-							<button class="btn btn-outline-danger btn-sm"
-								onclick="deleteAddress(this, <%=addr.get("id")%>)">삭제</button>
-						</div>
-					</div>
-					<%
-					}
-					%>
-				</div>
-				<button class="btn btn-outline-secondary w-100 mt-4"
-					onclick="showAddForm()">+ 배송지 추가</button>
+	<c:forEach var="addr" items="${addressList}">
+		<div class="address-item position-relative ${addr.defaultAddress eq 'Y' ? 'is-default' : ''}"
+	data-address-id="${addr.id}"
+	data-nickname="${addr.addressName}"
+	data-address="${addr.address}"
+	data-address-detail="${addr.detailAddress}"
+	data-is-default="${addr.defaultAddress}"
+	data-postal-code="${addr.postalCode}">
+	
+	<div class="mb-2">
+		<strong class="fs-5 me-2">배송지명: ${addr.addressName}</strong>
+		<c:if test="${addr.defaultAddress eq 'Y'}">
+			<span class="badge bg-primary-subtle text-primary-emphasis rounded-pill">대표 배송지</span>
+		</c:if>
+	</div>
+	<p class="mb-1">
+		<span>우편번호: ${addr.postalCode}</span><br>
+		<span>주소: ${addr.address}</span><br>
+		<span>상세주소: ${addr.detailAddress}</span>
+	</p>
+	
+	<div class="edit-buttons d-flex gap-2 position-absolute top-0 end-0 p-3 d-none">
+		<button class="btn btn-outline-secondary btn-sm" onclick="editAddress(this)">수정</button>
+		<button class="btn btn-outline-danger btn-sm" onclick="deleteAddress(this, ${addr.id})">삭제</button>
+	</div>
+</div>
+	</c:forEach>
+</div>
+				<button class="btn btn-outline-secondary w-100 mt-4" onclick="showAddForm()">+ 배송지 추가</button>
 			</div>
 
 			<div id="address-form-view" class="d-none">
+				<div class="d-flex justify-content-start mb-3">
+					<a href="javascript:void(0);" onclick="showListView()" class="text-decoration-none text-dark">
+						<i class="bi bi-arrow-left"></i> 뒤로
+					</a>
+				</div>
 				<form id="address-form" onsubmit="return false;">
-					<input type="hidden" id="form-address-id">
+					<input type="hidden" class="form-address-id">
 					<div class="mb-3">
-						<input type="text" class="form-control" id="form-nickname"
-							placeholder="배송지명 (최대 10글자)">
-					</div>
-					<div class="mb-3">
-						<input type="text" class="form-control" id="form-recipient"
-							placeholder="받는 분">
-					</div>
-					<div class="mb-3">
-						<input type="tel" class="form-control" id="form-phone"
-							placeholder="연락처">
+						<input type="text" class="form-control form-nickname" placeholder="배송지명 (최대 10글자)">
 					</div>
 					<div class="d-flex mb-2">
-						<input type="text" class="form-control" id="postcode"
-							placeholder="우편번호" readonly>
-						<button type="button" class="btn btn-secondary ms-2 flex-shrink-0"
-							onclick="showView('search')">주소 검색</button>
+						<input type="text" class="form-control form-postal-code" placeholder="우편번호" readonly>
+						<button type="button" class="btn btn-secondary ms-2 flex-shrink-0" onclick="openDaumPostcode()">주소 검색</button>
 					</div>
 					<div class="mb-3">
-						<input type="text" class="form-control" id="address"
-							placeholder="주소" readonly>
+						<input type="text" class="form-control form-address" placeholder="주소" readonly>
 					</div>
 					<div class="mb-3">
-						<input type="text" class="form-control" id="addressDetail"
-							placeholder="상세주소 (예: 101동 101호)">
+						<input type="text" class="form-control form-address-detail" placeholder="상세주소">
 					</div>
-					<div class="form-check">
-						<input class="form-check-input" type="checkbox"
-							id="isDefaultCheck"> <label class="form-check-label"
-							for="isDefaultCheck">대표 배송지로 설정</label>
+					<div class="form-check mb-3">
+						<input class="form-check-input form-is-default" type="checkbox">
+						<label class="form-check-label">대표 배송지로 설정</label>
 					</div>
-					<div class="bottom-fixed-btn">
-						<button type="submit" class="btn btn-dark w-100 btn-lg" id="form-submit-btn">완료</button>
+					<div class="mt-3">
+						<button type="submit" class="btn btn-dark w-100 btn-lg form-submit-btn">완료</button>
 					</div>
 				</form>
 			</div>
-			<div id="address-search-view" class="d-none" style="height: 100%;">
-			</div>
-		</div>
 
+			<div id="daum-postcode-container" style="display: none; height: 400px;"></div>
+		</div>
 		<div class="offcanvas-footer">
 			<i class="bi bi-info-circle"></i> 최대 5개까지 등록 가능
 		</div>
@@ -162,140 +99,163 @@ addressList.add(addr2);
 
 	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script>
-        const views = { list: document.getElementById('address-list-view'), form: document.getElementById('address-form-view'), search: document.getElementById('address-search-view') };
-        const offcanvasTitle = document.getElementById('addressOffcanvasLabel');
-        const backButton = document.getElementById('back-button');
-        let currentView = 'list';
-        let postcodeApi = null;
-        
-        // 주소 폼 필드 캐시
-        const formId = document.getElementById('form-address-id');
-        const formNickname = document.getElementById('form-nickname');
-        const formRecipient = document.getElementById('form-recipient');
-        const formPhone = document.getElementById('form-phone');
-        const formPostcode = document.getElementById('postcode');
-        const formAddress = document.getElementById('address');
-        const formAddressDetail = document.getElementById('addressDetail');
-        const formIsDefault = document.getElementById('isDefaultCheck');
-        const formSubmitBtn = document.getElementById('form-submit-btn');
+	$(function() {
+		const views = { list: $('#address-list-view'), form: $('#address-form-view') };
+		const formId = $('.form-address-id');
+		const formNickname = $('.form-nickname');
+		const formPostalCode = $('.form-postal-code');
+		const formAddress = $('.form-address');
+		const formAddressDetail = $('.form-address-detail');
+		const formIsDefault = $('.form-is-default');
+		const formSubmitBtn = $('.form-submit-btn');
+		const contextPath = '${pageContext.request.contextPath}';
 
-        function showView(viewName) {
-            for (const key in views) { views[key].classList.add('d-none'); }
-            views[viewName].classList.remove('d-none');
-            if (viewName === 'list') { 
-                backButton.classList.add('d-none'); 
-                offcanvasTitle.textContent = '배송지 관리'; 
-                backButton.onclick = null; 
-            } else if (viewName === 'form') { 
-                backButton.classList.remove('d-none'); 
-                offcanvasTitle.textContent = '배송지 추가'; 
-                backButton.onclick = () => showView('list'); 
-            } else if (viewName === 'search') { 
-                backButton.classList.remove('d-none'); 
-                offcanvasTitle.textContent = '주소 검색'; 
-                backButton.onclick = () => showView('form'); 
-                openDaumPostcodeEmbed(); 
-            }
-            currentView = viewName;
-        }
+		function loadAddressListAsHtml() {
+			$.get(contextPath + '/mypage/address', function(html) {
+				const tempDiv = $('<div>').html(html);
+				const newContent = tempDiv.find('#address-list-container').html();
+				if (newContent) {
+					$('#address-list-container').html(newContent);
+				} else {
+					$('#address-list-container').html('<div class="text-center text-muted">로딩 실패</div>');
+				}
+				$('#address-list-container').removeClass('edit-mode');
+				$('#address-list-container .edit-buttons').addClass('d-none');
+				$('#edit-btn').html('<i class="bi bi-pencil-square"></i> 편집');
+			}).fail(function(xhr, status, error) {
+				alert('주소 목록을 불러오는데 실패했습니다.');
+			});
+		}
 
-        function showAddForm() {
-            // 폼 초기화
-            formId.value = '';
-            formNickname.value = '';
-            formRecipient.value = '';
-            formPhone.value = '';
-            formPostcode.value = '';
-            formAddress.value = '';
-            formAddressDetail.value = '';
-            formIsDefault.checked = false;
-            offcanvasTitle.textContent = '배송지 추가';
-            formSubmitBtn.textContent = '추가';
-            showView('form');
-        }
+		window.showListView = function() {
+			views.form.addClass('d-none');
+			views.list.removeClass('d-none');
+		};
 
-        function editAddress(buttonElement) {
-            const item = buttonElement.closest('.address-item');
-            const data = item.dataset;
-            
-            formId.value = data.addressId;
-            formNickname.value = data.nickname;
-            formRecipient.value = data.recipient;
-            formPhone.value = data.phone;
-            formPostcode.value = data.postcode;
-            formAddress.value = data.address;
-            formAddressDetail.value = data.addressDetail;
-            formIsDefault.checked = (data.isDefault === 'true');
-            
-            offcanvasTitle.textContent = '배송지 수정';
-            formSubmitBtn.textContent = '저장';
-            showView('form');
-        }
+		window.showAddForm = function() {
+			formId.val('');
+			formNickname.val('');
+			formPostalCode.val('');
+			formAddress.val('');
+			formAddressDetail.val('');
+			formIsDefault.prop('checked', false);
+			formSubmitBtn.text('추가');
+			views.list.addClass('d-none');
+			views.form.removeClass('d-none');
+			$('#daum-postcode-container').hide();
+		};
+		
+		// 주소 수정 버튼 클릭 시 호출되는 함수
+		window.editAddress = function(button) {
+			const item = $(button).closest('.address-item');
+			
+			// 데이터를 입력 폼에 미리 채워넣음
+			formId.val(item.data('addressId'));
+			formNickname.val(item.data('nickname'));
+			formPostalCode.val(item.data('postalCode'));
+			formAddress.val(item.data('address'));
+			formAddressDetail.val(item.data('addressDetail'));
+			formIsDefault.prop('checked', item.data('isDefault') === 'Y');
+			formSubmitBtn.text('저장');
+			
+			// 주소 입력 폼 뷰로 전환
+			views.list.addClass('d-none');
+			views.form.removeClass('d-none');
+			$('#daum-postcode-container').hide();
+		};
 
-        function toggleEditMode() {
-            const container = document.getElementById('address-list-container');
-            const editBtn = document.getElementById('edit-btn');
-            const isEditing = container.classList.toggle('edit-mode');
-            
-            // 모든 수정/삭제 버튼을 보이거나 숨김
-            container.querySelectorAll('.edit-buttons').forEach(btn => { 
-                btn.classList.toggle('d-none', !isEditing); 
-            });
-            
-            editBtn.innerHTML = isEditing ? '<i class="bi bi-check-circle"></i> 완료' : '<i class="bi bi-pencil-square"></i> 편집';
-        }
+		window.toggleEditMode = function() {
+			const container = $('#address-list-container');
+			const editBtn = $('#edit-btn');
+			container.toggleClass('edit-mode');
+			container.find('.edit-buttons').toggleClass('d-none');
+			editBtn.html(container.hasClass('edit-mode') ? '<i class="bi bi-check-circle"></i> 완료' : '<i class="bi bi-pencil-square"></i> 편집');
+		};
 
-        function deleteAddress(buttonElement, addressId) {
-            if (confirm("정말로 이 배송지를 삭제하시겠습니까?")) {
-                console.log('주소 ID ' + addressId + ' 삭제');
-                const addressItem = buttonElement.closest('.address-item');
-                addressItem.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-                addressItem.style.opacity = '0';
-                addressItem.style.transform = 'translateX(50px)';
-                setTimeout(() => { addressItem.remove(); }, 300);
-            }
-        }
-        
-        function openDaumPostcodeEmbed() {
-            if (!postcodeApi) {
-                postcodeApi = new daum.Postcode({
-                    oncomplete: function(data) {
-                        formPostcode.value = data.zonecode;
-                        formAddress.value = data.roadAddress || data.jibunAddress;
-                        formAddressDetail.focus();
-                        showView('form');
-                    },
-                    theme: { searchBgColor: "#FFFFFF", queryTextColor: "#000000" },
-                    width: '100%', height: '100%'
-                });
-            }
-            postcodeApi.embed(views.search);
-        }
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            // 폼 제출 이벤트 처리
-            const form = document.getElementById('address-form').closest('form');
-            form.addEventListener('submit', function() {
-                const addressId = formId.value;
-                const nickname = formNickname.value;
-                const recipient = formRecipient.value;
-                const phone = formPhone.value;
-                const postcode = formPostcode.value;
-                const address = formAddress.value;
-                const addressDetail = formAddressDetail.value;
-                const isDefault = formIsDefault.checked;
+		window.deleteAddress = function(button, id) {
+			if(confirm('정말 삭제하시겠습니까?')) {
+				$.post(contextPath + '/mypage/address/delete/' + id, function(res) {
+					if(res === 'success') {
+						loadAddressListAsHtml();
+					} else if(res === 'login_required') {
+						alert('로그인 후 이용 가능합니다.');
+						location.reload();
+					} else {
+						alert('오류가 발생했습니다.');
+					}
+				}).fail(function() {
+					alert('서버 오류 발생');
+				});
+			}
+		};
 
-                if (addressId) {
-                    console.log('수정:', { id: addressId, nickname, recipient, phone, postcode, address, addressDetail, isDefault });
-                    alert('배송지 수정이 완료되었습니다.');
-                } else {
-                    console.log('추가:', { nickname, recipient, phone, postcode, address, addressDetail, isDefault });
-                    alert('새 배송지가 추가되었습니다.');
-                }
-                showView('list');
-                toggleEditMode();
-            });
-        });
-    </script>
+		window.openDaumPostcode = function() {
+			views.form.hide();
+			$('#daum-postcode-container').show();
+			new daum.Postcode({
+				oncomplete: function(data) {
+					formPostalCode.val(data.zonecode);
+					formAddress.val(data.roadAddress || data.jibunAddress);
+					$('#daum-postcode-container').hide();
+					views.form.show();
+					formAddressDetail.focus();
+				},
+				width: '100%',
+				height: '100%'
+			}).embed(document.getElementById('daum-postcode-container'));
+		};
+
+		formSubmitBtn.off('click').on('click', function() {
+			if (!formNickname.val().trim() || !formPostalCode.val().trim() || !formAddress.val().trim()) {
+				alert('배송지명, 우편번호, 주소는 필수 입력 항목입니다.');
+				return;
+			}
+			formSubmitBtn.prop('disabled', true);
+			
+			const isUpdate = formId.val().trim() !== '';
+			const url = isUpdate ? contextPath + '/mypage/address/update' : contextPath + '/mypage/address/add';
+			
+			const dto = {
+				id: isUpdate ? formId.val() : null,
+				address_name: formNickname.val().trim(),
+				address: formAddress.val().trim(),
+				detail_address: formAddressDetail.val().trim(),
+				default_address: formIsDefault.prop('checked') ? 'Y' : 'N',
+				postal_code: formPostalCode.val().trim()
+			};
+			
+			$.ajax({
+				url: url,
+				type: 'POST',
+				contentType: 'application/json',
+				data: JSON.stringify(dto),
+				success: function(res) {
+					if (res === 'success') {
+						loadAddressListAsHtml();
+						showListView();
+						formSubmitBtn.prop('disabled', false);
+					} else if (res === 'login_required') {
+						alert('로그인 후 이용 가능합니다.');
+						location.reload();
+					} else {
+						alert('예상치 못한 응답: ' + res);
+						formSubmitBtn.prop('disabled', false);
+					}
+				},
+				error: function(xhr) {
+					alert('오류가 발생했습니다: ' + xhr.status);
+					formSubmitBtn.prop('disabled', false);
+				}
+			});
+		});
+
+		const offcanvasElement = document.getElementById('myAddressOffcanvas');
+		if (offcanvasElement) {
+			offcanvasElement.addEventListener('show.bs.offcanvas', function () {
+				loadAddressListAsHtml();
+			});
+		}
+	});
+	</script>
 </body>
 </html>

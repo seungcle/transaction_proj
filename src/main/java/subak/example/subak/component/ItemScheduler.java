@@ -16,6 +16,8 @@ public class ItemScheduler {
     
     @Autowired
     TransactionDAO transactionDAO;
+    
+    @Autowired
     ItemDAO itemDAO;
     
     @Scheduled(fixedDelay = 10000)
@@ -36,13 +38,19 @@ public class ItemScheduler {
         for (ItemRequestDTO item : list) {
             System.out.println("아이템 ID: " + item.getId() + " 처리 중...");
             try {
+            	if(item.getCurrentPrice() == Long.parseLong((item.getStartPrice()).replaceAll(",","")))
+            	{
+            		itemDAO.updateStatus(item.getId(),"FAILED");
+            		System.out.println("아이템 ID: " + item.getId() + " 유찰");
+            		continue;
+            	}
             	TransactionDTO dto = new TransactionDTO();
             	dto.setItemId(item.getId());
             	dto.setPrice(item.getCurrentPrice());
             	dto.setUserId(item.getSellerId());
             	
             	transactionDAO.createTransaction(dto);
-            	itemDAO.updateStatus(item.getId());
+            	itemDAO.updateStatus(item.getId(),"CLOSED");
             	
             	
             } catch (Exception e) {

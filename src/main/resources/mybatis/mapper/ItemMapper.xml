@@ -372,20 +372,22 @@
 	<select id="searchEndTime" resultType="ItemRequestDTO">
         SELECT 
             id,
-            user_id,
-            end_time,
+            SELLER_ID,
+            CURRENT_PRICE,
+            START_PRICE,
+            end_time
         FROM
-            items
+            item
         WHERE
-            end_time < sysdate
+            end_time &lt; sysdate
             AND status = 'OPEN' 
      </select>
      
-     <update id="updateStatus" parameterType="id">
+     <update id="updateStatus">
      	UPDATE item
     	SET
-        	status = "CLOSED"
-    	WHERE id = #{id}
+        	status = #{status}
+    	WHERE id = #{itemId}
     </update>
 </mapper>
 

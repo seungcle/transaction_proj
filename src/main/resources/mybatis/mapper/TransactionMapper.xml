@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="subak.example.subak.dao.TransactionDAO">
-<insert id="createTransaction" parameterType = "TransactionDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+<insert id="createTransaction" parameterType = "subak.example.subak.domain.TransactionDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
 	insert into transaction (price, created_at, user_id, item_id)
 	values (#{price}, sysdate, #{userId}, #{itemId})
 </insert>

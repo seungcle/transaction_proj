@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import subak.example.subak.domain.BidDTO;
 import subak.example.subak.domain.ItemImageDTO;
@@ -27,7 +28,7 @@ public interface ItemDAO {
 	
 	void updateItem(Map<String, Long> params);
 	
-	void updateStatus(Long id);
+	void updateStatus(@Param("itemId")Long id,@Param("status")String status);
 	
 	
 	List<ItemRequestDTO> searchEndTime();

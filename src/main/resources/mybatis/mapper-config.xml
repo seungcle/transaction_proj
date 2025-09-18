@@ -20,5 +20,6 @@
 		<typeAlias alias="ChatResponseDTO" type="subak.example.subak.domain.ChatResponseDTO" />			
 		<typeAlias alias="ChatRoomDTO" type="subak.example.subak.domain.ChatRoomDTO" />			
 		<typeAlias alias="DmChatRoomDTO" type="subak.example.subak.domain.DmChatRoomDTO" />			
+		<typeAlias alias="DmChatRoomInfoDTO" type="subak.example.subak.domain.DmChatRoomInfoDTO" />			
 	</typeAliases>
 </configuration>

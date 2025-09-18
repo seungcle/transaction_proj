@@ -8,163 +8,58 @@
 <%-- Bootstrap 5 CSS & Icons --%>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<%-- jQuery Library (Ajax 사용을 위해 추가) --%>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
 <%-- Websocket Libraries --%>
 <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 
 <style>
-    /* 채팅 목록 커스텀 CSS */
-    .chat-list-item img {
-        width: 50px;
-        height: 50px;
-        object-fit: cover;
-    }
-    .chat-list-item .last-message {
-        display: -webkit-box;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 0.9em;
-        color: #6c757d;
-    }
-    .chat-list-item:hover {
-        background-color: #f8f9fa;
-    }
-
-    /* 채팅 상세 화면 CSS (chat.css 내용이라 가정) */
-    .chat-scroll {
-        overflow-y: auto;
-        padding: 10px;
-        display: flex;
-        flex-direction: column;
-    }
-    .msg {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
-        max-width: 70%;
-    }
-    .msg .name {
-        font-size: 0.8rem;
-        color: #666;
-        margin-bottom: 4px;
-    }
-    .msg .bubble {
-        padding: 10px 15px;
-        border-radius: 1.2rem;
-        line-height: 1.4;
-    }
-    .msg .time {
-        font-size: 0.75rem;
-        color: #999;
-        margin-top: 4px;
-    }
-    .msg.me {
-        align-self: flex-end;
-        align-items: flex-end;
-    }
-    .msg.me .bubble {
-        background-color: #0d6efd; /* Bootstrap primary color */
-        color: white;
-    }
-    .msg.other {
-        align-self: flex-start;
-        align-items: flex-start;
-    }
-    .msg.other .bubble {
-        background-color: #e9ecef; /* Bootstrap light gray */
-        color: #212529;
-    }
+    /* ... (스타일 코드는 이전과 동일) ... */
+    .chat-list-item img { width: 50px; height: 50px; object-fit: cover; }
+    .chat-list-item .last-message { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis; font-size: 0.9em; color: #6c757d; }
+    .chat-list-item:hover { background-color: #f8f9fa; }
+    .chat-scroll { overflow-y: auto; padding: 10px; display: flex; flex-direction: column; }
+    .msg { display: flex; flex-direction: column; margin-bottom: 15px; max-width: 70%; }
+    .msg .name { font-size: 0.8rem; color: #666; margin-bottom: 4px; }
+    .msg .bubble { padding: 10px 15px; border-radius: 1.2rem; line-height: 1.4; }
+    .msg .time { font-size: 0.75rem; color: #999; margin-top: 4px; }
+    .msg.me { align-self: flex-end; align-items: flex-end; }
+    .msg.me .bubble { background-color: #0d6efd; color: white; }
+    .msg.other { align-self: flex-start; align-items: flex-start; }
+    .msg.other .bubble { background-color: #e9ecef; color: #212529; }
 </style>
 </head>
 <body>
 
-<%-- 
-    이 데이터는 실제로는 서버에서 동적으로 받아와야 합니다.
-    예시에서는 현재 로그인한 사용자 정보를 'user' 객체에서 가져온다고 가정합니다.
---%>
-<div id="user-data"
-     data-id="${user.id}" 
-     data-nickname="${user.nickname}">
-</div>
-
+<%-- ✅ 현재 로그인한 사용자 정보를 담는 부분 --%>
+<div id="user-data" data-id="${user.id}" data-nickname="${user.nickname}"></div>
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="myChatOffcanvas" aria-labelledby="myChatOffcanvasLabel">
     <div class="offcanvas-header border-bottom">
-        <%-- ✅ 1. 타이틀 가운데 정렬: w-100 text-center 클래스 추가 --%>
         <h5 class="offcanvas-title w-100 text-center" id="myChatOffcanvasLabel">
             <i class="bi bi-chat-dots-fill"></i> 채팅
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-
     <div class="offcanvas-body p-0">
-        <div class="list-group list-group-flush">
-            <%-- 
-                ✅ 2. 채팅방 상세화면 연결
-                - data-bs-toggle="offcanvas" : Offcanvas를 열도록 지정
-                - data-bs-target="#chatDetailOffcanvas" : 열릴 Offcanvas의 ID를 지정
-                - data-room-id="1" : 채팅방의 고유 ID를 데이터로 저장
-                - data-room-name="에어팟구매자" : 채팅방 이름을 데이터로 저장
-            --%>
-            <a href="#" class="list-group-item list-group-item-action chat-list-item p-3" 
-               data-bs-toggle="offcanvas" data-bs-target="#chatDetailOffcanvas"
-               data-room-id="1" data-room-name="에어팟구매자">
-                <div class="d-flex w-100 align-items-center">
-                    <img src="https://i.pravatar.cc/150?img=3" class="rounded-circle me-3" alt="User profile">
-                    <div class="flex-grow-1">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="mb-1 fw-bold">에어팟구매자</h6>
-                            <small class="text-muted">3분 전</small>
-                        </div>
-                        <p class="mb-0 last-message">네, 구매 확정하겠습니다! 감사합니다.</p>
-                    </div>
-                </div>
-            </a>
-            
-            <a href="#" class="list-group-item list-group-item-action chat-list-item p-3"
-               data-bs-toggle="offcanvas" data-bs-target="#chatDetailOffcanvas"
-               data-room-id="2" data-room-name="키보드문의">
-                <div class="d-flex w-100 align-items-center">
-                    <img src="https://i.pravatar.cc/150?img=5" class="rounded-circle me-3" alt="User profile">
-                    <div class="flex-grow-1">
-                        <div class="d-flex justify-content-between">
-                            <h6 class="mb-1 fw-bold">키보드문의</h6>
-                            <small class="text-muted">15분 전</small>
-                        </div>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <p class="mb-0 last-message fw-bold text-dark">혹시 직거래는 어디서 가능할까요?</p>
-                            <span class="badge bg-danger rounded-pill">1</span>
-                        </div>
-                    </div>
-                </div>
-            </a>
-        </div>
+        <div class="list-group list-group-flush" id="chat-room-list"></div>
     </div>
 </div>
 
 
 <div class="offcanvas offcanvas-end" tabindex="-1" id="chatDetailOffcanvas" aria-labelledby="chatDetailOffcanvasLabel">
-    
-    <%-- ✅ 헤더 구조 변경 --%>
     <div class="offcanvas-header border-bottom">
-        
-        <button class="btn" type="button" 
-                data-bs-toggle="offcanvas" 
-                data-bs-target="#myChatOffcanvas" 
-                aria-label="뒤로가기">
+        <button class="btn" type="button" data-bs-toggle="offcanvas" data-bs-target="#myChatOffcanvas" aria-label="뒤로가기">
             <i class="bi bi-arrow-left"></i>
         </button>
-        
-        <h5 class="offcanvas-title mx-auto" id="chatDetailOffcanvasLabel">
-            채팅방 이름
-        </h5>
-
+        <h5 class="offcanvas-title mx-auto text-center w-100" id="chatDetailOffcanvasLabel">채팅방 이름</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-
     <div class="offcanvas-body d-flex flex-column p-0">
+        <%-- ✅ 채팅 내용이 표시될 영역 --%>
         <div id="chat-list" class="flex-grow-1 mb-3 chat-scroll"></div>
         <div class="input-group p-3 border-top">
             <input type="text" id="chat-message-input" class="form-control" placeholder="메시지를 입력하세요...">
@@ -177,170 +72,157 @@
 
 
 <script type="text/javascript">
-    // 전역 변수
-    let stompClient = null;
-    let currentRoomId = null;
-    
-    // 현재 로그인한 사용자 정보 (페이지 로드 시 한 번만 가져옴)
-    const userData = document.getElementById('user-data');
-    const currentUserId = userData.dataset.id;
-    const currentUserNickname = userData.dataset.nickname;
+$(document).ready(function() {
+    var contextPath = "${pageContext.request.contextPath}";
+    // ✅ 현재 로그인한 유저의 ID를 변수에 저장
+    var currentUserId = $('#user-data').data('id');
+    var currentUserNickname = $('#user-data').data('nickname');
 
-    // DOM 요소
-    const chatDetailOffcanvasEl = document.getElementById('chatDetailOffcanvas');
-    const chatList = document.getElementById('chat-list');
-    const messageInput = document.getElementById('chat-message-input');
-    const sendButton = document.getElementById('send-button');
-
-    // 채팅 상세 Offcanvas가 열릴 때 발생하는 이벤트 리스너
-    chatDetailOffcanvasEl.addEventListener('show.bs.offcanvas', function (event) {
-        // 클릭된 채팅방 링크(<a> 태그) 정보 가져오기
-        const button = event.relatedTarget;
-        const roomId = button.dataset.roomId;
-        const roomName = button.dataset.roomName;
-
-        // 채팅방 정보가 다를 경우에만 새로 연결
-        if (currentRoomId !== roomId) {
-            currentRoomId = roomId;
-
-            // 1. 채팅방 제목 업데이트
-            const titleEl = chatDetailOffcanvasEl.querySelector('#chatDetailOffcanvasLabel');
-            titleEl.textContent = roomName;
-
-            // 2. 기존 메시지 비우기
-            chatList.innerHTML = '';
-            
-            // 3. 웹소켓 연결 및 이전 대화 불러오기
-            connectAndLoadChats();
-        }
-    });
-    
-    // 채팅 상세 Offcanvas가 닫힐 때 웹소켓 연결 해제
-    chatDetailOffcanvasEl.addEventListener('hide.bs.offcanvas', function () {
-        disconnect();
+    // 채팅 목록 Offcanvas가 열릴 때마다 목록을 새로고침
+    var myChatOffcanvas = document.getElementById('myChatOffcanvas');
+    myChatOffcanvas.addEventListener('show.bs.offcanvas', function () {
+        loadChatList();
     });
 
-    // 메시지 전송 버튼 클릭 이벤트
-    sendButton.addEventListener('click', sendMessage);
-
-    // 엔터 키로 메시지 전송
-    messageInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter' && !e.shiftKey) {
-            e.preventDefault(); // form 전송 방지
-            sendMessage();
-        }
-    });
-
-    // 1. 웹소켓 연결 및 채팅 불러오기 함수
-    function connectAndLoadChats() {
-        if (!currentRoomId || !currentUserId) {
-            console.error('채팅방 ID 또는 사용자 정보가 없습니다.');
-            return;
-        }
-
-        // 기존 연결이 있다면 해제
-        if (stompClient !== null) {
-            stompClient.disconnect(() => console.log('Previous connection disconnected.'));
-        }
-
-        const socket = new SockJS('${pageContext.request.contextPath}/ws');
-        stompClient = Stomp.over(socket);
-        stompClient.connect({}, onConnected, onError);
-    }
-
-    // 2. 연결 성공 시 처리
-    function onConnected() {
-        console.log('WebSocket Connected!');
-        // 해당 채팅방 구독
-        stompClient.subscribe('/topic/chat/' + currentRoomId, onMessageReceived);
-        // 이전 대화 내용 불러오기
-        loadPreviousChats();
-    }
-    
-    // 3. 연결 실패 시 처리
-    function onError(error) {
-        console.error('웹소켓 연결 실패:', error);
-    }
-    
-    // 4. 연결 해제
-    function disconnect() {
-        if (stompClient !== null) {
-            stompClient.disconnect();
-            stompClient = null;
-            currentRoomId = null; // 현재 방 ID 초기화
-            console.log("Disconnected");
-        }
-    }
-
-    // 5. 메시지 전송
-    function sendMessage() {
-        const messageContent = messageInput.value.trim();
-        if (messageContent && stompClient) {
-            const chatRequest = {
-                userId: currentUserId,
-                nickname: currentUserNickname,
-                message: messageContent
-            };
-            stompClient.send('/app/chat/' + currentRoomId, {}, JSON.stringify(chatRequest));
-            messageInput.value = '';
-        }
-    }
-
-    // 6. 메시지 수신
-    function onMessageReceived(payload) {
-        const chatResponse = JSON.parse(payload.body);
-        addChatMessage(chatResponse);
-    }
-
-    // 7. 이전 채팅 불러오기 (Fetch API)
-    function loadPreviousChats() {
-        fetch(`\${currentRoomId}/chat`) // 실제 경로에 맞게 수정 필요: e.g. `${pageContext.request.contextPath}/chat/${currentRoomId}`
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(chatListData => {
-                chatListData.forEach(chat => addChatMessage(chat));
-            })
-            .catch(error => console.error('이전 채팅 불러오기 실패:', error));
-    }
-
-    // 8. 수신된 메시지를 화면에 추가
-    function addChatMessage(message) {
-        const isMe = message.nickname === currentUserNickname;
-
-        const msgDiv = document.createElement('div');
-        msgDiv.classList.add('msg', isMe ? 'me' : 'other');
-
-        // 내 메시지가 아닐 때만 이름 표시
-        if (!isMe) {
-            const nameDiv = document.createElement('div');
-            nameDiv.classList.add('name');
-            nameDiv.textContent = message.nickname;
-            msgDiv.appendChild(nameDiv);
-        }
-
-        const bubbleDiv = document.createElement('div');
-        bubbleDiv.classList.add('bubble');
-        bubbleDiv.textContent = message.message;
-
-        const timeDiv = document.createElement('div');
-        timeDiv.classList.add('time');
+    // ====[ 수정된 코드 시작 ]====
+    // 채팅 상세 Offcanvas가 열릴 때, 채팅방 정보 설정 및 내용 불러오기
+    var chatDetailOffcanvas = document.getElementById('chatDetailOffcanvas');
+    chatDetailOffcanvas.addEventListener('show.bs.offcanvas', function (event) {
+        var button = event.relatedTarget;
         
-        if (message.createdAt) {
-            const messageTime = new Date(message.createdAt);
-            timeDiv.textContent = messageTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-        }
-        
-        msgDiv.appendChild(bubbleDiv);
-        msgDiv.appendChild(timeDiv);
+        var roomName = $(button).data('room-name');
+        var roomId = $(button).data('room-id'); // ✅ roomId 가져오기
 
-        chatList.appendChild(msgDiv);
-        // 항상 최신 메시지가 보이도록 스크롤을 맨 아래로 이동
-        chatList.scrollTop = chatList.scrollHeight;
+        // 채팅방 제목 설정
+        $('#chatDetailOffcanvasLabel').text(roomName);
+        
+        // ✅ 채팅 내용 불러오기 함수 호출
+        loadChatMessages(roomId);
+    });
+    // ====[ 수정된 코드 끝 ]====
+
+    /**
+     * 서버에서 채팅방 목록을 가져와 화면에 렌더링하는 함수
+     */
+    function loadChatList() {
+        // ... (이전과 동일한 코드)
+        $.ajax({
+            url: contextPath + '/chat/list',
+            type: 'GET',
+            dataType: 'json',
+            success: function(chatList) {
+                var chatListContainer = $('#chat-room-list');
+                chatListContainer.empty();
+                if (chatList && chatList.length > 0) {
+                    $.each(chatList, function(index, chatRoom) {
+                        var formattedTime = formatRelativeTime(chatRoom.createdAt);
+                        var chatItemHtml =
+                            '<a href="#" class="list-group-item list-group-item-action chat-list-item p-3" ' +
+                            'data-bs-toggle="offcanvas" data-bs-target="#chatDetailOffcanvas" ' +
+                            'data-room-id="' + chatRoom.roomId + '" data-room-name="' + chatRoom.nickname + '">' +
+                                '<div class="d-flex w-100 align-items-center">' +
+                                    '<img src="' + contextPath + chatRoom.imageUrl + '" class="rounded-circle me-3" alt="User profile">' +
+                                    '<div class="flex-grow-1">' +
+                                        '<div class="d-flex justify-content-between">' +
+                                            '<h6 class="mb-1 fw-bold">' + chatRoom.nickname + '</h6>' +
+                                            '<small class="text-muted">' + formattedTime + '</small>' +
+                                        '</div>' +
+                                        '<p class="mb-0 last-message">' + (chatRoom.msg || '') + '</p>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</a>';
+                        chatListContainer.append(chatItemHtml);
+                    });
+                } else {
+                    chatListContainer.html('<p class="text-center p-3">채팅 기록이 없습니다.</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("채팅 목록을 불러오는데 실패했습니다.", error);
+                $('#chat-room-list').html('<p class="text-center p-3 text-danger">오류가 발생했습니다.</p>');
+            }
+        });
     }
+    
+    // ====[ 새로 추가된 함수 시작 ]====
+    /**
+     * 특정 채팅방의 메시지 내역을 불러와 화면에 표시하는 함수
+     * @param {number} roomId - 채팅방 ID
+     */
+    function loadChatMessages(roomId) {
+        var chatContainer = $('#chat-list');
+        chatContainer.empty().html('<p class="text-center p-3">메시지를 불러오는 중...</p>'); // 로딩 표시
+
+        $.ajax({
+            url: contextPath + '/chat/dm/' + roomId,
+            type: 'GET',
+            dataType: 'json',
+            success: function(messages) {
+                chatContainer.empty(); // 로딩 메시지 제거
+
+                if (messages && messages.length > 0) {
+                    $.each(messages, function(index, msg) {
+                        // 내가 보낸 메시지인지 상대가 보낸 메시지인지 클래스 구분
+                        var msgClass = msg.nickname == currentUserNickname ? 'me' : 'other';
+                        var formattedTime = formatMessageTime(msg.createdAt);
+
+                        var messageHtml = 
+                            '<div class="msg ' + msgClass + '">' +
+                                '<div class="name">' + msg.nickname + '</div>' +
+                                '<div class="bubble">' + msg.message + '</div>' +
+                                '<div class="time">' + formattedTime + '</div>' +
+                            '</div>';
+                        
+                        chatContainer.append(messageHtml);
+                    });
+
+                    // 스크롤을 맨 아래로 이동
+                    chatContainer.scrollTop(chatContainer[0].scrollHeight);
+                } else {
+                    chatContainer.html('<p class="text-center text-muted p-3">아직 대화 내용이 없습니다.</p>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("채팅 내용을 불러오는데 실패했습니다.", error);
+                chatContainer.html('<p class="text-center text-danger p-3">대화 내용을 불러오는 중 오류가 발생했습니다.</p>');
+            }
+        });
+    }
+
+    /**
+     * 타임스탬프를 '오전/오후 HH:MM' 형식으로 변환하는 함수
+     */
+    function formatMessageTime(timestamp) {
+        if (!timestamp) return '';
+        var date = new Date(timestamp);
+        // toLocaleTimeString을 사용하여 브라우저의 로케일에 맞는 시간 형식으로 변환
+        return date.toLocaleTimeString('ko-KR', {
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+        });
+    }
+    // ====[ 새로 추가된 함수 끝 ]====
+
+    /**
+     * 타임스탬프를 상대 시간으로 변환하는 함수
+     */
+    function formatRelativeTime(timestamp) {
+        // ... (이전과 동일한 코드)
+        if (!timestamp) return '';
+        var now = new Date();
+        var past = new Date(timestamp);
+        var diffInSeconds = Math.floor((now - past) / 1000);
+        var intervals = { '년': 31536000, '개월': 2592000, '일': 86400, '시간': 3600, '분': 60 };
+        if (diffInSeconds < 60) return '방금 전';
+        for (var unit in intervals) {
+            var value = Math.floor(diffInSeconds / intervals[unit]);
+            if (value >= 1) return value + unit + ' 전';
+        }
+        return '방금 전';
+    }
+});
 </script>
-
 
 </body>
 </html>

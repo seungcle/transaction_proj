@@ -10,6 +10,7 @@ import subak.example.subak.dao.ChatDAO;
 import subak.example.subak.domain.ChatRequestDTO;
 import subak.example.subak.domain.ChatResponseDTO;
 import subak.example.subak.domain.DmChatRoomDTO;
+import subak.example.subak.domain.DmChatRoomInfoDTO;
 
 @Service
 public class ChatService {
@@ -43,8 +44,21 @@ public class ChatService {
 		dto.setUserId1(userId1);
 		dto.setUserId2(userId2);
 		
-		chatDAO.createDmChatRoom(dto);
+		// 기존에 생성된 채팅방이 있는지 확인
+	    Long roomId = chatDAO.findDmChatRoomByUsers(dto);
 		
+	    if(roomId == null)
+	    	chatDAO.createDmChatRoom(dto);
+	}
+
+	public List<DmChatRoomInfoDTO> getMyChatList(Long myUserId) {
+		
+		return chatDAO.findMyChatRooms(myUserId);
+	}
+
+	public List<ChatResponseDTO> getAllDm(Long roomId) {
+		
+		return chatDAO.findDmsByRoomId(roomId);
 	}
 
 }

@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import subak.example.subak.domain.ChatRequestDTO;
 import subak.example.subak.domain.ChatResponseDTO;
+import subak.example.subak.domain.DmChatRoomInfoDTO;
 import subak.example.subak.domain.SessionUserVO;
 import subak.example.subak.service.ChatService;
 
@@ -60,4 +61,27 @@ public class ChatController {
 		chatService.makeChatRoom(userId, user.getId());
 		return "redirect:/mypage?openChat=true";
 	}
+	
+	// 내 1:1 채팅방 리스트
+	@GetMapping("/chat/list")
+	@ResponseBody
+	public List<DmChatRoomInfoDTO> getMyChatList(HttpSession session){
+		
+		SessionUserVO user = (SessionUserVO) session.getAttribute("user");
+        
+		List<DmChatRoomInfoDTO> list = chatService.getMyChatList(user.getId());
+		
+		return list;
+	}
+	
+	// 1:1 채팅방 내용 가져오기
+	@GetMapping("/chat/dm/{roomId}")
+	@ResponseBody
+	public List<ChatResponseDTO> getAllDm(@PathVariable Long roomId){
+		
+		List<ChatResponseDTO> list = chatService.getAllDm(roomId);
+		
+		return list;
+	}
+	
 }

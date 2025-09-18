@@ -1,7 +1,5 @@
 package subak.example.subak.domain;
 
-import java.security.Timestamp;
-
 import lombok.Getter;
 import lombok.Setter;
 

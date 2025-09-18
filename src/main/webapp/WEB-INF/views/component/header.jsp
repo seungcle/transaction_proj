@@ -6,9 +6,19 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/global.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/header.css">
 
-<%
-	String currentCategory = (String)request.getAttribute("category");
-%>
+<% 
+		String currentCategory;
+		String category1 = (String)request.getAttribute("category");
+		String category2 = request.getParameter("category");
+		if(category1 != null || category2 != null){
+			if(category1 != null)
+				currentCategory = category1;
+			else
+				currentCategory = category2;
+		}
+		else
+			currentCategory = "전체";
+	%>
 
 <header class="header">
 	<button class="hamburger-btn" id="hamburgerBtn">

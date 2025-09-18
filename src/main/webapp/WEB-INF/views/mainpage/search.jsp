@@ -21,6 +21,19 @@
 </head>
 <body>
 	<jsp:include page="../component/header.jsp" />
+	<% 
+		String category;
+		String category1 = (String)request.getAttribute("category");
+		String category2 = request.getParameter("category");
+		if(category1 != null || category2 != null){
+			if(category1 != null)
+				category = category1;
+			else
+				category = category2;
+		}
+		else
+			category = "전체";
+	%>
 	<div class="container mt-4 mb-5">
 		<h2 class="mb-3">검색 결과</h2>
 		<hr>
@@ -30,12 +43,7 @@
 				<div class="col-md-auto fw-bold">카테고리</div>
 				<div class="col-md-auto">
 					<button class="btn btn-dark btn-sm">
-						<c:if test="${!empty category}">
-							${category}
-						</c:if>
-						<c:if test="${empty category}">
-							전체
-						</c:if>
+						<%= category %>
 					</button>
 				</div>
 			</div>
@@ -44,6 +52,9 @@
 				<form action="${pageContext.request.contextPath}/item/search/price"
 					method="get" id="priceFilterForm">
 					<input type="hidden" name="title" value="${param.title}">
+					<% if (!"전체".equals(category) && category != null) { %>
+					    <input type="hidden" name="category" value="<%= category %>">
+					<% } %>
 					<div class="col-md-auto fw-bold">가격</div>
 					<div class="col-md-7 col-lg-5">
 						<div class="input-group input-group-sm">
@@ -61,10 +72,10 @@
 		</div>
 
 		<div class="d-flex justify-content-end align-items-center mb-3">
-			<a href="${pageContext.request.contextPath}/item/search/latest?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-dark fw-bold small me-3">최신순</a>
-			<a href="${pageContext.request.contextPath}/item/search/favorite?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-muted small me-3">추천순</a>
-			<a href="${pageContext.request.contextPath}/item/search/low?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-muted small me-3">낮은가격순</a>
-			<a href="${pageContext.request.contextPath}/item/search/high?title=${param.title}&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-muted small">높은가격순</a>
+			<a href="${pageContext.request.contextPath}/item/search/latest?title=${param.title}<% if (!"전체".equals(category) && category != null) { out.print("&category=" + category); } %>&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-dark fw-bold small me-3">최신순</a>
+			<a href="${pageContext.request.contextPath}/item/search/favorite?title=${param.title}<% if (!"전체".equals(category) && category != null) { out.print("&category=" + category); } %>&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-dark fw-bold small me-3">추천순</a>
+			<a href="${pageContext.request.contextPath}/item/search/low?title=${param.title}<% if (!"전체".equals(category) && category != null) { out.print("&category=" + category); } %>&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-dark fw-bold small me-3">낮은가격순</a>
+			<a href="${pageContext.request.contextPath}/item/search/high?title=${param.title}<% if (!"전체".equals(category) && category != null) { out.print("&category=" + category); } %>&minPrice=${param.minPrice}&maxPrice=${param.maxPrice}" class="text-decoration-none text-dark fw-bold small me-3">높은가격순</a>
 		</div>
 
 		<div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4">

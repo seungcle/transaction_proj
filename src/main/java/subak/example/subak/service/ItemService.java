@@ -152,13 +152,14 @@ public class ItemService {
 	    return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemByTitleWithPrice(String title, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemByTitleWithPrice(String title, String category, int minPrice, int maxPrice, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("search", title);
+		params.put("category", category);
 		params.put("offset", offset);
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
@@ -168,13 +169,14 @@ public class ItemService {
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByPriceAsc(String title, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByPriceAsc(String title, String category, int minPrice, int maxPrice, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("search", title);
+		params.put("category", category);
 		params.put("offset", offset);
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
@@ -183,13 +185,14 @@ public class ItemService {
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByIdDesc(String title, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByIdDesc(String title, String category, int minPrice, int maxPrice, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("search", title);
+		params.put("category", category);
 		params.put("offset", offset);
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
@@ -199,13 +202,14 @@ public class ItemService {
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByPriceDesc(String title, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByPriceDesc(String title, String category, int minPrice, int maxPrice, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("search", title);
+		params.put("category", category);
 		params.put("offset", offset);
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
@@ -215,13 +219,14 @@ public class ItemService {
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByFavoriteDesc(String title, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByFavoriteDesc(String title, String category, int minPrice, int maxPrice, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
 		
 		Map<String, Object> params = new HashMap<>();
 		params.put("search", title);
+		params.put("category", category);
 		params.put("offset", offset);
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);

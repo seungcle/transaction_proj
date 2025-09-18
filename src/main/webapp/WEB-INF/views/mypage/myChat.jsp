@@ -191,6 +191,11 @@ $(document).ready(function() {
      */
     function displayMessage(msg) {
         var chatContainer = $('#chat-list');
+        
+        var noContentMessage = chatContainer.find('.no-content');
+        if (noContentMessage.length > 0) {
+            noContentMessage.remove();
+        }
         var msgClass = msg.nickname == currentUserNickname ? 'me' : 'other';
         var formattedTime = formatMessageTime(msg.createdAt);
 
@@ -266,7 +271,7 @@ $(document).ready(function() {
                         displayMessage(msg); // ✅ 메시지 표시 함수 호출로 변경
                     });
                 } else {
-                    chatContainer.html('<p class="text-center text-muted p-3">아직 대화 내용이 없습니다.</p>');
+                	chatContainer.html('<p class="text-center text-muted p-3 no-content">아직 대화 내용이 없습니다.</p>');
                 }
             },
             error: function(xhr, status, error) {

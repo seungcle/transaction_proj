@@ -10,6 +10,7 @@ import subak.example.subak.domain.ItemImageDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
 import subak.example.subak.domain.SimpleItemResponseVO;
+import subak.example.subak.domain.TransactionDTO;
 
 @Mapper
 public interface ItemDAO {
@@ -24,8 +25,12 @@ public interface ItemDAO {
 	
 	boolean insertItemImage(ItemImageDTO dto);
 	
-	//update item
 	void updateItem(Map<String, Long> params);
+	
+	void updateStatus(Long id);
+	
+	
+	List<ItemRequestDTO> searchEndTime();
 
 	List<SimpleItemResponseVO> findByCategory(Map<String, Object> params);
 

@@ -10,6 +10,8 @@ import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.TransactionDTO;
 import subak.example.subak.dao.ItemDAO;
 import subak.example.subak.dao.TransactionDAO;
+import subak.example.subak.service.NotificationService; 
+import subak.example.subak.domain.NotificationDTO; 
 
 @Component
 public class ItemScheduler {
@@ -20,41 +22,69 @@ public class ItemScheduler {
     @Autowired
     ItemDAO itemDAO;
     
+    @Autowired
+    NotificationService notificationService;
+    
     @Scheduled(fixedDelay = 10000)
     public void processExpiredItems() {
-        // 1. DAO를 통해 만료된 아이템 목록을 조회합니다.
-        // 이 메서드는 SQL 쿼리 'SELECT * FROM items WHERE end_time < NOW()' 를 실행한다고 가정합니다.
         List<ItemRequestDTO> list = itemDAO.searchEndTime();
 
-        // 2. 만료된 아이템이 있는지 확인합니다. 
         if (list.isEmpty()) {
             System.out.println("처리할 만료 아이템이 없습니다.");
             return;
         }
 
-        // 3. 만료된 아이템 목록을 순회하며 비즈니스 로직을 수행합니다.
         System.out.println("총 " + list.size() + "개의 만료 아이템을 처리합니다.");
         
         for (ItemRequestDTO item : list) {
             System.out.println("아이템 ID: " + item.getId() + " 처리 중...");
             try {
-            	if(item.getCurrentPrice() == Long.parseLong((item.getStartPrice()).replaceAll(",","")))
-            	{
-            		itemDAO.updateStatus(item.getId(),"FAILED");
-            		System.out.println("아이템 ID: " + item.getId() + " 유찰");
-            		continue;
-            	}
-            	TransactionDTO dto = new TransactionDTO();
-            	dto.setItemId(item.getId());
-            	dto.setPrice(item.getCurrentPrice());
-            	dto.setUserId(item.getSellerId());
-            	
-            	transactionDAO.createTransaction(dto);
-            	itemDAO.updateStatus(item.getId(),"CLOSED");
-            	
-            	
-            } catch (Exception e) {
+                long startPrice = 0;
+                String startPriceStr = item.getStartPrice();
+                if (startPriceStr != null) {
+                    startPrice = Long.parseLong(startPriceStr.replaceAll(",", ""));
+                }
                 
+                // 만료 아이템 유찰 처리
+                if (item.getCurrentPrice() == null || item.getCurrentPrice() == startPrice) {
+                    itemDAO.updateStatus(item.getId(), "FAILED");
+                    System.out.println("아이템 ID: " + item.getId() + " 유찰 처리 완료.");
+                    
+                    // --- 알림 관련 로직 ---
+                    NotificationDTO notification = new NotificationDTO();
+                    notification.setUserId(item.getSellerId());
+                    notification.setItemId(item.getId());
+                    notification.setContent("아이템 '" + item.getTitle() + "'이 유찰되었습니다.");
+                    notification.setRead(false);
+                    
+                    // NotificationService를 통해 알림 전송 (DB 저장 및 웹소켓)
+                    notificationService.sendNotification(notification);
+                    
+                    continue; 
+                }
+                
+                // 정상 낙찰 처리
+                TransactionDTO dto = new TransactionDTO();
+                dto.setItemId(item.getId());
+                dto.setPrice(item.getCurrentPrice());
+                dto.setUserId(item.getSellerId());
+                
+                transactionDAO.createTransaction(dto);
+                itemDAO.updateStatus(item.getId(), "CLOSED");
+                
+                System.out.println("아이템 ID: " + item.getId() + " 정상 낙찰 처리 완료.");
+
+                // --- 알림 관련 로직  ---
+                NotificationDTO notification = new NotificationDTO();
+                notification.setUserId(item.getSellerId());
+                notification.setItemId(item.getId());
+                notification.setContent("아이템 '" + item.getTitle() + "'의 판매가 완료되었습니다.");
+                notification.setRead(false);
+                
+                // NotificationService를 통해 알림 전송 (DB 저장 및 웹소켓)
+                notificationService.sendNotification(notification);
+
+            } catch (Exception e) {
                 System.err.println("아이템 ID " + item.getId() + " 처리 중 오류 발생: " + e.getMessage());
             }
         }

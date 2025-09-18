@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="subak.example.subak.dao.NotificationDAO">
+
+    <insert id="insertNotification" parameterType="subak.example.subak.domain.NotificationDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
+        INSERT INTO notifications (
+            user_id,
+            item_id,
+            content,
+            is_read,
+            created_at
+        ) VALUES (
+            #{userId},
+            #{itemId},
+            #{content},
+            0, SYSDATE
+        )
+    </insert>
+
+    <select id="getNotificationsByUserId" parameterType="long" resultType="subak.example.subak.domain.NotificationDTO">
+        SELECT
+            id,
+            user_id,
+            item_id,
+            content,
+            is_read,
+            created_at
+        FROM
+            notifications
+        WHERE
+            user_id = #{userId}
+        ORDER BY created_at DESC
+    </select>
+    
+    <update id="updateIsRead" parameterType="long">
+        UPDATE notifications
+        SET is_read = 'Y'
+        WHERE id = #{notificationId}
+    </update>
+
+</mapper>

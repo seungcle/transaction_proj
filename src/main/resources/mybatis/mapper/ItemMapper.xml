@@ -403,6 +403,26 @@
 	    FETCH NEXT 
 	        #{pageSize} ROWS ONLY
 	</select>
+	<select id="searchEndTime" resultType="ItemRequestDTO">
+        SELECT 
+            id,
+            SELLER_ID,
+            CURRENT_PRICE,
+            START_PRICE,
+            end_time
+        FROM
+            item
+        WHERE
+            end_time &lt; sysdate
+            AND status = 'OPEN' 
+     </select>
+     
+     <update id="updateStatus">
+     	UPDATE item
+    	SET
+        	status = #{status}
+    	WHERE id = #{itemId}
+    </update>
 </mapper>
 
 

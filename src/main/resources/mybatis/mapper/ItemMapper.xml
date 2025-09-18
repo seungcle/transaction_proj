@@ -138,8 +138,15 @@
 	        ) AS imageUrl
 	    FROM 
 	        item i
+	        <if test="category != null and category != ''">
+	            JOIN category c ON i.category_id = c.id
+	        </if>
 	    WHERE
-	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' and i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' 
+	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        <if test="category != null and category != ''">
+	            AND c.name = #{category}
+	        </if>
 	    ORDER BY 
 	        i.id DESC
 	    OFFSET 
@@ -164,8 +171,15 @@
 	        ) AS imageUrl
 	    FROM 
 	        item i
+	        <if test="category != null and category != ''">
+	            JOIN category c ON i.category_id = c.id
+	        </if>
 	    WHERE
-	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' and i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' 
+	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        <if test="category != null and category != ''">
+	            AND c.name = #{category}
+	        </if>
 	    ORDER BY 
 	        i.current_price ASC
 	    OFFSET 
@@ -190,8 +204,15 @@
 	        ) AS imageUrl
 	    FROM 
 	        item i
+	        <if test="category != null and category != ''">
+	            JOIN category c ON i.category_id = c.id
+	        </if>
 	    WHERE
-	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' and i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' 
+	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        <if test="category != null and category != ''">
+	            AND c.name = #{category}
+	        </if>
 	    ORDER BY 
 	        i.id DESC
 	    OFFSET 
@@ -216,8 +237,15 @@
 	        ) AS imageUrl
 	    FROM 
 	        item i
+	        <if test="category != null and category != ''">
+	            JOIN category c ON i.category_id = c.id
+	        </if>
 	    WHERE
-	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' and i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%' 
+	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        <if test="category != null and category != ''">
+	            AND c.name = #{category}
+	        </if>
 	    ORDER BY 
 	        i.current_price DESC
 	    OFFSET 
@@ -244,9 +272,15 @@
 	    FROM
 	        item i
 	        LEFT JOIN favorite f ON i.id = f.item_id
+	        <if test="category != null and category != ''">
+	            JOIN category c ON i.category_id = c.id
+	        </if>
 	    WHERE
 	        UPPER(i.title) LIKE '%' || UPPER(#{search}) || '%'
 	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
+	        <if test="category != null and category != ''">
+	            AND c.name = #{category}
+	        </if>
 	    GROUP BY
 	        i.id,
 	        i.title,

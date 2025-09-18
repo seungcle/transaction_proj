@@ -119,13 +119,14 @@ public class ItemController {
 	// 가격 설정
 	@GetMapping("/search/price")
 	public String setPrice(@RequestParam(required = false) String title,
+						   @RequestParam(required = false) String category,
 						   @RequestParam(defaultValue = "0") int minPrice,
 						   @RequestParam(defaultValue = "999999999") int maxPrice,
 						   @RequestParam(defaultValue = "1") int page,
 						   Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemByTitleWithPrice(title, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemByTitleWithPrice(title, category, minPrice, maxPrice, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";
@@ -134,13 +135,14 @@ public class ItemController {
 	// 최신순
 	@GetMapping("/search/latest")
 	public String latestPage(@RequestParam(required = false) String title,
+							 @RequestParam(required = false) String category,
 				 			 @RequestParam(defaultValue = "0") int minPrice,
 				 			 @RequestParam(defaultValue = "999999999") int maxPrice,
 				 			 @RequestParam(defaultValue = "1") int page,
 				 			 Model model) {
 
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByIdDesc(title, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByIdDesc(title, category, minPrice, maxPrice, page, pageSize);
 		model.addAttribute("list", list);
 
 		return "mainpage/search";
@@ -149,13 +151,14 @@ public class ItemController {
 	// 낮은가격순
 	@GetMapping("/search/low")
 	public String lowerPricePage(@RequestParam(required = false) String title,
+								 @RequestParam(required = false) String category,
 			   					 @RequestParam(defaultValue = "0") int minPrice,
 			   					 @RequestParam(defaultValue = "999999999") int maxPrice,
 			   					 @RequestParam(defaultValue = "1") int page,
 			   					 Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceAsc(title, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceAsc(title, category, minPrice, maxPrice, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";
@@ -164,13 +167,14 @@ public class ItemController {
 	// 높은가격순
 	@GetMapping("/search/high")
 	public String higherPricePage(@RequestParam(required = false) String title,
+								  @RequestParam(required = false) String category,
 			   					  @RequestParam(defaultValue = "0") int minPrice,
 			   					  @RequestParam(defaultValue = "999999999") int maxPrice,
 			   					  @RequestParam(defaultValue = "1") int page,
 			   					  Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceDesc(title, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceDesc(title, category, minPrice, maxPrice, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";
@@ -179,13 +183,14 @@ public class ItemController {
 	// 추천순
 	@GetMapping("/search/favorite")
 	public String favoritePage(@RequestParam(required = false) String title,
+							   @RequestParam(required = false) String category,
 			   				   @RequestParam(defaultValue = "0") int minPrice,
 			   				   @RequestParam(defaultValue = "999999999") int maxPrice,
 			   				   @RequestParam(defaultValue = "1") int page,
 			   				   Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByFavoriteDesc(title, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByFavoriteDesc(title, category, minPrice, maxPrice, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";

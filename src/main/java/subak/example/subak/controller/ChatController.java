@@ -84,4 +84,15 @@ public class ChatController {
 		return list;
 	}
 	
+	// 1:1 채팅 웹소켓 연결
+	@MessageMapping("/chat/dm/{roomId}")
+    @SendTo("/topic/chat/dm/{roomId}")
+	public ChatResponseDTO sendChatDm(ChatRequestDTO requestDTO, @DestinationVariable Long roomId) {
+
+		if(requestDTO.getNickname() == null)
+			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+		
+        return chatService.processDm(roomId, requestDTO);
+    }
+	
 }

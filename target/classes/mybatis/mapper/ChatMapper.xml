@@ -93,4 +93,8 @@
         ORDER BY
             m.created_at ASC
     </select>
+    <!-- 1:1 채팅 저장 -->
+	<insert id="saveDm" parameterType="ChatRequestDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id"> 
+		insert into dm_chat_message(msg, room_id, user_id, created_at) values(#{message}, #{roomId}, #{userId}, sysdate)
+	</insert>
 </mapper>

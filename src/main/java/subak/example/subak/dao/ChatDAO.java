@@ -19,4 +19,5 @@ public interface ChatDAO {
 	Long findDmChatRoomByUsers(DmChatRoomDTO dto);
 	List<DmChatRoomInfoDTO> findMyChatRooms(Long myUserId);
 	List<ChatResponseDTO> findDmsByRoomId(Long roomId);
+	void saveDm(ChatRequestDTO requestDTO);
 }

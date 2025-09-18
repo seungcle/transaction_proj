@@ -61,4 +61,18 @@ public class ChatService {
 		return chatDAO.findDmsByRoomId(roomId);
 	}
 
+	public ChatResponseDTO processDm(Long roomId, ChatRequestDTO requestDTO) {
+		
+		requestDTO.setRoomId(roomId);
+		chatDAO.saveDm(requestDTO);
+		
+		ChatResponseDTO dto = new ChatResponseDTO();
+		dto.setId(requestDTO.getId());
+		dto.setMessage(requestDTO.getMessage());
+		dto.setNickname(requestDTO.getNickname());
+		dto.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
+		return dto;
+	}
+
 }

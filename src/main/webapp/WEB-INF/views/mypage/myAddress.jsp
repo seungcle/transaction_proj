@@ -31,10 +31,10 @@
 	<c:forEach var="addr" items="${addressList}">
 		<div class="address-item position-relative ${addr.defaultAddress eq 'Y' ? 'is-default' : ''}"
 	data-address-id="${addr.id}"
-	data-nickname="${addr.addressName}"
+	data-address-name="${addr.addressName}"
 	data-address="${addr.address}"
-	data-address-detail="${addr.detailAddress}"
-	data-is-default="${addr.defaultAddress}"
+	data-detail-address="${addr.detailAddress}"
+	data-default-address="${addr.defaultAddress}"
 	data-postal-code="${addr.postalCode}">
 	
 	<div class="mb-2">
@@ -68,17 +68,17 @@
 				<form id="address-form" onsubmit="return false;">
 					<input type="hidden" class="form-address-id">
 					<div class="mb-3">
-						<input type="text" class="form-control form-nickname" placeholder="배송지명 (최대 10글자)">
+						<input type="text" class="form-control form-nickname" placeholder="배송지명 (최대 10글자)" name="addressName">
 					</div>
 					<div class="d-flex mb-2">
-						<input type="text" class="form-control form-postal-code" placeholder="우편번호" readonly>
+						<input type="text" class="form-control form-postal-code" placeholder="우편번호"  name=" postalCode" readonly>
 						<button type="button" class="btn btn-secondary ms-2 flex-shrink-0" onclick="openDaumPostcode()">주소 검색</button>
 					</div>
 					<div class="mb-3">
-						<input type="text" class="form-control form-address" placeholder="주소" readonly>
+						<input type="text" class="form-control form-address" placeholder="주소"  name="address" readonly>
 					</div>
 					<div class="mb-3">
-						<input type="text" class="form-control form-address-detail" placeholder="상세주소">
+						<input type="text" class="form-control form-address-detail" placeholder="상세주소" name="detailAddress">
 					</div>
 					<div class="form-check mb-3">
 						<input class="form-check-input form-is-default" type="checkbox">
@@ -151,11 +151,11 @@
 			
 			// 데이터를 입력 폼에 미리 채워넣음
 			formId.val(item.data('addressId'));
-			formNickname.val(item.data('nickname'));
+			formNickname.val(item.data('addressName'));
 			formPostalCode.val(item.data('postalCode'));
 			formAddress.val(item.data('address'));
-			formAddressDetail.val(item.data('addressDetail'));
-			formIsDefault.prop('checked', item.data('isDefault') === 'Y');
+			formAddressDetail.val(item.data('detailAddress'));
+			formIsDefault.prop('checked', item.data('defaultAddress') === 'Y');
 			formSubmitBtn.text('저장');
 			
 			// 주소 입력 폼 뷰로 전환
@@ -217,11 +217,11 @@
 			
 			const dto = {
 				id: isUpdate ? formId.val() : null,
-				address_name: formNickname.val().trim(),
+				addressName: formNickname.val().trim(),
 				address: formAddress.val().trim(),
-				detail_address: formAddressDetail.val().trim(),
-				default_address: formIsDefault.prop('checked') ? 'Y' : 'N',
-				postal_code: formPostalCode.val().trim()
+				detailAddress: formAddressDetail.val().trim(),
+				defaultAddress: formIsDefault.prop('checked') ? 'Y' : 'N',
+				postalCode: formPostalCode.val().trim()
 			};
 			
 			$.ajax({

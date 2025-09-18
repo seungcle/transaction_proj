@@ -35,7 +35,7 @@
 			category = "전체";
 	%>
 	<div class="container mt-4 mb-5">
-		<h2 class="mb-3">검색 결과</h2>
+		<h2 class="mb-3">${param.title} 검색 결과</h2>
 		<hr>
 
 		<div class="filter-section p-3 mb-4">

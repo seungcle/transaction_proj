@@ -227,6 +227,15 @@ public class ItemController {
 	}
 	
 	// 해당 유저 입찰중
+	@GetMapping("/{userId}/bid")
+	@ResponseBody
+	public List<SimpleItemResponseVO> bidItem(@PathVariable Long userId, @RequestParam(defaultValue = "1") int page) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.userBidItem(userId, page, pageSize);
+		
+		return list;
+	}
 	
 	// 해당 유저 판매내역
 	@GetMapping("/{userId}/sale/end")

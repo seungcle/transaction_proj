@@ -474,6 +474,40 @@
         	status = #{status}
     	WHERE id = #{itemId}
     </update>
+    <select id="findBiddedItemsByUserId" parameterType="map" resultType="SimpleItemResponseVO">
+        SELECT DISTINCT
+            i.id,
+            i.title,
+            -- 가격을 '123,456원' 형식의 문자열로 변환
+            TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice,
+            i.end_time AS endTime,
+            i.status,
+            i.created_at AS createdAt,
+            -- 스칼라 서브쿼리를 이용해 해당 아이템의 첫 번째 이미지를 조회
+            (
+                SELECT ii.image_url
+                FROM item_image ii
+                WHERE ii.item_id = i.id
+                ORDER BY ii.id ASC
+                FETCH FIRST 1 ROW ONLY
+            ) AS imageUrl
+        FROM
+            -- bid 테이블을 기준으로 item 테이블과 조인
+            bid b
+        JOIN
+            item i ON b.bid_item_id = i.id
+        WHERE
+            b.bid_user_id = #{userId}   -- 조건 1: 특정 사용자가 입찰한 아이템
+            AND i.status = 'OPEN'      -- 조건 2: 아이템 상태가 'OPEN'인 경우
+            AND b.bid_user_id != i.seller_id
+        ORDER BY
+            i.id DESC
+        -- 페이징 처리
+        OFFSET
+            #{offset} ROWS
+        FETCH NEXT
+            #{pageSize} ROWS ONLY
+    </select>
 </mapper>
 
 

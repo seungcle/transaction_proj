@@ -56,4 +56,6 @@ public interface ItemDAO {
 	List<SimpleItemResponseVO> findPurchaseCompleteByUserId(Map<String, Object> params);
 
 	List<SimpleItemResponseVO> findFavoriteItemByUserId(Map<String, Object> params);
+
+	List<SimpleItemResponseVO> findBiddedItemsByUserId(Map<String, Object> params);
 }

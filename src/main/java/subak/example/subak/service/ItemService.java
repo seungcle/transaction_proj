@@ -315,4 +315,17 @@ public class ItemService {
 		return list;
 	}
 
+	public List<SimpleItemResponseVO> userBidItem(Long userId, int page, int pageSize) {
+		
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("offset", offset);
+		params.put("pageSize", pageSize);
+		params.put("userId", userId);
+		List<SimpleItemResponseVO> list = itemDAO.findBiddedItemsByUserId(params);
+		
+		return list;
+	}
+
 }

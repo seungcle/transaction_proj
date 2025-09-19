@@ -20,10 +20,10 @@ import org.springframework.web.server.ResponseStatusException;
 
 import subak.example.subak.dao.ItemDAO;
 import subak.example.subak.domain.BidDTO;
-import subak.example.subak.domain.FavoriteDTO;
 import subak.example.subak.domain.ItemImageDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
+import subak.example.subak.domain.NotificationDTO;
 import subak.example.subak.domain.SessionUserVO;
 import subak.example.subak.domain.SimpleItemResponseVO;
 
@@ -32,6 +32,9 @@ public class ItemService {
 
 	@Autowired
 	ItemDAO itemDAO;
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	public ItemResponseDTO getItem(Long itemId) {
 		
@@ -236,19 +239,37 @@ public class ItemService {
 		return list;
 	}
 
-	public void pushBid(Long price,Long itemId, HttpSession session) {
-		SessionUserVO user = (SessionUserVO)session.getAttribute("user");
-		if(user == null)
-			throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
-		BidDTO dto = new BidDTO();
-		dto.setBidItemId(itemId);
-		dto.setBidUserId(user.getId());
-		dto.setBidPrice(price);
-		itemDAO.insertBid(dto);
-		Map<String,Long> m = new HashMap<>();
-		m.put("id", itemId); m.put("price", price);
-		itemDAO.updateItem(m);
-	}
+	 public void pushBid(Long price, Long itemId, HttpSession session) {
+	        // 1. 로그인 여부 확인 및 BidDTO 생성
+	        SessionUserVO user = (SessionUserVO) session.getAttribute("user");
+	        if (user == null) {
+	            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
+	        }
+	        BidDTO dto = new BidDTO();
+	        dto.setBidItemId(itemId);
+	        dto.setBidUserId(user.getId());
+	        dto.setBidPrice(price);
+
+	        // 2. 입찰 정보 DB에 삽입 및 아이템 가격 업데이트
+	        itemDAO.insertBid(dto);
+	        Map<String, Long> m = new HashMap<>();
+	        m.put("id", itemId);
+	        m.put("price", price);
+	        itemDAO.updateItem(m);
+
+	        // 3. 상품 판매자에게 알림 보내기 로직 추가
+	        Long sellerId = itemDAO.getSellerIdByItemId(itemId); 
+
+	        if (sellerId != null) {
+	            NotificationDTO notification = new NotificationDTO();
+	            notification.setUserId(sellerId);
+	            notification.setItemId(itemId);
+	            String url = "/item/" + itemId;
+	            notification.setUrl(url);
+	            notification.setContent("새로운 입찰이 등록되었습니다! 현재 입찰가: " + price + "원");
+	            notificationService.sendNotification(notification);
+	        }
+	    }
 
 	public List<SimpleItemResponseVO> userAllItem(Long userId, int page, int pageSize) {
 		

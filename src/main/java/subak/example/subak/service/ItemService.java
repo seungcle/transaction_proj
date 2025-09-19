@@ -302,4 +302,17 @@ public class ItemService {
 		return list;
 	}
 
+	public List<SimpleItemResponseVO> userFavoriteItem(Long userId, int page, int pageSize) {
+
+		int offset = (page - 1) * pageSize;
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("offset", offset);
+		params.put("pageSize", pageSize);
+		params.put("userId", userId);
+		List<SimpleItemResponseVO> list = itemDAO.findFavoriteItemByUserId(params);
+		
+		return list;
+	}
+
 }

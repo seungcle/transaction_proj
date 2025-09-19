@@ -249,4 +249,15 @@ public class ItemController {
 		
 		return list;
 	}
+	
+	// 해당 유저 찜목록
+	@GetMapping("/{userId}/favorite")
+	@ResponseBody
+	public List<SimpleItemResponseVO> favorite(@PathVariable Long userId, @RequestParam(defaultValue = "1") int page) {
+		
+		int pageSize = 20;
+		List<SimpleItemResponseVO> list = itemService.userFavoriteItem(userId, page, pageSize);
+		
+		return list;
+	}
 }

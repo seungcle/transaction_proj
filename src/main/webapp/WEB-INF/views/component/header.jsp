@@ -95,8 +95,6 @@
 			</a></li>
 			<li class="nav-item"><a class="nav-link <%= "생활".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/생활" data-category="auction"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/living.png" alt="청소 아이콘"> 생활
 			</a></li>
-			<li class="nav-item"><a class="nav-link <%= "관심".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/관심" data-category="interest"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/heart.png" alt="관심 아이콘"> 관심
-			</a></li>
 		</ul>
 	</div>
 	<hr>

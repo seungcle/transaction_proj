@@ -484,7 +484,6 @@
         	status = #{status}
     	WHERE id = #{itemId}
     </update>
-<<<<<<< HEAD
     <select id="findBiddedItemsByUserId" parameterType="map" resultType="SimpleItemResponseVO">
         SELECT DISTINCT
             i.id,
@@ -518,6 +517,7 @@
             #{offset} ROWS
         FETCH NEXT
             #{pageSize} ROWS ONLY
+    </select>
     <select id="getSellerIdByItemId" parameterType="long" resultType="long">
         SELECT seller_id
         FROM item

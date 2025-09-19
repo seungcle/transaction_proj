@@ -29,7 +29,7 @@
 			<p class="text-center text-muted">무엇을 찾고 있나요?</p>
 			<div class="d-grid gap-3">
 				<a href="${pageContext.request.contextPath}/find/username" class="btn btn-outline-secondary btn-lg">아이디 찾기</a> 
-				<a href="findPassword.jsp" class="btn btn-outline-secondary btn-lg">비밀번호 찾기</a>
+				<a href="${pageContext.request.contextPath}/find/password" class="btn btn-outline-secondary btn-lg">비밀번호 찾기</a>
 			</div>
 		</div>
 	</div>

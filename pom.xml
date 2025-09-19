@@ -51,6 +51,13 @@
       <artifactId>spring-messaging</artifactId>
       <version>${springframework-version}</version>
     </dependency>
+    
+    <!-- jbcrypt 라이브 러리 -->
+	<dependency>
+		<groupId>org.mindrot</groupId>
+		<artifactId>jbcrypt</artifactId>
+		<version>0.4</version>
+	</dependency>
 
     <!-- 서블릿 4.0 -->
     <dependency>

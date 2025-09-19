@@ -398,10 +398,12 @@
 	</select>
 	<select id="findPurchaseCompleteByUserId" parameterType="map" resultType="SimpleItemResponseVO">
 	    SELECT 
-	        i.id AS itemId, 
+	        i.id, 
 	        i.title, 
-	        TO_CHAR(t.price, 'FM999,999,999') || '원' AS purchasePrice, 
-	        t.created_at AS purchaseDate,
+	        TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice, 
+	        i.end_time AS endTime,
+	        i.status, 
+	        i.created_at AS createdAt,
 	        (
 	            SELECT ii.image_url
 	            FROM item_image ii
@@ -410,17 +412,48 @@
 	            FETCH FIRST 1 ROW ONLY
 	        ) AS imageUrl
 	    FROM 
-	        transaction t
-	        INNER JOIN item i ON t.item_id = i.id
+	        item i
 	    WHERE
-	        t.user_id = #{userId}
+	        EXISTS (
+	            SELECT 1 
+	            FROM transaction t 
+	            WHERE t.item_id = i.id
+	              AND t.user_id = #{userId}
+	        )
 	    ORDER BY 
-	        t.created_at DESC
+	        i.id DESC
 	    OFFSET 
 	        #{offset} ROWS
 	    FETCH NEXT 
 	        #{pageSize} ROWS ONLY
 	</select>
+	<select id="findFavoriteItemByUserId" parameterType="map" resultType="SimpleItemResponseVO">
+        SELECT
+            i.id,
+            i.title,
+            TO_CHAR(i.current_price, 'FM999,999,999') || '원' AS currentPrice,
+            i.end_time AS endTime,
+            i.status,
+            f.created_at AS favoritedAt, -- 사용자가 찜한 날짜
+            (
+                SELECT ii.image_url
+                FROM item_image ii
+                WHERE ii.item_id = i.id
+                ORDER BY ii.id ASC
+                FETCH FIRST 1 ROW ONLY
+            ) AS imageUrl
+        FROM
+            favorite f
+            INNER JOIN item i ON f.item_id = i.id
+        WHERE
+            f.user_id = #{userId}
+        ORDER BY
+            f.created_at DESC -- 가장 최근에 찜한 순서로 정렬
+        OFFSET
+            #{offset} ROWS
+        FETCH NEXT
+            #{pageSize} ROWS ONLY
+    </select>
 	<select id="searchEndTime" resultType="ItemRequestDTO">
      SELECT
           i.id,

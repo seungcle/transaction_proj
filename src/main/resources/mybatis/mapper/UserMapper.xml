@@ -38,7 +38,7 @@
 	<!-- 내 마이페이지 -->
 	<select id="findById" parameterType="long"
 		resultType="UserInfoVO">
-		select id, nickname, bio, image_url
+		select id, nickname, bio, image_url,<!--해시시 변경 --> password
 		from "user"
 		where id =
 		#{id}
@@ -58,6 +58,27 @@
 		SELECT password FROM
 		user WHERE id = #{id}
 	</select>
+	
+	<!-- 업데이트 닉네임 -->
+	<update id="updateNickname">
+		UPDATE "user"
+		SET nickname = #{nickname}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 업데이트 자기소개 -->
+	<update id="updateBio">
+		UPDATE "user"
+		SET bio = #{bio}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 업데이트 패스워드 id (Primary key)기준 -->
+	<update id="updatePasswordById">
+		UPDATE "user"
+		SET password = #{password}
+		WHERE id = #{id}
+	</update>
 </mapper>
 
 

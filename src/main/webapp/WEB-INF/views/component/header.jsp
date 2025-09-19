@@ -79,8 +79,6 @@
 	<button class="close-btn" id="closeNavBtn">&times;</button>
 	<div class="container">
 		<ul class="nav d-flex">
-			<li class="nav-item"><a class="nav-link <%= currentCategory == null ? "active" : "" %>" href="${pageContext.request.contextPath}/main" data-category="all"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/fire.png" alt="인기 아이콘"> 인기
-			</a></li>
 			<li class="nav-item"><a class="nav-link <%= "디지털".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/디지털" data-category="electronics"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/phone.png" alt="핸드폰 아이콘"> 디지털
 			</a></li>
 			<li class="nav-item"><a class="nav-link <%= "패션".equals(currentCategory) ? "active" : "" %>" href="${pageContext.request.contextPath}/item/category/패션" data-category="fashion"> <img class="icon" src="${pageContext.request.contextPath}/resources/images/cloth.png" alt="옷 아이콘"> 패션

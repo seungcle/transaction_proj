@@ -9,4 +9,9 @@ public class UserInfoVO {
 	private String nickname;
 	private String bio;
 	private String imageUrl;
+	private String password;
+
+	    public void setPassword(String password) {
+	        this.password = password;
+	    }
 }

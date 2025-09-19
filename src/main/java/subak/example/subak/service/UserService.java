@@ -38,22 +38,59 @@ public class UserService {
 	    public boolean isNicknameExists(String nickname) {
 	        return userDAO.checkNickname(nickname) > 0;
 	    }
-
+	    
+	// 로그인 세션
 	public SessionUserVO login(LoginRequestDTO dto) {
-		
 		return userDAO.login(dto);
 	}
 
 	public UserInfoVO getMyInfo(HttpSession session) {
 		
 		SessionUserVO user = (SessionUserVO)session.getAttribute("user");
+		if(user == null) {
+			return null;
+		}
 		UserInfoVO vo = userDAO.findById(user.getId());
 				
 		return vo;
 	}
 	
+	// 개인정보 수정
+	public boolean updateNickname(Long userId, String newNickname) {
+		if (userDAO.checkNickname(newNickname) > 0) {
+			return false;
+		}
+		else {
+			userDAO.updateNickname(userId, newNickname);
+			return true;
+		}
+	}
+	
+	// 자기 소개 수정
+	public void updateBio(Long userId, String newBio) {
+		userDAO.updateBio(userId, newBio);
+	}
+	
+	// 개인정보 비밀번호 수정
+	public boolean updatePasswordById(Long userId, String OldPassword, String newPassword) {
+		UserInfoVO user = userDAO.findById(userId);
+		if(user == null) {
+			return false;
+		}
+		
+		if(user.getPassword().equals(OldPassword)) {
+			userDAO.updatePasswordById(userId, newPassword);
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
+	// 이메일
 	public UserDTO findUserByEmail(String email) {
 	    return userDAO.findUserByEmail(email);
 	}
+	
 
 }

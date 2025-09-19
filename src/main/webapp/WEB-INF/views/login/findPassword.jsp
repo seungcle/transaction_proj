@@ -33,48 +33,129 @@
 				</div>
 			</form>
 
+			<div id="authCodeSection" class="mt-4" style="display: none;">
+				<div class="mb-3">
+					<input type="text" class="form-control" id="authCodeInput" placeholder="인증 코드를 입력하세요" required>
+				</div>
+				<div class="d-grid">
+					<button type="button" id="verifyCodeBtn" class="btn btn-primary btn-lg">인증</button>
+				</div>
+			</div>
+
+			<div id="resetPasswordSection" class="mt-4" style="display: none;">
+				<div class="mb-3">
+					<input type="password" class="form-control" id="newPasswordInput" placeholder="새 비밀번호" required>
+				</div>
+				<div class="mb-3">
+					<input type="password" class="form-control" id="confirmPasswordInput" placeholder="새 비밀번호 확인" required>
+				</div>
+				<div class="d-grid">
+					<button type="button" id="resetPasswordBtn" class="btn btn-primary btn-lg">비밀번호 재설정</button>
+				</div>
+			</div>
 		</div>
 	</div>
 
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			const emailSelect = document.getElementById('emailSelect');
-			const emailIdInput =
-			$('#findPasswordForm').on('submit', function(e) {
-				e.preventDefault();
-				
-				const username = $('#usernameInput').val();
-				const email = $('#emailInput').val();
-				
-				if (!username || !email) {
-					alert('아이디와 이메일을 모두 입력해주세요.');
-					return;
-				}
-				
-				// 서버로 아이디와 이메일 정보를 전송 (AJAX 사용)
-				$.ajax({
-					url: '${pageContext.request.contextPath}/find/password', // 서버의 비밀번호 찾기 처리 URL
-					type: 'POST',
-					contentType: 'application/json',
-					data: JSON.stringify({
-						username: username,
-						email: email
-					}),
-					success: function(response) {
-						if (response.status === 'success') {
-							alert('이메일로 비밀번호 재설정 링크를 보냈습니다. 받은 링크를 통해 비밀번호를 변경해 주세요.');
-							location.href = '${pageContext.request.contextPath}/login'; // 로그인 페이지로 이동
-						} else {
-							alert(response.message || '일치하는 회원 정보가 없습니다.');
-						}
-					},
-					error: function() {
-						alert('서버 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
-					}
-				});
-			});
+		$(document).ready(function() {
+		    const findPasswordForm = $('#findPasswordForm');
+		    const authCodeSection = $('#authCodeSection');
+		    const resetPasswordSection = $('#resetPasswordSection');
+		    const verifyCodeBtn = $('#verifyCodeBtn');
+		    const resetPasswordBtn = $('#resetPasswordBtn');
+		
+		    // 1. 아이디와 이메일 확인
+		    findPasswordForm.on('submit', function(e) {
+		        e.preventDefault();
+		        const username = $('#usernameInput').val();
+		        const email = $('#emailInput').val();
+		        if (!username || !email) {
+		            alert('아이디와 이메일을 모두 입력해주세요.');
+		            return;
+		        }
+		
+		        $.ajax({
+		            url: '${pageContext.request.contextPath}/user/check-user-and-send-email',
+		            type: 'POST',
+		            contentType: 'application/json',
+		            data: JSON.stringify({ username: username, email: email }),
+		            success: function(response) {
+		                if (response.success) {
+		                    alert('이메일로 인증 코드가 발송되었습니다.');
+		                    findPasswordForm.hide(); // 기존 폼 숨기기
+		                    authCodeSection.show(); // 인증 코드 섹션 보이기
+		                } else {
+		                    alert(response.message);
+		                }
+		            },
+		            error: function() {
+		                alert('서버 오류가 발생했습니다.');
+		            }
+		        });
+		    });
+		
+		    // 2. 인증 코드 검증
+		    verifyCodeBtn.on('click', function() {
+		        const authCode = $('#authCodeInput').val();
+		        if (!authCode) {
+		            alert('인증 코드를 입력해주세요.');
+		            return;
+		        }
+		
+		        $.ajax({
+		            url: '${pageContext.request.contextPath}/user/verify-auth-code',
+		            type: 'POST',
+		            contentType: 'application/json',
+		            data: JSON.stringify({ authCode: authCode }),
+		            success: function(response) {
+		                if (response.success) {
+		                    alert('인증이 완료되었습니다. 새 비밀번호를 설정해주세요.');
+		                    authCodeSection.hide(); // 인증 코드 섹션 숨기기
+		                    resetPasswordSection.show(); // 비밀번호 재설정 섹션 보이기
+		                } else {
+		                    alert(response.message);
+		                }
+		            },
+		            error: function() {
+		                alert('서버 오류가 발생했습니다.');
+		            }
+		        });
+		    });
+		
+		    // 3. 비밀번호 재설정
+		    resetPasswordBtn.on('click', function() {
+		        const newPassword = $('#newPasswordInput').val();
+		        const confirmPassword = $('#confirmPasswordInput').val();
+		
+		        if (!newPassword || !confirmPassword) {
+		            alert('새 비밀번호를 모두 입력해주세요.');
+		            return;
+		        }
+		        if (newPassword !== confirmPassword) {
+		            alert('새 비밀번호가 일치하지 않습니다.');
+		            return;
+		        }
+		
+		        $.ajax({
+		            url: '${pageContext.request.contextPath}/user/reset-password',
+		            type: 'POST',
+		            contentType: 'application/json',
+		            data: JSON.stringify({ newPassword: newPassword }),
+		            success: function(response) {
+		                if (response.success) {
+		                    alert('비밀번호가 성공적으로 재설정되었습니다. 로그인 페이지로 이동합니다.');
+		                    window.location.href = '${pageContext.request.contextPath}/login';
+		                } else {
+		                    alert(response.message);
+		                }
+		            },
+		            error: function() {
+		                alert('서버 오류가 발생했습니다.');
+		            }
+		        });
+		    });
 		});
 	</script>
 </body>

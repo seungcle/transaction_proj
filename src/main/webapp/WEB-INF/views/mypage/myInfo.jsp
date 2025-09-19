@@ -22,7 +22,7 @@
 		<div class="info-section d-flex justify-content-between align-items-center mb-4" id="nicknameDisplay">
 			<div>
 				<p class="text-muted mb-0">닉네임</p>
-				<h5 id="currentNickname" class="fw-bold">자상한새벽스피넬</h5>
+				<h5 id="currentNickname" class="fw-bold">${user.nickname}</h5>
 			</div>
 			<button class="btn btn-sm btn-outline-secondary" id="editNicknameBtn">변경</button>
 		</div>
@@ -43,14 +43,14 @@
 		<div class="info-section d-flex justify-content-between align-items-center mb-4" id="BioDisplay">
 			<div>
 				<p class="text-muted mb-0">한줄소개</p>
-				<h6 id="currentbio" class="fw-bold text-dark">친절하고 안전한 거래를 약속합니다.</h6>
+				<h6 id="currentbio" class="fw-bold text-dark">${user.bio}</h6>
 			</div>
-			<button class="btn btn-sm btn-outline-secondary" id="editBioBtn">수정</button>
+			<button class="btn btn-sm btn-outline-secondary" id="editBioBtn">변경</button>
 		</div>
 		<div class="edit-section" id="BioEdit" style="display: none;">
 			<label for="BioInput" class="form-label">새 한줄소개</label>
 			<div class="d-flex gap-2 mb-2">
-				<input type="text" class="form-control form-control-sm" id="bioInput" placeholder="한줄소개" value="친절하고 안전한 거래를 약속합니다.">
+				<input type="text" class="form-control form-control-sm" id="bioInput" placeholder="한줄소개" >
 			</div>
 			<div class="d-flex gap-2 justify-content-end">
 				<button class="btn btn-sm btn-success" id="saveBioBtn">저장</button>
@@ -89,6 +89,7 @@
 	</div>
 </div>
 <script>
+	// DB 연동을 위해 jQuery를 사용합니다.
 	document.addEventListener('DOMContentLoaded', function() {
 		// 프로필 사진 변경
 		const profileImageInput = document.getElementById('profileImageInput');
@@ -96,12 +97,34 @@
 		profileImageInput.addEventListener('change', function(event) {
 			const file = event.target.files[0];
 			if (file) {
+				// 1. 미리보기 업데이트
 				const reader = new FileReader();
 				reader.onload = function(e) {
 					profileImagePreview.src = e.target.result;
-					alert("프로필 사진이 변경되었습니다.");
 				};
 				reader.readAsDataURL(file);
+				
+				// 2. 서버로 파일 전송
+				const formData = new FormData();
+				formData.append('profileImage', file);
+
+				$.ajax({
+					url: '<%=request.getContextPath()%>/upload-profile-image', // 백엔드 API 엔드포인트
+					type: 'POST',
+					processData: false, // FormData를 사용할 때 필수
+					contentType: false, // FormData를 사용할 때 필수
+					data: formData,
+					success: function(response) {
+						if (response.success) {
+							console.log("프로필 사진이 성공적으로 변경되었습니다.");
+						} else {
+							console.error("사진 업로드 실패: " + response.message);
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error("서버 통신 오류: " + xhr.responseText);
+					}
+				});
 			}
 		});
 
@@ -116,106 +139,134 @@
 
 		// 공통 로직을 처리하는 함수
 		function setupEditSection(sectionName) {
-			const displayDiv = document.getElementById(sectionName + 'Display');
-			const editDiv = document.getElementById(sectionName + 'Edit');
-			const editBtn = document.getElementById('edit' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1) + 'Btn');
-			const saveBtn = document.getElementById('save' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1) + 'Btn');
-			const cancelBtn = document.getElementById('cancel' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1) + 'Btn');
-			const inputField = document.getElementById(sectionName + 'Input');
-			const currentText = document.getElementById('current' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1));
+			const displayDiv = $('#' + sectionName + 'Display');
+			const editDiv = $('#' + sectionName + 'Edit');
+			const editBtn = $('#edit' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1) + 'Btn');
+			const saveBtn = $('#save' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1) + 'Btn');
+			const cancelBtn = $('#cancel' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1) + 'Btn');
+			const inputField = $('#' + sectionName + 'Input');
+			const currentText = $('#current' + sectionName.charAt(0).toUpperCase() + sectionName.slice(1));
 			
 			// '수정' 버튼 클릭 시
-			editBtn.addEventListener('click', function() {
-				displayDiv.style.display = 'none';
-				editDiv.style.display = 'block';
-				if(inputField) {
-					inputField.value = currentText.textContent;
+			editBtn.on('click', function() {
+				displayDiv.hide();
+				editDiv.show();
+				if(inputField.length) {
+					inputField.val(currentText.text().trim());
 				}
 			});
 			
 			// '취소' 버튼 클릭 시
-			cancelBtn.addEventListener('click', function() {
-				displayDiv.style.display = 'flex';
-				editDiv.style.display = 'none';
+			cancelBtn.on('click', function() {
+				displayDiv.css('display', 'flex');
+				editDiv.hide();
 				clearValidationState(editDiv);
 			});
 			
 			// '저장' 버튼 클릭 시
-			saveBtn.addEventListener('click', function() {
-				// 여기서 각 항목별 유효성 검사 및 서버 전송 로직 추가
+			saveBtn.on('click', function() {
 				let isValid = true;
+				let data = {};
+				let url = '';
 				
 				if (sectionName === 'nickname') {
-					if (!inputField.value) {
+					const newNickname = inputField.val().trim();
+					if (!newNickname) {
 						showFeedback(inputField, '닉네임을 입력하세요.', false);
 						isValid = false;
-					} else if (inputField.value === "자상한새벽스피넬") {
-						showFeedback(inputField, '이미 사용 중인 닉네임입니다.', false);
-						isValid = false;
 					} else {
-						showFeedback(inputField, '', true);
+						data = { "newNickname": newNickname };
+						url = '<%=request.getContextPath()%>/update-nickname';
 					}
+				} else if (sectionName === 'bio') {
+					const newBio = inputField.val().trim();
+					data = { "newBio": newBio };
+					url = '<%=request.getContextPath()%>/update-bio';
 				} else if (sectionName === 'password') {
-					const currentPasswordInput = document.getElementById('currentPasswordInput');
-					const newPasswordInput = document.getElementById('newPasswordInput');
-					const confirmPasswordInput = document.getElementById('confirmPasswordInput');
+					const currentPasswordInput = $('#currentPasswordInput');
+					const newPasswordInput = $('#newPasswordInput');
+					const confirmPasswordInput = $('#confirmPasswordInput');
 					
-					if (!currentPasswordInput.value || !newPasswordInput.value || !confirmPasswordInput.value) {
+					const currentPassword = currentPasswordInput.val();
+					const newPassword = newPasswordInput.val();
+					const confirmPassword = confirmPasswordInput.val();
+					
+					if (!currentPassword || !newPassword || !confirmPassword) {
 						alert("비밀번호 변경 시 모든 필드를 입력해야 합니다.");
 						isValid = false;
-					} else if (newPasswordInput.value.length < 8) {
+					} else if (newPassword.length < 8) {
 						showFeedback(newPasswordInput, '새 비밀번호는 8자 이상이어야 합니다.', false);
 						isValid = false;
-					} else if (newPasswordInput.value !== confirmPasswordInput.value) {
+					} else if (newPassword !== confirmPassword) {
 						showFeedback(confirmPasswordInput, '비밀번호가 일치하지 않습니다.', false);
 						isValid = false;
 					} else {
-						// 실제 서버 전송 로직 (현재는 임시)
-						showFeedback(currentPasswordInput, '', true);
-						showFeedback(newPasswordInput, '', true);
-						showFeedback(confirmPasswordInput, '', true);
+						data = { "currentPassword": currentPassword, "newPassword": newPassword };
+						url = '<%=request.getContextPath()%>/update-password';
 					}
 				}
 				
 				if (isValid) {
-					// 서버 통신 성공 가정
-					if (sectionName === 'nickname' || sectionName === 'bio') {
-						currentText.textContent = inputField.value;
-					}
-					alert(sectionName === 'password' ? '비밀번호가 변경되었습니다!' : '정보가 수정되었습니다!');
-					displayDiv.style.display = 'flex';
-					editDiv.style.display = 'none';
-					clearValidationState(editDiv);
+					// 서버 통신
+					$.ajax({
+						url: url,
+						type: 'POST',
+						contentType: 'application/json',
+						data: JSON.stringify(data),
+						success: function(response) {
+							if (response.success) {
+								alert(response.message);
+								if (sectionName === 'nickname') {
+									currentText.text(data.newNickname);
+								} else if (sectionName === 'bio') {
+									currentText.text(data.newBio);
+								}
+								displayDiv.css('display', 'flex');
+								editDiv.hide();
+								clearValidationState(editDiv);
+							} else {
+								// 백엔드에서 받은 에러 메시지를 사용자에게 표시
+								if (sectionName === 'nickname') {
+									showFeedback(inputField, response.message, false);
+								} else if (sectionName === 'password') {
+									showFeedback($('#currentPasswordInput'), response.message, false);
+								}
+							}
+						},
+						error: function(xhr, status, error) {
+							// 서버 통신 자체에 문제가 있을 때
+							let errorMessage = "서버와 통신 중 오류가 발생했습니다.";
+							try {
+								const response = JSON.parse(xhr.responseText);
+								if(response && response.message) {
+									errorMessage = response.message;
+								}
+							} catch (e) {
+								// JSON 파싱 실패 시 기본 메시지 사용
+							}
+							alert(errorMessage);
+						}
+					});
 				}
 			});
 
 			// 유효성 피드백 표시 함수
 			function showFeedback(inputElement, message, isValid) {
-				const feedbackElement = inputElement.nextElementSibling;
+				const feedbackElement = inputElement.next('.invalid-feedback');
 				if (isValid) {
-					inputElement.classList.remove('is-invalid');
-					inputElement.classList.add('is-valid');
-					feedbackElement.style.display = 'none';
+					inputElement.removeClass('is-invalid').addClass('is-valid');
+					feedbackElement.hide();
 				} else {
-					inputElement.classList.remove('is-valid');
-					inputElement.classList.add('is-invalid');
-					feedbackElement.textContent = message;
-					feedbackElement.style.display = 'block';
+					inputElement.removeClass('is-valid').addClass('is-invalid');
+					feedbackElement.text(message).show();
 				}
 			}
 
 			// 유효성 상태 초기화
 			function clearValidationState(section) {
-				const inputs = section.querySelectorAll('input');
-				inputs.forEach(input => {
-					input.classList.remove('is-invalid', 'is-valid');
-				});
-				const feedbacks = section.querySelectorAll('.invalid-feedback');
-				feedbacks.forEach(feedback => {
-					feedback.style.display = 'none';
-				});
+				section.find('input').removeClass('is-invalid is-valid');
+				section.find('.invalid-feedback').text('').hide();
 			}
 		}
-
 	});
 </script>

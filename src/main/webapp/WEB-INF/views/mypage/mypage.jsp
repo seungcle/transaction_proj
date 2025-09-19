@@ -45,8 +45,8 @@
                     </a>
                     <hr>
                     <span class="text-muted ps-2 mb-2 fw-bold">내 정보</span>
-                    <a class="nav-link" href="#" data-bs-toggle="modal"
-                        data-bs-target="#passwordConfirmModal" aria-controls="myInfoOffcanvas">
+                    <a class="nav-link" href="#" data-bs-toggle="offcanvas"
+                        data-bs-target="#myInfoOffcanvas" aria-controls="myInfoOffcanvas">
                         <i class="bi bi-person-gear"></i>개인정보 수정
                     </a>
                     <a class="nav-link" href="#" data-bs-toggle="offcanvas"

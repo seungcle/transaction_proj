@@ -455,18 +455,28 @@
             #{pageSize} ROWS ONLY
     </select>
 	<select id="searchEndTime" resultType="ItemRequestDTO">
-        SELECT 
-            id,
-            SELLER_ID,
-            CURRENT_PRICE,
-            START_PRICE,
-            end_time
-        FROM
-            item
-        WHERE
-            end_time &lt; sysdate
-            AND status = 'OPEN' 
-     </select>
+     SELECT
+          i.id,
+          i.SELLER_ID,
+          b.BID_USER_ID AS winner_id,
+          i.CURRENT_PRICE,
+          i.START_PRICE,
+          i.end_time
+     FROM
+          item i
+     JOIN (
+          SELECT
+               BID_ITEM_ID,
+               BID_USER_ID,
+               ROW_NUMBER() OVER (PARTITION BY BID_ITEM_ID ORDER BY BID_PRICE DESC, CREATED_AT DESC) AS rn
+          FROM
+               bid
+     ) b ON i.id = b.BID_ITEM_ID
+     WHERE
+          i.end_time &lt; sysdate
+          AND i.status = 'OPEN'
+          AND b.rn = 1
+ 	</select>
      
      <update id="updateStatus">
      	UPDATE item
@@ -474,6 +484,7 @@
         	status = #{status}
     	WHERE id = #{itemId}
     </update>
+<<<<<<< HEAD
     <select id="findBiddedItemsByUserId" parameterType="map" resultType="SimpleItemResponseVO">
         SELECT DISTINCT
             i.id,
@@ -507,6 +518,10 @@
             #{offset} ROWS
         FETCH NEXT
             #{pageSize} ROWS ONLY
+    <select id="getSellerIdByItemId" parameterType="long" resultType="long">
+        SELECT seller_id
+        FROM item
+        WHERE id = #{itemId}
     </select>
 </mapper>
 

@@ -52,10 +52,10 @@ public class ItemScheduler {
                     
                     // --- 알림 관련 로직 ---
                     NotificationDTO notification = new NotificationDTO();
-                    notification.setUserId(item.getSellerId());
+                    notification.setUserId(item.getWinnerId());
                     notification.setItemId(item.getId());
                     notification.setContent("아이템 '" + item.getTitle() + "'이 유찰되었습니다.");
-                    notification.setRead(false);
+                    
                     
                     // NotificationService를 통해 알림 전송 (DB 저장 및 웹소켓)
                     notificationService.sendNotification(notification);
@@ -67,7 +67,7 @@ public class ItemScheduler {
                 TransactionDTO dto = new TransactionDTO();
                 dto.setItemId(item.getId());
                 dto.setPrice(item.getCurrentPrice());
-                dto.setUserId(item.getSellerId());
+                dto.setUserId(item.getWinnerId());
                 
                 transactionDAO.createTransaction(dto);
                 itemDAO.updateStatus(item.getId(), "CLOSED");
@@ -76,10 +76,9 @@ public class ItemScheduler {
 
                 // --- 알림 관련 로직  ---
                 NotificationDTO notification = new NotificationDTO();
-                notification.setUserId(item.getSellerId());
+                notification.setUserId(item.getWinnerId());
                 notification.setItemId(item.getId());
                 notification.setContent("아이템 '" + item.getTitle() + "'의 판매가 완료되었습니다.");
-                notification.setRead(false);
                 
                 // NotificationService를 통해 알림 전송 (DB 저장 및 웹소켓)
                 notificationService.sendNotification(notification);

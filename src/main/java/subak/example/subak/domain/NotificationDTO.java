@@ -9,7 +9,7 @@ public class NotificationDTO {
 	private Long id;
 	private String content;
 	private String url;
-	private boolean isRead;
+	private char isRead;
 	private Long UserId;
 	private Long itemId;
 }

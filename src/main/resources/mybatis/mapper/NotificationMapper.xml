@@ -6,7 +6,7 @@
 <mapper namespace="subak.example.subak.dao.NotificationDAO">
 
     <insert id="insertNotification" parameterType="subak.example.subak.domain.NotificationDTO" useGeneratedKeys="true" keyProperty="id" keyColumn="id" >
-        INSERT INTO notifications (
+        INSERT INTO notification (
             user_id,
             item_id,
             content,
@@ -16,7 +16,7 @@
             #{userId},
             #{itemId},
             #{content},
-            0, SYSDATE
+            'N', SYSDATE
         )
     </insert>
 
@@ -29,14 +29,14 @@
             is_read,
             created_at
         FROM
-            notifications
+            notification
         WHERE
             user_id = #{userId}
         ORDER BY created_at DESC
     </select>
     
     <update id="updateIsRead" parameterType="long">
-        UPDATE notifications
+        UPDATE notification
         SET is_read = 'Y'
         WHERE id = #{notificationId}
     </update>

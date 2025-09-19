@@ -20,4 +20,5 @@ public class ItemRequestDTO {
 	private Timestamp createdAt;
 	private Long sellerId;
 	private Long categoryId;
+	private Long winnerId;
 }

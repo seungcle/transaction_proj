@@ -12,5 +12,4 @@
         </websocket:stomp-endpoint>
         <websocket:simple-broker prefix="/topic"/>
     </websocket:message-broker>
-
 </beans>

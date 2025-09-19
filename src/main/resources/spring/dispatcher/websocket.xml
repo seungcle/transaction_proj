@@ -12,9 +12,4 @@
         </websocket:stomp-endpoint>
         <websocket:simple-broker prefix="/topic"/>
     </websocket:message-broker>
-    
-    <bean id="simpMessagingTemplate" class="org.springframework.messaging.simp.SimpMessagingTemplate">
-        <constructor-arg ref="clientOutboundChannel"/>
-    </bean>
-
 </beans>

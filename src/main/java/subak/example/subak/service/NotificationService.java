@@ -30,6 +30,6 @@ public class NotificationService {
         
         // 특정 사용자에게 메시지를 보냅니다.
         // 클라이언트는 /user/topic/notifications 주소를 구독해야 합니다.
-        //messagingTemplate.convertAndSendToUser(userId, "/topic/notifications", message);
+        messagingTemplate.convertAndSendToUser(userId, "/topic/notifications", message);
     }
 }

@@ -44,7 +44,7 @@
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/mypage-components.css">
+	href="${pageContext.request.contextPath}/resources/css/mypage-components.css">
 <style>
 /* 탭 관련 스타일 추가 */
 .nav-tabs .nav-link.active {

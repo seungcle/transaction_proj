@@ -15,6 +15,9 @@
 			expression="org.springframework.stereotype.Repository" />
 		
 	</context:component-scan>
+	<context:component-scan base-package="subak.example.subak.service" use-default-filters="false">
+    	<context:include-filter type="assignable" expression="subak.example.subak.service.NotificationService"/>
+	</context:component-scan>
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/upload/**" location="file:///C:/upload/" />
 </beans>

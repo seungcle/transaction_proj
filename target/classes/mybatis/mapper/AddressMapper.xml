@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="subak.example.subak.dao.AddressDAO">
+
+    <select id="findByUser"
+        parameterType="subak.example.subak.domain.AddressDTO"
+        resultType="subak.example.subak.domain.AddressDTO">
+        SELECT 
+            id, 
+            address, 
+            detail_address, 
+            user_id, 
+            default_address, 
+            address_name, 
+            postal_code 
+        FROM address
+        WHERE user_id = #{userId}
+    </select>
+
+    <insert id="insert"
+        parameterType="subak.example.subak.domain.AddressDTO">
+        INSERT INTO address (
+            address, 
+            detail_address, 
+            user_id, 
+            default_address, 
+            address_name, 
+            postal_code 
+        ) VALUES (
+            #{address}, 
+            #{detailAddress}, 
+            #{userId}, <!-- 수정: userId → user_id -->
+            #{defaultAddress},
+            #{addressName}, 
+            #{postalCode} 
+        )
+    </insert>
+    
+    <update id="update"
+        parameterType="subak.example.subak.domain.AddressDTO">
+        UPDATE address
+        SET
+            address = #{address},
+            detail_address = #{detailAddress},
+            default_address = #{defaultAddress},
+            address_name = #{addressName},
+            postal_code = #{postalCode}
+        WHERE id = #{id}
+    </update>
+    
+    <update id="resetDefault" parameterType="long">
+        UPDATE address
+        SET default_address = 'N'
+        WHERE user_id = #{userId} 
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM address WHERE id = #{id}
+    </delete>
+
+</mapper>

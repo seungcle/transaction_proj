@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import subak.example.subak.domain.ReviewDTO;
+import subak.example.subak.domain.ReviewResponseVO;
 import subak.example.subak.domain.TagDTO;
 import subak.example.subak.service.ReviewService;
 
@@ -74,6 +75,22 @@ public class ReviewController {
 	public double getRatingAvg(@PathVariable Long userId) {
 		
 		return reviewService.getRatingAvg(userId);
+	}
+	
+	// 해당 유저 받은리뷰
+	@GetMapping("/receive/{userId}")
+	@ResponseBody
+	public List<ReviewResponseVO> receiveReviewList(@PathVariable Long userId){
+		
+		return reviewService.getReceiveReview(userId);
+	}
+	
+	// 해당 유저 작성한 리뷰
+	@GetMapping("/write/{userId}")
+	@ResponseBody
+	public List<ReviewResponseVO> writeReviewList(@PathVariable Long userId){
+		
+		return reviewService.getWriteReview(userId);
 	}
 	
 }

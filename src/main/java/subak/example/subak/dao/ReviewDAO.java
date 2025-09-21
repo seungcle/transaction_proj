@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import subak.example.subak.domain.ReviewDTO;
+import subak.example.subak.domain.ReviewResponseVO;
 import subak.example.subak.domain.TagDTO;
 
 @Mapper
@@ -23,4 +24,8 @@ public interface ReviewDAO {
 	boolean checkDuplicateReview(@Param("itemId") Long itemId, @Param("userId1") Long userId1);
 	
 	double getAverageRatingByUserId(long userId2);
+	
+	List<ReviewResponseVO> findReviewsByUserId(Long userId);
+	
+	List<ReviewResponseVO> findWriteReviewsByUserId(Long userId);
 }

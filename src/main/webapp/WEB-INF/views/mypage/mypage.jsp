@@ -201,19 +201,22 @@ $(document).ready(function() {
             url: `${pageContext.request.contextPath}/review/rating/average/\${userId}`,
             type: "GET",
             success: function(rating) {
-                // 성공적으로 평점을 가져왔을 때
-                if (rating) {
-                    // 숫자 평점 업데이트 (소수점 첫째 자리까지)
-                    $('#rating-score').text(rating.toFixed(1));
-                    // 별점 아이콘 업데이트
+                // 성공적으로 데이터를 가져왔지만, 평점이 유효한 숫자인지 확인
+                if (rating && rating > 0) {
+                    // 평점이 있는 경우 (0보다 큼)
+                    $('#rating-score').text(rating.toFixed(1)); // 소수점 첫째 자리까지 표시
                     $('#user-rating-stars').html(renderStars(rating));
+                } else {
+                    // 평점이 없는 경우 (0점 또는 null)
+                    $('#rating-score').text('0.0');
+                    $('#user-rating-stars').html(renderStars(0)); // 별 0개로 표시
                 }
             },
             error: function(xhr, status, error) {
                 console.error("평점 정보를 불러오는 데 실패했습니다:", error);
-                // 실패 시 기본 메시지나 아이콘 표시
-                $('#rating-score').text('N/A');
-                $('#user-rating-stars').html(renderStars(0)); // 별 0개로 표시
+                // AJAX 요청 자체가 실패한 경우에도 0점으로 표시
+                $('#rating-score').text('0.0');
+                $('#user-rating-stars').html(renderStars(0));
             }
         });
     }
@@ -221,11 +224,6 @@ $(document).ready(function() {
     // 페이지 로드 시 평점 정보 불러오기 실행
     loadUserRating();
 
-    /**
-     * ==========================================================
-     * 내 상품 목록 관련 코드
-     * ==========================================================
-     */
 
     // 각 탭의 콘텐츠 영역
     const $allItems = $("#all-items");

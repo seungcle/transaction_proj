@@ -23,5 +23,6 @@
 		<typeAlias alias="DmChatRoomInfoDTO" type="subak.example.subak.domain.DmChatRoomInfoDTO" />			
 		<typeAlias alias="ReviewDTO" type="subak.example.subak.domain.ReviewDTO" />			
 		<typeAlias alias="TagDTO" type="subak.example.subak.domain.TagDTO" />			
+		<typeAlias alias="ReviewResponseVO" type="subak.example.subak.domain.ReviewResponseVO" />			
 	</typeAliases>
 </configuration>

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import subak.example.subak.dao.ReviewDAO;
 import subak.example.subak.domain.ReviewDTO;
+import subak.example.subak.domain.ReviewResponseVO;
 import subak.example.subak.domain.SessionUserVO;
 import subak.example.subak.domain.TagDTO;
 
@@ -77,5 +78,15 @@ public class ReviewService {
 	public double getRatingAvg(Long userId) {
 		
 		return reviewDAO.getAverageRatingByUserId(userId);
+	}
+
+	public List<ReviewResponseVO> getReceiveReview(Long userId) {
+		
+		return reviewDAO.findReviewsByUserId(userId);
+	}
+
+	public List<ReviewResponseVO> getWriteReview(Long userId) {
+
+		return reviewDAO.findWriteReviewsByUserId(userId);
 	}
 }

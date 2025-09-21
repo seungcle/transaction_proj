@@ -17,8 +17,8 @@
             AND t.user_id = #{userId}
     </select>
     <insert id="insertReview" parameterType="ReviewDTO"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
-        INSERT INTO review (rating, review_comment, item_id, user_id1, user_id2)
-        VALUES (#{rating}, #{reviewComment}, #{itemId}, #{userId1}, #{userId2})
+        INSERT INTO review (rating, review_comment, item_id, created_at, user_id1, user_id2)
+        VALUES (#{rating}, #{reviewComment}, #{itemId}, sysdate, #{userId1}, #{userId2})
     </insert>
 
     <insert id="insertReviewTags" parameterType="map">
@@ -54,5 +54,68 @@
             review
         WHERE
             user_id2 = #{userId2}
+    </select>
+    <resultMap id="reviewResponseResultMap" type="ReviewResponseVO">
+    	<id property="id" column="id"/>
+    	<result property="nickname" column="nickname"/>
+	    <result property="title" column="title"/>
+	    <result property="rating" column="rating"/>
+	    <result property="reviewComment" column="review_comment"/>
+	    <result property="createdAt" column="created_at"/>
+        <collection property="label" ofType="java.lang.String">
+            <result column="label"/>
+        </collection>
+    </resultMap>
+
+    <select id="findReviewsByUserId" resultMap="reviewResponseResultMap" parameterType="long">
+	    SELECT
+	        r.id,
+	        u.nickname,
+	        i.title,
+	        r.rating,
+	        r.review_comment,
+	        TO_CHAR(r.created_at, 'YYYY-MM-DD') AS created_at,
+	        rt.label
+	    FROM
+	        review r
+	    JOIN
+	        -- 리뷰 작성자(u)의 닉네임을 가져오기 위한 조인
+	        "user" u ON r.user_id1 = u.id
+	    JOIN
+	        item i ON r.item_id = i.id
+	    LEFT JOIN
+	        tag t ON r.id = t.review_id
+	    LEFT JOIN
+	        review_tag rt ON t.tag_id = rt.id
+	    WHERE
+	        -- 특정 사용자에게 달린 리뷰를 찾기 위해 user_id2를 사용
+	        r.user_id2 = #{userId}
+	    ORDER BY
+	        r.created_at DESC
+    </select>
+    <select id="findWriteReviewsByUserId" resultMap="reviewResponseResultMap" parameterType="long">
+	    SELECT
+	        r.id,
+	        u.nickname,
+	        i.title,
+	        r.rating,
+	        r.review_comment,
+	        TO_CHAR(r.created_at, 'YYYY-MM-DD') AS created_at,
+	        rt.label
+	    FROM
+	        review r
+	    JOIN
+	        -- 리뷰 작성자(u)의 닉네임을 가져오기 위한 조인
+	        "user" u ON r.user_id2 = u.id
+	    JOIN
+	        item i ON r.item_id = i.id
+	    LEFT JOIN
+	        tag t ON r.id = t.review_id
+	    LEFT JOIN
+	        review_tag rt ON t.tag_id = rt.id
+	    WHERE
+	        r.user_id1 = #{userId}
+	    ORDER BY
+	        r.created_at DESC
     </select>
 </mapper>

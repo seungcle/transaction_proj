@@ -11,7 +11,6 @@ import subak.example.subak.domain.ItemImageDTO;
 import subak.example.subak.domain.ItemRequestDTO;
 import subak.example.subak.domain.ItemResponseDTO;
 import subak.example.subak.domain.SimpleItemResponseVO;
-import subak.example.subak.domain.TransactionDTO;
 
 @Mapper
 public interface ItemDAO {

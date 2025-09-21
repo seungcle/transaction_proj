@@ -72,9 +72,16 @@
 										</td>
 									</tr>
 									<tr>
+										<%-- ▼▼▼ [수정된 부분] 입찰 기록 횟수 표시 ▼▼▼ --%>
 										<th scope="row">입찰 기록</th>
-										<td>총 8회 <a href="#" class="ms-2 text-decoration-none">[기록 보기]</a>
+										<td>
+											<span id="bidCount">총 ...회</span>
+											<a href="#" class="ms-2 text-decoration-none"
+											   data-bs-toggle="offcanvas"
+											   data-bs-target="#bidHistoryOffcanvas"
+											   aria-controls="bidHistoryOffcanvas">[기록 보기]</a>
 										</td>
+										<%-- ▲▲▲ [수정 완료] ▲▲▲ --%>
 									</tr>
 								</tbody>
 							</table>
@@ -209,6 +216,7 @@
 	</div>
 
 	<jsp:include page="groupChat.jsp" />
+	<jsp:include page="bid.jsp" />
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -330,14 +338,13 @@
 	 		});
 
 			// --- 5. 리뷰 작성 권한 확인 로직 ---
-			// 경매 종료 화면일 때만 이 로직을 실행
 			if ($('.auction-ended').length > 0) {
 				const itemId = "${item.id}";
 				const sellerId = "${item.userId}";
 
 				$.ajax({
 					type: 'GET',
-					url: `${pageContext.request.contextPath}/review/auth`,
+					url: `${contextPath}/review/auth`,
 					data: {
 						itemId: itemId,
 						sellerId: sellerId
@@ -354,28 +361,23 @@
 				});
 			}
 
-			// ✨ 요청하신 기능: 리뷰 남기기 버튼 클릭 시 중복 확인 ---
+			// --- 6. 리뷰 남기기 버튼 클릭 시 중복 확인 ---
 			$('#reviewButton').on('click', function(e) {
-				// a 태그의 기본 동작(페이지 이동)을 막습니다.
-				e.preventDefault(); 
+				e.preventDefault();
 				
 				const reviewPageUrl = $(this).attr('href');
 				const itemId = "${item.id}";
 
 				$.ajax({
 					type: 'GET',
-					url: `${pageContext.request.contextPath}/review/check`,
+					url: `${contextPath}/review/check`,
 					data: {
 						itemId: itemId
 					},
 					success: function(canWriteReview) {
-						// Controller에서 true를 반환하면 리뷰 작성이 가능한 상태(중복 아님)
-						// false를 반환하면 이미 작성한 상태(중복)
 						if (canWriteReview) {
-							// 중복이 아니므로 리뷰 작성 페이지로 이동합니다.
 							window.location.href = reviewPageUrl;
 						} else {
-							// 중복이므로 알림 창을 띄웁니다.
 							alert('이미 리뷰를 작성하셨습니다.');
 						}
 					},
@@ -385,6 +387,19 @@
 				});
 			});
 
+			if ($('#bidCount').length > 0) {
+				$.ajax({
+					type: 'GET',
+					url: `${pageContext.request.contextPath}/bid/count/${item.id}`,
+					success: function(count) {
+						$('#bidCount').text(`총 \${count}회`);
+					},
+					error: function() {
+						console.error('입찰 횟수를 가져오는 데 실패했습니다.');
+						$('#bidCount').text('총 ?회');
+					}
+				});
+			}
 	 	});
 	</script>
 </body>

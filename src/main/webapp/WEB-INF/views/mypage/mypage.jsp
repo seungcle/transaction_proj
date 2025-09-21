@@ -69,21 +69,20 @@
             <div class="card mb-4">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center mb-4">
-                        <img src="${user.imageUrl}" class="rounded-circle me-3"
-                             alt="avatar" width="80" height="80">
+                        <img src="${pageContext.request.contextPath}/${user.imageUrl}" class="rounded-circle me-3"
+                            alt="avatar" width="80" height="80">
                         <div>
                             <h3 class="card-title mb-0">${user.nickname}</h3>
                             <p class="card-text text-muted">${user.bio}</p>
                         </div>
                     </div>
 
+                    <%-- Ajax로 평점과 별점을 표시할 영역 --%>
                     <div class="d-flex align-items-center">
-                        <div class="rating-stars me-2">
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
-                            <i class="bi bi-star-half"></i>
+                        <div id="user-rating-stars" class="rating-stars me-2">
+                            <%-- JavaScript가 별 아이콘을 동적으로 채웁니다. --%>
                         </div>
-                        <span class="fs-4 fw-bold">4.5</span>
+                        <span id="rating-score" class="fs-4 fw-bold"></span>
                         <span class="text-muted ms-2">/ 5.0</span>
                     </div>
                 </div>
@@ -116,7 +115,7 @@
 
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-all"
-                             role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">
+                            role="tabpanel" aria-labelledby="pills-all-tab" tabindex="0">
 
                             <div id="all-items" class="row g-3"></div>
 
@@ -126,17 +125,17 @@
                         </div>
 
                         <div class="tab-pane fade" id="pills-selling"
-						    role="tabpanel" aria-labelledby="pills-selling-tab" tabindex="0">
-						
-						    <div id="sale-items" class="row g-3"></div>
-						
-						    <div class="text-center mt-4">
-						        <button id="loadMoreSaleBtn" class="btn btn-outline-primary">더보기</button>
-						    </div>
-						</div>
+                           role="tabpanel" aria-labelledby="pills-selling-tab" tabindex="0">
+                        
+                           <div id="sale-items" class="row g-3"></div>
+                        
+                           <div class="text-center mt-4">
+                               <button id="loadMoreSaleBtn" class="btn btn-outline-primary">더보기</button>
+                           </div>
+                        </div>
 
                         <div class="tab-pane fade" id="pills-reserved"
-                             role="tabpanel" aria-labelledby="pills-reserved-tab" tabindex="0">
+                            role="tabpanel" aria-labelledby="pills-reserved-tab" tabindex="0">
 
                             <div id="bid-items" class="row g-3"></div>
 
@@ -165,19 +164,78 @@ $(document).ready(function() {
     // 페이지 번호 상태 관리
     let currentPageAll = 1;
     let currentPageSale = 1;
-    let currentPageBid = 1; // 입찰중 페이지 번호 추가
+    let currentPageBid = 1;
     
     const userId = $('#mypage-data').data('userId');
+
+    /**
+     * ==========================================================
+     * 사용자 평점 및 별점 표시를 위한 Ajax 코드
+     * ==========================================================
+     */
+    
+    // 별점 HTML을 생성하는 함수
+    function renderStars(rating) {
+        let starsHtml = '';
+        const fullStars = Math.floor(rating); // 채워진 별 개수
+        const hasHalfStar = rating % 1 >= 0.5; // 반쪽 별 여부
+        
+        for (let i = 1; i <= 5; i++) {
+            if (i <= fullStars) {
+                // 꽉 찬 별
+                starsHtml += '<i class="bi bi-star-fill"></i>';
+            } else if (i === fullStars + 1 && hasHalfStar) {
+                // 반쪽 별
+                starsHtml += '<i class="bi bi-star-half"></i>';
+            } else {
+                // 빈 별 (Bootstrap Icons 1.8.0 이상에서는 bi-star 사용)
+                starsHtml += '<i class="bi bi-star"></i>';
+            }
+        }
+        return starsHtml;
+    }
+
+    // 사용자 평점 불러오기 함수
+    function loadUserRating() {
+        $.ajax({
+            url: `${pageContext.request.contextPath}/review/rating/average/\${userId}`,
+            type: "GET",
+            success: function(rating) {
+                // 성공적으로 평점을 가져왔을 때
+                if (rating) {
+                    // 숫자 평점 업데이트 (소수점 첫째 자리까지)
+                    $('#rating-score').text(rating.toFixed(1));
+                    // 별점 아이콘 업데이트
+                    $('#user-rating-stars').html(renderStars(rating));
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error("평점 정보를 불러오는 데 실패했습니다:", error);
+                // 실패 시 기본 메시지나 아이콘 표시
+                $('#rating-score').text('N/A');
+                $('#user-rating-stars').html(renderStars(0)); // 별 0개로 표시
+            }
+        });
+    }
+
+    // 페이지 로드 시 평점 정보 불러오기 실행
+    loadUserRating();
+
+    /**
+     * ==========================================================
+     * 내 상품 목록 관련 코드
+     * ==========================================================
+     */
 
     // 각 탭의 콘텐츠 영역
     const $allItems = $("#all-items");
     const $saleItems = $("#sale-items");
-    const $bidItems = $("#bid-items"); // 입찰중 콘텐츠 영역 추가
+    const $bidItems = $("#bid-items");
 
     // 각 탭의 '더보기' 버튼
     const $loadMoreBtn = $("#loadMoreBtn");
     const $loadMoreSaleBtn = $("#loadMoreSaleBtn");
-    const $loadMoreBidBtn = $("#loadMoreBidBtn"); // 입찰중 '더보기' 버튼 추가
+    const $loadMoreBidBtn = $("#loadMoreBidBtn");
     
     // URL 파라미터 체크 (채팅창 바로 열기)
     const params = new URLSearchParams(window.location.search);
@@ -188,7 +246,6 @@ $(document).ready(function() {
 
     // item 카드 HTML 생성 함수
     function createItemCard(item) {
-        // SimpleItemResponseVO의 필드명에 맞게 수정 (예: currentPrice, imageUrl)
         return `
             <div class="col-md-3">
                 <a href="${pageContext.request.contextPath}/item/\${item.id}" class="card-link" style="text-decoration: none; color: inherit;">
@@ -252,21 +309,20 @@ $(document).ready(function() {
         });
     }
 
-    // 입찰중 상품 불러오기 (새로 추가된 함수)
+    // 입찰중 상품 불러오기
     function loadBidItems(page) {
         $.ajax({
-            url: `${pageContext.request.contextPath}/item/\${userId}/bid`, // API 엔드포인트
+            url: `${pageContext.request.contextPath}/item/\${userId}/bid`,
             type: "GET",
             data: { page: page },
             success: function(data) {
                 if (data && data.length > 0) {
                     data.forEach(item => {
-                        $bidItems.append(createItemCard(item)); // #bid-items에 추가
+                        $bidItems.append(createItemCard(item));
                     });
                 } else {
-                    $loadMoreBidBtn.hide(); // 더보기 버튼 숨기기
+                    $loadMoreBidBtn.hide();
                     if(page === 1) {
-                        // 첫 페이지인데 데이터가 없으면 메시지 표시
                         $bidItems.html(`<p class="text-center text-muted col-12 mt-4">입찰중인 상품이 없습니다.</p>`);
                     }
                 }

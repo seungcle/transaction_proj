@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         const xhr = new XMLHttpRequest();
-        xhr.open('POST','${pageContext.request.contextPath}/ajax/sendAuthEmail',true);
+        xhr.open('POST','${pageContext.request.contextPath}/ajax/sendSignupEmail',true);
         xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
         xhr.onload = function(){
             const res = xhr.responseText.trim();

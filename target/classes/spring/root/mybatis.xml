@@ -18,4 +18,5 @@
 	<mybatis-spring:scan
 		base-package="subak.example.subak.dao"
 		annotation="org.apache.ibatis.annotations.Mapper" />
+		
 </beans>

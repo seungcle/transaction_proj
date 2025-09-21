@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-/* /css/item.css */
+/* ======== 기존 CSS ======== */
 .card {
 	border: none;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
@@ -64,11 +64,9 @@
 }
 
 .btn-square {
-  width: 58px;  /* 버튼의 너비 (btn-lg 높이와 비슷하게) */
-  height: 58px; /* 버튼의 높이 */
-  padding: 0;   /* 내부 여백을 제거하여 아이콘이 중앙에 오도록 함 */
-  
-  /* 아이콘을 완벽하게 중앙 정렬하기 위한 Flexbox 속성 */
+  width: 58px;
+  height: 58px;
+  padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -100,9 +98,9 @@
 
 #productImageCarousel {
   width: 100%;
-  aspect-ratio: 1 / 1; /* 가로 세로 비율을 1:1 (정사각형)으로 강제합니다. */
+  aspect-ratio: 1 / 1;
   border-radius: 12px;
-  overflow: hidden; /* 모서리가 둥글게 처리되도록 합니다. */
+  overflow: hidden;
 }
 
 #productImageCarousel .carousel-inner,
@@ -113,7 +111,7 @@
 #productImageCarousel .carousel-item img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* 이미지가 컨테이너를 꽉 채우되, 비율을 유지하며 벗어나는 부분은 잘라냅니다. */
+  object-fit: cover;
 }
 
 @media ( min-width : 992px) {
@@ -134,4 +132,21 @@
 		height: 100%;
 		object-fit: cover;
 	}
+}
+
+/* ================================================= */
+/* ✨ 경매 종료 상태를 위한 새로운 CSS ✨ */
+/* ================================================= */
+
+/* 경매 종료 시 상품 이미지에 흑백 및 투명도 효과 적용 */
+.auction-ended .carousel-inner img {
+    filter: grayscale(90%);
+    opacity: 0.8;
+}
+
+/* 경매 종료 시 최종 낙찰가 스타일 */
+.price-final {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #6c757d; /* 차분한 회색 */
 }

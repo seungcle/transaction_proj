@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="subak.example.subak.dao.ReviewDAO">
+	<select id="isSuccessfulBidder" parameterType="map" resultType="boolean">
+        SELECT
+            COUNT(*)
+        FROM
+            transaction t
+        INNER JOIN
+            item i ON t.item_id = i.id
+        WHERE
+            i.id = #{itemId}
+            AND i.seller_id = #{sellerId}
+            AND t.user_id = #{userId}
+    </select>
+    <insert id="insertReview" parameterType="ReviewDTO"  useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT INTO review (rating, review_comment, item_id, user_id1, user_id2)
+        VALUES (#{rating}, #{reviewComment}, #{itemId}, #{userId1}, #{userId2})
+    </insert>
+
+    <insert id="insertReviewTags" parameterType="map">
+	    INSERT INTO tag (review_id, tag_id)
+	    <foreach collection="tagIds" item="tagId" separator="UNION ALL">
+	        SELECT #{reviewId}, #{tagId} FROM DUAL
+	    </foreach>
+	</insert>
+    
+    <select id="allReviewTags" resultType="TagDTO">
+    	SELECT
+    		id, label
+    	FROM 
+    		review_tag
+    </select>
+    <select id="checkDuplicateReview" resultType="boolean">
+        SELECT
+            CASE
+                WHEN COUNT(*) > 0 THEN 0 -- 중복 데이터가 있으면 0 (false)을 반환
+                ELSE 1                 -- 중복 데이터가 없으면 1 (true)을 반환
+            END
+        FROM
+            review
+        WHERE
+            item_id = #{itemId}
+          AND user_id1 = #{userId1}
+    </select>
+    <select id="getAverageRatingByUserId" parameterType="long" resultType="double">
+        SELECT
+            -- AVG(rating) 결과가 NULL일 경우(리뷰가 하나도 없을 경우) 0.0을 반환합니다.
+            NVL(AVG(rating), 0.0)
+        FROM
+            review
+        WHERE
+            user_id2 = #{userId2}
+    </select>
+</mapper>

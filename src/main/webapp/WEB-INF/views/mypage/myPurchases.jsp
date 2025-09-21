@@ -73,7 +73,7 @@
                             });
                         } else {
                             // 데이터가 없을 경우 메시지 표시
-                            var noDataHtml = '<div class="text-center p-5 text-secondary">판매 완료 내역이 없습니다.</div>';
+                            var noDataHtml = '<div class="text-center p-5 text-secondary">구매 완료 내역이 없습니다.</div>';
                             $('#purchaseCompleteListContainer').append(noDataHtml);
                         }
                     },

@@ -79,6 +79,14 @@
 		SET password = #{password}
 		WHERE id = #{id}
 	</update>
+	
+	<!-- 프로필 이미지 변경 -->
+	<update id="updateImageUrl" parameterType="map">
+		UPDATE "user"
+		SET image_url = #{imageUrl}
+		WHERE id = #{id}
+	</update>
+	
 </mapper>
 
 

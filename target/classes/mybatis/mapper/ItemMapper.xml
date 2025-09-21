@@ -22,6 +22,7 @@
 	    FROM
 	        item i
 	        LEFT JOIN favorite f ON i.id = f.item_id
+	    WHERE i.status = 'OPEN'
 	    GROUP BY
 	        i.id,
 	        i.title,
@@ -165,6 +166,9 @@
 	        <if test="category != null and category != ''">
 	            AND c.name = #{category}
 	        </if>
+	        <if test="excludeEnded == true">
+	            AND i.status = 'OPEN'
+	        </if>
 	    ORDER BY 
 	        i.id DESC
 	    OFFSET 
@@ -197,6 +201,9 @@
 	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
 	        <if test="category != null and category != ''">
 	            AND c.name = #{category}
+	        </if>
+	        <if test="excludeEnded == true">
+	            AND i.status = 'OPEN'
 	        </if>
 	    ORDER BY 
 	        i.current_price ASC
@@ -231,6 +238,9 @@
 	        <if test="category != null and category != ''">
 	            AND c.name = #{category}
 	        </if>
+	        <if test="excludeEnded == true">
+	            AND i.status = 'OPEN'
+	        </if>
 	    ORDER BY 
 	        i.id DESC
 	    OFFSET 
@@ -263,6 +273,9 @@
 	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
 	        <if test="category != null and category != ''">
 	            AND c.name = #{category}
+	        </if>
+	        <if test="excludeEnded == true">
+	            AND i.status = 'OPEN'
 	        </if>
 	    ORDER BY 
 	        i.current_price DESC
@@ -298,6 +311,9 @@
 	        AND i.current_price BETWEEN #{minPrice} AND #{maxPrice}
 	        <if test="category != null and category != ''">
 	            AND c.name = #{category}
+	        </if>
+	        <if test="excludeEnded == true">
+	            AND i.status = 'OPEN'
 	        </if>
 	    GROUP BY
 	        i.id,

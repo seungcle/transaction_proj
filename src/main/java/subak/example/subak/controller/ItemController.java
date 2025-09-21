@@ -122,11 +122,12 @@ public class ItemController {
 						   @RequestParam(required = false) String category,
 						   @RequestParam(defaultValue = "0") int minPrice,
 						   @RequestParam(defaultValue = "999999999") int maxPrice,
+						   @RequestParam(defaultValue = "false") boolean excludeEnded,
 						   @RequestParam(defaultValue = "1") int page,
 						   Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemByTitleWithPrice(title, category, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemByTitleWithPrice(title, category, minPrice, maxPrice, excludeEnded, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";
@@ -138,11 +139,12 @@ public class ItemController {
 							 @RequestParam(required = false) String category,
 				 			 @RequestParam(defaultValue = "0") int minPrice,
 				 			 @RequestParam(defaultValue = "999999999") int maxPrice,
+				 			 @RequestParam(defaultValue = "false") boolean excludeEnded,
 				 			 @RequestParam(defaultValue = "1") int page,
 				 			 Model model) {
 
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByIdDesc(title, category, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByIdDesc(title, category, minPrice, maxPrice, excludeEnded, page, pageSize);
 		model.addAttribute("list", list);
 
 		return "mainpage/search";
@@ -154,11 +156,12 @@ public class ItemController {
 								 @RequestParam(required = false) String category,
 			   					 @RequestParam(defaultValue = "0") int minPrice,
 			   					 @RequestParam(defaultValue = "999999999") int maxPrice,
+			   					 @RequestParam(defaultValue = "false") boolean excludeEnded,
 			   					 @RequestParam(defaultValue = "1") int page,
 			   					 Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceAsc(title, category, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceAsc(title, category, minPrice, maxPrice, excludeEnded, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";
@@ -170,11 +173,12 @@ public class ItemController {
 								  @RequestParam(required = false) String category,
 			   					  @RequestParam(defaultValue = "0") int minPrice,
 			   					  @RequestParam(defaultValue = "999999999") int maxPrice,
+			   					  @RequestParam(defaultValue = "false") boolean excludeEnded,
 			   					  @RequestParam(defaultValue = "1") int page,
 			   					  Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceDesc(title, category, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByPriceDesc(title, category, minPrice, maxPrice, excludeEnded, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";
@@ -186,11 +190,12 @@ public class ItemController {
 							   @RequestParam(required = false) String category,
 			   				   @RequestParam(defaultValue = "0") int minPrice,
 			   				   @RequestParam(defaultValue = "999999999") int maxPrice,
+			   				   @RequestParam(defaultValue = "false") boolean excludeEnded,
 			   				   @RequestParam(defaultValue = "1") int page,
 			   				   Model model) {
 		
 		int pageSize = 20;
-		List<SimpleItemResponseVO> list = itemService.searchItemOrderByFavoriteDesc(title, category, minPrice, maxPrice, page, pageSize);
+		List<SimpleItemResponseVO> list = itemService.searchItemOrderByFavoriteDesc(title, category, minPrice, maxPrice, excludeEnded, page, pageSize);
 		model.addAttribute("list", list);
 		
 		return "mainpage/search";

@@ -72,7 +72,6 @@
 										</td>
 									</tr>
 									<tr>
-										<%-- ▼▼▼ [수정된 부분] 입찰 기록 횟수 표시 ▼▼▼ --%>
 										<th scope="row">입찰 기록</th>
 										<td>
 											<span id="bidCount">총 ...회</span>
@@ -81,7 +80,6 @@
 											   data-bs-target="#bidHistoryOffcanvas"
 											   aria-controls="bidHistoryOffcanvas">[기록 보기]</a>
 										</td>
-										<%-- ▲▲▲ [수정 완료] ▲▲▲ --%>
 									</tr>
 								</tbody>
 							</table>
@@ -332,7 +330,8 @@
 	 				},
 	 				error: function(xhr, status, error) {
 	 					console.error('입찰 요청 실패:', xhr.responseText);
-	 					alert('입찰 처리 중 오류가 발생했습니다: ' + xhr.responseText);
+	 					alert('로그인이 되어있을 때만 입찰할 수 있습니다.');
+	 					window.location.href = '${pageContext.request.contextPath}/login';
 	 				}
 	 			});
 	 		});

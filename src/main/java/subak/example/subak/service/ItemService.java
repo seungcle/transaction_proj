@@ -155,7 +155,7 @@ public class ItemService {
 	    return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemByTitleWithPrice(String title, String category, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemByTitleWithPrice(String title, String category, int minPrice, int maxPrice, boolean excludeEnded, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
@@ -167,12 +167,13 @@ public class ItemService {
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
 	    params.put("maxPrice", maxPrice);
+	    params.put("excludeEnded", excludeEnded);
 	    List<SimpleItemResponseVO> list = itemDAO.findByTitleContainingIgnoreCaseWithPrice(params);
 	    
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByPriceAsc(String title, String category, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByPriceAsc(String title, String category, int minPrice, int maxPrice, boolean excludeEnded, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
@@ -184,11 +185,12 @@ public class ItemService {
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
 	    params.put("maxPrice", maxPrice);
+	    params.put("excludeEnded", excludeEnded);
 	    List<SimpleItemResponseVO> list = itemDAO.findOrderByPriceAsc(params);
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByIdDesc(String title, String category, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByIdDesc(String title, String category, int minPrice, int maxPrice, boolean excludeEnded, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
@@ -200,12 +202,13 @@ public class ItemService {
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
 	    params.put("maxPrice", maxPrice);
+	    params.put("excludeEnded", excludeEnded);
 	    List<SimpleItemResponseVO> list = itemDAO.findOrderByIdDesc(params);
 	    
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByPriceDesc(String title, String category, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByPriceDesc(String title, String category, int minPrice, int maxPrice, boolean excludeEnded, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
@@ -217,12 +220,13 @@ public class ItemService {
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
 	    params.put("maxPrice", maxPrice);
+	    params.put("excludeEnded", excludeEnded);
 	    List<SimpleItemResponseVO> list = itemDAO.findOrderByPriceDesc(params);
 	    
 		return list;
 	}
 
-	public List<SimpleItemResponseVO> searchItemOrderByFavoriteDesc(String title, String category, int minPrice, int maxPrice, int page,
+	public List<SimpleItemResponseVO> searchItemOrderByFavoriteDesc(String title, String category, int minPrice, int maxPrice, boolean excludeEnded, int page,
 			int pageSize) {
 		
 		int offset = (page - 1) * pageSize;
@@ -234,6 +238,7 @@ public class ItemService {
 	    params.put("pageSize", pageSize);
 	    params.put("minPrice", minPrice);
 	    params.put("maxPrice", maxPrice);
+	    params.put("excludeEnded", excludeEnded);
 	    List<SimpleItemResponseVO> list = itemDAO.findOrderByFavoriteDesc(params);
 	    
 		return list;

@@ -87,6 +87,11 @@ public class UserService {
 		}
 	}
 	
+	// 프로필 사진 수정
+	public void updateImageUrl(Long userId, String imageUrl) {
+        userDAO.updateImageUrl(userId, imageUrl);
+    }
+	
 	// 이메일
 	public UserDTO findUserByEmail(String email) {
 	    return userDAO.findUserByEmail(email);

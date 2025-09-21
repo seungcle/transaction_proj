@@ -35,5 +35,6 @@ public interface UserDAO {
 	void updateBio(@Param("id")Long id, @Param("bio")String bio);
 	// 비밀 번호 업데이트
 	void updatePasswordById(@Param("id") Long id, @Param("password") String newPassword);
-
+	// 프로필 업데이트
+	void updateImageUrl(@Param("id") Long id, @Param("imageUrl") String imageUrl);
 }

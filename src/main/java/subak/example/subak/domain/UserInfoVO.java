@@ -1,7 +1,9 @@
 package subak.example.subak.domain;
 
 import lombok.Getter;
+import lombok.Setter;
 
+@Setter
 @Getter
 public class UserInfoVO {
 
@@ -11,7 +13,4 @@ public class UserInfoVO {
 	private String imageUrl;
 	private String password;
 
-	    public void setPassword(String password) {
-	        this.password = password;
-	    }
 }

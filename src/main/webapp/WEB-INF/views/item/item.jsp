@@ -343,7 +343,7 @@
 
 				$.ajax({
 					type: 'GET',
-					url: `${contextPath}/review/auth`,
+					url: `${pageContext.request.contextPath}/review/auth`,
 					data: {
 						itemId: itemId,
 						sellerId: sellerId
@@ -369,7 +369,7 @@
 
 				$.ajax({
 					type: 'GET',
-					url: `${contextPath}/review/check`,
+					url: `${pageContext.request.contextPath}/review/check`,
 					data: {
 						itemId: itemId
 					},

@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration>
-    <Appenders>
-        </Appenders>
-    <Loggers>
-        <Logger name="org.springframework.web.socket" level="TRACE" additivity="false">
-            <AppenderRef ref="console" />
-        </Logger>
-        <Logger name="org.springframework.messaging" level="TRACE" additivity="false">
-            <AppenderRef ref="console" />
-        </Logger>
 
-        <Root level="INFO">
-            <AppenderRef ref="console" />
-        </Root>
-    </Loggers>
+  <Appenders>
+    <Console name="Out" target="SYSTEM_OUT">
+      <PatternLayout charset="UTF-8" pattern="%-5level: %logger{1}.%M() - %msg%n"/>
+    </Console>
+  </Appenders>
+  
+  <Loggers>
+    <Logger name="subak.example.subak" level="info" additivity="false">
+      <AppenderRef ref="Out"/>
+    </Logger>
+    <Root level="error">
+      <AppenderRef ref="Out"/>
+    </Root>
+  </Loggers>
+  
 </Configuration>

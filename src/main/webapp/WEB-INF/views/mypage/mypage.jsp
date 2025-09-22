@@ -367,6 +367,6 @@ $(document).ready(function() {
     });
 });
 </script>
-
+<jsp:include page="../component/footer.jsp" />
 </body>
 </html>

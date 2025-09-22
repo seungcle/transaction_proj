@@ -53,9 +53,6 @@
 </style>
 </head>
 <body>
-    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#myReviewOffcanvas">
-      내 거래 후기 보기
-    </button>
     <div class="offcanvas offcanvas-end" tabindex="-1"
         id="myReviewOffcanvas" aria-labelledby="myReviewOffcanvasLabel"
         data-user-id="${sessionScope.user.id}">

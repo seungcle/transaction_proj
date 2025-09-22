@@ -334,6 +334,7 @@
 	 					window.location.href = '${pageContext.request.contextPath}/login';
 	 				}
 	 			});
+	 			requestPayment(bidId, bidPrice);
 	 		});
 
 			// --- 5. 리뷰 작성 권한 확인 로직 ---
@@ -401,5 +402,11 @@
 			}
 	 	});
 	</script>
+	
+		<!-- 1. 토스페이먼츠 JS SDK -->
+	 	<script src="https://js.tosspayments.com/v1/payment"></script>
+
+	 	<!-- 2. 별도 결제 로직 JS -->
+	 	<script src="${pageContext.request.contextPath}/resources/js/payment.js"></script>
 </body>
 </html>

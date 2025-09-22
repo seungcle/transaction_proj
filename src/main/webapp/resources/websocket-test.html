@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket STOMP 최종 테스트</title>
+    <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+</head>
+<body>
+    <h1>WebSocket 최종 테스트 페이지 (한글 인코딩)</h1>
+    <p>이 페이지는 오직 웹소켓 연결과 알림 수신만 테스트합니다.</p>
+    <hr>
+    <h2>로그:</h2>
+    <div id="messages"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const log = (message) => {
+                const p = document.createElement('p');
+                p.innerHTML = message;
+                document.getElementById('messages').appendChild(p);
+            };
+
+            log("테스트 페이지 스크립트 시작...");
+            const socket = new SockJS('/subak/ws'); 
+            log("SockJS 생성 완료. 서버에 연결을 시도합니다...");
+            const stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, 
+                (frame) => {
+                    log('<strong style="color: green;">STOMP 연결 성공:</strong> ' + frame);
+                    stompClient.subscribe('/topic/notifications', 
+                        (notification) => {
+                            log('<strong style="color: blue;">메시지 수신 성공!</strong> 내용: ' + notification.body);
+                        }
+                    );
+                    log('<strong style="color: purple;">/topic/notifications 구독 완료.</strong> 이제 알림을 받을 준비가 되었습니다.');
+                },
+                (error) => {
+                    log('<strong style="color: red;">STOMP 연결 실패:</strong> ' + error);
+                }
+            );
+        });
+    </script>
+</body>
+</html>

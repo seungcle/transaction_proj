@@ -54,6 +54,9 @@ notifications.add(noti3);
 				<i class="bi bi-arrow-left fs-4"></i>
 			</button>
 			<h5 class="offcanvas-title w-100 text-center" id="offcanvasLabel">알림</h5>
+			<button type="button" class="btn btn-link text-danger p-0" onclick="clearAllNotifications()" aria-label="Clear all notifications">
+				<i class="bi bi-trash fs-4"></i>
+			</button>
 		</div>
 
 		<div class="offcanvas-body p-0">
@@ -92,18 +95,39 @@ notifications.add(noti3);
 		</div>
 	</div>
 
-	<script>
-    function dismissNotification(event, notificationId) {
-        event.stopPropagation(); 
-        const notificationElement = document.getElementById('notification-' + notificationId);
-        if (notificationElement) {
-            notificationElement.style.transition = 'opacity 0.5s ease';
-            notificationElement.style.opacity = '0';
-            setTimeout(() => {
-                notificationElement.remove();
-            }, 500);
-        }
+<script>
+function dismissNotification(event, notificationId) {
+    event.stopPropagation();
+    const notificationElement = document.getElementById('notification-' + notificationId);
+    if (notificationElement) {
+        notificationElement.style.transition = 'opacity 0.5s ease';
+        notificationElement.style.opacity = '0';
+        setTimeout(() => {
+            notificationElement.remove();
+        }, 500);
     }
+}
+
+function clearAllNotifications() {
+    const notificationItems = document.querySelectorAll('.notification-item');
+    if (notificationItems.length > 0) {
+        notificationItems.forEach(item => {
+            item.style.transition = 'opacity 0.5s ease';
+            item.style.opacity = '0';
+            setTimeout(() => {
+                item.remove();
+            }, 500);
+        });
+        // 알림이 모두 사라진 후 '새로운 알림이 없습니다.' 메시지 표시
+        setTimeout(() => {
+            const offcanvasBody = document.querySelector('.offcanvas-body');
+            const noNotificationMessage = document.createElement('div');
+            noNotificationMessage.className = 'text-center p-5 text-muted';
+            noNotificationMessage.textContent = '새로운 알림이 없습니다.';
+            offcanvasBody.appendChild(noNotificationMessage);
+        }, 500);
+    }
+}
 </script>
 </body>
 </html>

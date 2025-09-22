@@ -41,7 +41,7 @@
                 <div class="card shadow-sm border-0">
                     <div class="card-body p-lg-5 p-4">
                         <h1 class="card-title text-center mb-5 h2 fw-bold">리뷰를 남겨주세요</h1>
-                        <form action="${pageContext.request.contextPath}/review/submit" method="post">
+                        <form id="reviewForm" action="${pageContext.request.contextPath}/review/submit" method="post">
                             <input type="hidden" name="userId2" value="${param.sellerId}">
                             <input type="hidden" name="itemId" value="${param.itemId}">
 
@@ -139,6 +139,45 @@
             // 페이지 로드 시 초기 별점 상태 설정
             updateStars(parseFloat(ratingInput.value));
         });
+        const reviewForm = document.getElementById('reviewForm');
+        if (reviewForm) {
+            reviewForm.addEventListener('submit', function (event) {
+                // 1. 원래의 form 전송 기능을 중단시킵니다.
+                event.preventDefault();
+
+                // 2. 사용자에게 제출 여부를 확인하는 창을 띄웁니다.
+                const isConfirmed = confirm('작성된 리뷰는 수정할 수 없습니다. 이대로 제출하시겠습니까?');
+
+                // 3. 사용자가 "확인"을 눌렀을 경우에만 아래 코드를 실행합니다.
+                if (isConfirmed) {
+                    const form = event.target;
+                    const formData = new FormData(form);
+                    
+                    // Fetch API를 사용하여 서버에 비동기적으로 데이터를 전송합니다.
+                    fetch(form.action, {
+                        method: form.method,
+                        body: formData
+                    })
+                    .then(response => {
+                        // 서버로부터 응답이 성공적으로 왔는지 확인합니다.
+                        if (response.ok) {
+                            // 4. 성공 시, "리뷰가 작성되었습니다." 알림을 띄웁니다.
+                            alert('리뷰가 작성되었습니다.');
+                            // 알림 확인 후 메인 페이지로 이동시킵니다.
+                            window.location.href = '${pageContext.request.contextPath}/main';
+                        } else {
+                            // 서버에서 오류 응답이 온 경우
+                            throw new Error('서버 오류가 발생했습니다.');
+                        }
+                    })
+                    .catch(error => {
+                        // 네트워크 문제 등 전송 실패 시 오류 알림을 띄웁니다.
+                        console.error('리뷰 제출 오류:', error);
+                        alert('리뷰 등록 중 오류가 발생했습니다. 다시 시도해주세요.');
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>

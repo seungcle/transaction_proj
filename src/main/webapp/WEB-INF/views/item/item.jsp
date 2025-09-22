@@ -112,7 +112,7 @@
 										<i id="heartIcon" class="bi ${isFavorited ? 'bi-heart-fill' : 'bi-heart'} fs-5"></i>
 									</button>
 									<button id="bidButton" class="btn btn-bid-primary btn-lg flex-grow-1"
-											type="button" data-item-id="${item.id}">
+											type="button" data-item-id="${item.id}" data-seller-id="${item.userId}">
 										<i class="bi bi-hammer"></i> 입찰하기
 									</button>
 								</div>
@@ -288,7 +288,7 @@
 	 		const bidInput = $('#bidInput');
 	 		
 	 		if (bidInput.length > 0) {
-				const nextBidPrice = currentPrice + 1000;
+				const nextBidPrice = currentPrice;
 	
 		 		bidInput.val(formatNumber(nextBidPrice));
 		 		bidInput.on('input', function() {
@@ -310,31 +310,44 @@
 	 		
 	 		// --- 4. 입찰 버튼 AJAX 처리 ---
 	 		$('#bidButton').on('click', function() {
-	 			const itemId = $(this).data('item-id');
-	 			const bidPrice = unformatNumber(bidInput.val());
-	 			const currentPriceForValidation = unformatNumber($('.price-current').text());
-
-	 			if (isNaN(bidPrice) || bidPrice <= currentPriceForValidation) {
-	 				alert('입찰 금액은 현재가보다 높아야 합니다.');
-	 				return;
-	 			}
-
-	 			const url = `${pageContext.request.contextPath}/item/bid?price=\${bidPrice}&itemId=\${itemId}`;
-	 			
-	 			$.ajax({
-	 				type: 'POST',
-	 				url: url,
-	 				success: function(response) {
-	 					alert('입찰이 성공적으로 완료되었습니다!');
-	 					window.location.reload();
-	 				},
-	 				error: function(xhr, status, error) {
-	 					console.error('입찰 요청 실패:', xhr.responseText);
-	 					alert('로그인이 되어있을 때만 입찰할 수 있습니다.');
-	 					window.location.href = '${pageContext.request.contextPath}/login';
-	 				}
-	 			});
-	 		});
+			    const itemId = $(this).data('item-id');
+			    const sellerId = $(this).data('seller-id');
+			    const bidPrice = unformatNumber(bidInput.val());
+			    const currentPriceForValidation = unformatNumber($('.price-current').text());
+			
+			    // 입찰 조건 검사
+			    if (isNaN(bidPrice) || bidPrice <= currentPriceForValidation) {
+			        alert('입찰 금액은 현재가보다 높아야 합니다.');
+			        return;
+			    }
+			
+			    // --- [추가된 부분] 입찰 확인 알림창 ---
+			    const formattedBidPrice = formatNumber(bidPrice);
+			    if (confirm(formattedBidPrice + '원에 입찰하시겠습니까?')) {
+			        // 사용자가 '확인'을 클릭했을 경우에만 AJAX 요청 실행
+			        const url = `${pageContext.request.contextPath}/item/bid?price=\${bidPrice}&itemId=\${itemId}&sellerId=\${sellerId}`;
+			
+			        $.ajax({
+			            type: 'POST',
+			            url: url,
+			            success: function(response) {
+			                alert('입찰이 성공적으로 완료되었습니다!');
+			                window.location.reload();
+			            },
+			            error: function(xhr, status, error) {
+			                console.error('입찰 요청 실패:', xhr.responseText);
+			                
+			                if (xhr.status === 403) {
+			                    alert('자신의 상품은 입찰할 수 없습니다.');
+			                } else {
+			                    alert('로그인이 되어있을 때만 입찰할 수 있습니다.');
+			                    window.location.href = '${pageContext.request.contextPath}/login';
+			                }
+			            }
+			        });
+			    }
+			
+			});
 
 			// --- 5. 리뷰 작성 권한 확인 로직 ---
 			if ($('.auction-ended').length > 0) {

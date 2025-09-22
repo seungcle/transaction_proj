@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -202,11 +203,25 @@ public class ItemController {
 	}
 	
 	// 입찰 버튼 매핑
- 	@PostMapping("/bid")
+	@PostMapping("/bid")
 	@ResponseBody
-	public void UpdateBidPrice(Long price, Long itemId, HttpSession session) {
-		
-		itemService.pushBid(price, itemId, session);
+	public ResponseEntity<String> UpdateBidPrice(Long price, Long itemId, Long sellerId, HttpSession session) {
+	    // 세션에서 현재 로그인한 사용자의 ID를 가져옵니다.
+	    SessionUserVO user = (SessionUserVO)session.getAttribute("user");
+	    System.out.println(user);
+	    // 1. 로그인 여부 확인
+	    if (user == null) {
+	        return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED); // 401 Unauthorized
+	    }
+
+	    // 2. 자신의 상품인지 확인
+	    if (user.getId().equals(sellerId)) {
+	        return new ResponseEntity<>("자신의 상품은 입찰할 수 없습니다.", HttpStatus.FORBIDDEN); // 403 Forbidden
+	    }
+
+	    // 3. 정상 입찰 처리
+	    itemService.pushBid(price, itemId, session);
+	    return new ResponseEntity<>("입찰 성공", HttpStatus.OK); // 200 OK
 	}
 	
 	// 해당 유저 전체상품

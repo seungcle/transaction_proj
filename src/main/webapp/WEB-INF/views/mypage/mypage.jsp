@@ -69,7 +69,7 @@
             <div class="card mb-4">
                 <div class="card-body p-4">
                     <div class="d-flex align-items-center mb-4">
-                        <img src="<%=request.getContextPath()%>/${user.imageUrl}" id="profileImagePreview" class="rounded-circle me-3" alt="Profile Image Preview" width="80" height="80">
+                        <img src="<%=request.getContextPath()%>/${user.imageUrl}" id="mypageProfileImage" class="rounded-circle me-3" alt="Profile Image Preview" width="80" height="80">
                         <div>
                             <h3 class="card-title mb-0">${user.nickname}</h3>
                             <p class="card-text text-muted">${user.bio}</p>

@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import subak.example.subak.domain.SessionUserVO;
+import subak.example.subak.domain.UserDTO;
 import subak.example.subak.domain.UserInfoVO;
 import subak.example.subak.service.UserService;
 
@@ -186,4 +188,25 @@ public class UserController {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+    
+    @GetMapping("/get-user-profile")
+    @ResponseBody
+    public Map<String, Object> getUserProfile(HttpSession session) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            UserDTO user = (UserDTO) session.getAttribute("loggedInUser"); // 세션에서 사용자 가져오기
+            if (user != null) {
+                response.put("success", true);
+                response.put("user", user); // user.imageUrl 포함
+            } else {
+                response.put("success", false);
+                response.put("message", "로그인이 필요합니다.");
+            }
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "오류 발생: " + e.getMessage());
+        }
+        return response;
+    }
+
 }

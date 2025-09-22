@@ -6,7 +6,7 @@
     </div>
     <div class="offcanvas-body">
         <div class="d-flex align-items-center mb-4">
-            <img src="<%=request.getContextPath()%>/${user.imageUrl}" id="profileImagePreview" class="rounded-circle me-3" alt="Profile Image Preview" width="80" height="80">
+            <img src="<%=request.getContextPath()%>/${user.imageUrl}" id="myInfoImagePreview" class="rounded-circle me-3" alt="Profile Image Preview" width="80" height="80">
             <div>
                 <h5 class="mb-0">프로필 사진</h5>
                 <p class="text-muted mb-0">프로필 사진을 변경하세요.</p>
@@ -20,7 +20,7 @@
         <hr>
 
         <div class="info-section d-flex justify-content-between align-items-center mb-4" id="nicknameDisplay">
-            <div>
+            <div>	
                 <p class="text-muted mb-0">닉네임</p>
                 <h5 id="currentNickname" class="fw-bold">${user.nickname}</h5>
             </div>
@@ -90,22 +90,24 @@
 </div>
 
 <script>
-    // DB 연동을 위해 jQuery를 사용합니다.
     document.addEventListener('DOMContentLoaded', function() {
-        // 프로필 사진 변경
+        // mypage와 myInfo offcanvas의 이미지 엘리먼트를 별도로 가져옵니다.
+        const mypageProfileImage = document.getElementById('mypageProfileImage');
+        const myInfoImagePreview = document.getElementById('myInfoImagePreview');
         const profileImageInput = document.getElementById('profileImageInput');
-        const profileImagePreview = document.getElementById('profileImagePreview');
+
+        // 프로필 사진 변경 이벤트
         profileImageInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
-                // 1. 미리보기 업데이트
                 const reader = new FileReader();
                 reader.onload = function(e) {
-                    profileImagePreview.src = e.target.result;
+                    // 두 이미지 모두 미리보기 업데이트
+                    mypageProfileImage.src = e.target.result;
+                    myInfoImagePreview.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
-                
-                // 2. 서버로 파일 전송
+
                 const formData = new FormData();
                 formData.append('profileImage', file);
 
@@ -116,23 +118,46 @@
                     contentType: false,
                     data: formData,
                     success: function(response) {
-                        if (response.success) {
+                        if (response.success && response.imageUrl) {
+                            const newImageUrl = '<%=request.getContextPath()%>' + response.imageUrl;
+                            // 서버에서 받은 새 이미지 URL로 두 이미지 모두 갱신
+                            mypageProfileImage.src = newImageUrl + '?t=' + new Date().getTime();
+                            myInfoImagePreview.src = newImageUrl + '?t=' + new Date().getTime();
                             console.log("프로필 사진이 성공적으로 변경되었습니다.");
                         } else {
                             console.error("사진 업로드 실패: " + response.message);
-                            // 실패 시 기존 이미지로 복원
-                            profileImagePreview.src = '<%=request.getContextPath()%>/' + '${user.imageUrl}';
                         }
                     },
                     error: function(xhr, status, error) {
                         console.error("서버 통신 오류: " + xhr.responseText);
-                        // 오류 시 기존 이미지로 복원
-                        profileImagePreview.src = '<%=request.getContextPath()%>/' + '${user.imageUrl}';
                     }
                 });
             }
         });
 
+        // offcanvas가 열릴 때마다 프로필 DB 가져오기 (마이페이지도 함께 갱신)
+        const myInfoOffcanvas = document.getElementById('myInfoOffcanvas');
+        myInfoOffcanvas.addEventListener('show.bs.offcanvas', function () {
+            $.ajax({
+                url: '<%=request.getContextPath()%>/get-user-profile',
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success && response.user) {
+                        const newImageUrl = '<%=request.getContextPath()%>' + response.user.imageUrl;
+                        // 두 이미지 엘리먼트 모두 업데이트
+                        mypageProfileImage.src = newImageUrl + '?t=' + new Date().getTime();
+                        myInfoImagePreview.src = newImageUrl + '?t=' + new Date().getTime();
+                        $('#currentNickname').text(response.user.nickname);
+                        $('#currentbio').text(response.user.bio);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("사용자 정보 가져오기 실패: " + xhr.responseText);
+                }
+            });
+        });
+        
         // 닉네임 수정
         setupEditSection('nickname');
         
@@ -159,7 +184,7 @@
                 displayDiv.hide();
                 editDiv.show();
                 if(inputField.length) {
-                    // 한줄소개는 비어있을 경우 초기값을 설정하지 않음
+                    // 한줄소개는 비어있을 경우 출력 X
                     if (sectionName !== 'bio' || currentText.text().trim() !== '') {
                         inputField.val(currentText.text().trim());
                     } else {
@@ -168,14 +193,14 @@
                 }
             });
             
-            // '취소' 버튼 클릭 시
+            // 취소 클릭 시
             cancelBtn.on('click', function() {
                 displayDiv.css('display', 'flex');
                 editDiv.hide();
                 clearValidationState(editDiv);
             });
             
-            // '저장' 버튼 클릭 시
+            // 저장 클릭 시
             saveBtn.on('click', function() {
                 let isValid = true;
                 let data = {};

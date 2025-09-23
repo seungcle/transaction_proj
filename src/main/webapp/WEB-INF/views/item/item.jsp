@@ -200,9 +200,9 @@
 						<form id="chatForm" method="post" action="${pageContext.request.contextPath}/chat/${item.userId}/start">
 							<input type="hidden" name="userId" value="${item.userId}">
 						</form>
-							<button type="button" class="btn btn-dark">
-								<i class="bi bi-person-plus-fill"></i> 판매자 정보
-							</button>
+							<a href="${pageContext.request.contextPath}/userinfo/${item.userId}" class="btn btn-dark">
+							    <i class="bi bi-person-plus-fill"></i> 판매자 정보
+							</a>
 							<button id="chatBtn" type="button" class="btn btn-outline-primary">
 								<i class="bi bi-chat-text-fill"></i> 판매자와 1:1 채팅
 							</button>

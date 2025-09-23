@@ -51,6 +51,16 @@ public class UserController {
         model.addAttribute("user", vo);
         return "mypage/mypage";
     }
+    
+    // 해당 유저 마이페이지
+    @GetMapping("/userinfo/{userId}")
+    public String userPage(@PathVariable Long userId, Model model) {
+    	
+    	UserInfoVO vo = userService.getUserInfo(userId);
+    	model.addAttribute("user", vo);
+    	
+    	return "mypage/yourpage";
+    }
 
     // 비밀번호 업데이트
     @PostMapping("/update-password")

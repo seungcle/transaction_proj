@@ -216,7 +216,6 @@ public class ItemController {
 	public ResponseEntity<String> CheckBidPrice(Long price, Long itemId, Long sellerId, HttpSession session) {
 	    // 세션에서 현재 로그인한 사용자의 ID를 가져옵니다.
 	    SessionUserVO user = (SessionUserVO)session.getAttribute("user");
-	    System.out.println(user);
 	    // 1. 로그인 여부 확인
 	    if (user == null) {
 	        return new ResponseEntity<>("로그인이 필요합니다.", HttpStatus.UNAUTHORIZED); // 401 Unauthorized

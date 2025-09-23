@@ -87,6 +87,14 @@
 		WHERE id = #{id}
 	</update>
 	
+    <select id="existsByUsernameAndEmail" resultType="int">
+        SELECT COUNT(*) FROM "user" WHERE username = #{username} AND email = #{email}
+    </select>
+    
+    <update id="updatePassword">
+        UPDATE "user" SET password = #{newPassword} WHERE username = #{username}
+    </update>
+	
 </mapper>
 
 

@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 updateSubmitButtonState();
             }
         };
-        xhr.send('authCode='+encodeURIComponent(code)+'&email='+encodeURIComponent(emailInput.value.trim()));
+        xhr.send('authCode='+encodeURIComponent(code)+'&type=signup');
     });
 
     // 입력값 변경 시 상태 초기화

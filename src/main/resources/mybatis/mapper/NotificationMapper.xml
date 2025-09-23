@@ -20,19 +20,34 @@
         )
     </insert>
 
-    <select id="getNotificationsByUserId" parameterType="long" resultType="subak.example.subak.domain.NotificationDTO">
+    <select id="getNotificationsByUserId" parameterType="long" resultType="NotificationResponseVO">
         SELECT
-            id,
-            user_id,
-            item_id,
-            content,
-            is_read,
-            created_at
+            n.id,
+            n.content,
+            n.is_read,
+            u.nickname,
+            n.item_id,
+            i.title,
+            (SELECT image_url
+             FROM (
+                 SELECT image_url
+                 FROM item_image
+                 WHERE item_id = i.id
+                 ORDER BY id ASC
+             )
+             WHERE ROWNUM = 1) AS image_url
         FROM
-            notification
+            notification n
+        LEFT JOIN
+            "user" u ON n.user_id = u.id
+        LEFT JOIN
+            item i ON n.item_id = i.id
         WHERE
-            user_id = #{userId}
-        ORDER BY created_at DESC
+            n.user_id = #{userId}
+        AND
+            n.is_read = 'N'
+        ORDER BY
+            n.created_at DESC
     </select>
     
     <update id="updateIsRead" parameterType="long">

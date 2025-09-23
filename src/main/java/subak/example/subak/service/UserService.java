@@ -102,5 +102,15 @@ public class UserService {
 	    return userDAO.findUserByEmail(email);
 	}
 	
+	
+	// 비밀번호 찾기
+	public boolean existsByUsernameAndEmail(String username, String email) {
+		return userDAO.existsByUsernameAndEmail(username, email) > 0;
+	}
+	
+	public boolean updatePassword(String username, String newPassword) {
+		int updatedRows = userDAO.updatePassword(username, newPassword);
+		return updatedRows > 0;
+	}
 
 }

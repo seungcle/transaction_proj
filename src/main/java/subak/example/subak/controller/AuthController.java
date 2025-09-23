@@ -2,6 +2,7 @@ package subak.example.subak.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -163,6 +165,73 @@ public class AuthController {
             }
         } else {
             return "fail";
+        }
+    }
+    @PostMapping("/user/check-user-and-send-email")
+    @ResponseBody
+    public String checkUserAndSendEmail(@RequestBody Map<String, String> requestMap, HttpSession session) {
+        String username = requestMap.get("username");
+        String email = requestMap.get("email");
+
+        // 아이디와 이메일로 사용자 존재 여부 확인
+        boolean userExists = userService.existsByUsernameAndEmail(username, email);
+        if (!userExists) {
+            return "{\"success\": false, \"message\": \"입력하신 정보와 일치하는 회원이 없습니다.\"}";
+        }
+
+        String authCode = generateAuthCode();
+        Properties mailProps = loadMailProperties();
+        if (mailProps == null) {
+            return "{\"success\": false, \"message\": \"메일 설정 오류.\"}";
+        }
+
+        String subject = "비밀번호 찾기 인증번호입니다.";
+        String content = "비밀번호 찾기 인증번호는 " + authCode + " 입니다.";
+        
+        if (sendEmail(email, subject, content, mailProps)) {
+            session.setAttribute("passwordAuthCode", authCode);
+            session.setAttribute("passwordAuthUsername", username);
+            session.setAttribute("passwordAuthEmail", email);
+            return "{\"success\": true, \"message\": \"이메일로 인증 코드가 발송되었습니다.\"}";
+        } else {
+            return "{\"success\": false, \"message\": \"이메일 발송에 실패했습니다. 다시 시도해주세요.\"}";
+        }
+    }
+
+    // 2. 인증 코드 검증
+    @PostMapping("/user/verify-auth-code")
+    @ResponseBody
+    public String verifyAuthCodeForPassword(@RequestBody Map<String, String> requestMap, HttpSession session) {
+        String inputAuthCode = requestMap.get("authCode");
+        String sessionCode = (String) session.getAttribute("passwordAuthCode");
+
+        if (sessionCode != null && sessionCode.equals(inputAuthCode)) {
+            return "{\"success\": true, \"message\": \"인증이 완료되었습니다.\"}";
+        } else {
+            return "{\"success\": false, \"message\": \"인증 코드가 일치하지 않습니다.\"}";
+        }
+    }
+    
+    // 3. 비밀번호 재설정
+    @PostMapping("/user/reset-password")
+    @ResponseBody
+    public String resetPassword(@RequestBody Map<String, String> requestMap, HttpSession session) {
+        String newPassword = requestMap.get("newPassword");
+        String username = (String) session.getAttribute("passwordAuthUsername");
+        
+        if (username == null) {
+            return "{\"success\": false, \"message\": \"유효하지 않은 접근입니다. 처음부터 다시 시도해주세요.\"}";
+        }
+
+        boolean resetSuccess = userService.updatePassword(username, newPassword);
+        
+        if (resetSuccess) {
+            session.removeAttribute("passwordAuthCode");
+            session.removeAttribute("passwordAuthUsername");
+            session.removeAttribute("passwordAuthEmail");
+            return "{\"success\": true, \"message\": \"비밀번호가 성공적으로 재설정되었습니다.\"}";
+        } else {
+            return "{\"success\": false, \"message\": \"비밀번호 재설정에 실패했습니다. 잠시 후 다시 시도해주세요.\"}";
         }
     }
 }

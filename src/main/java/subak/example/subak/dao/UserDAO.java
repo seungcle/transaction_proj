@@ -28,6 +28,10 @@ public interface UserDAO {
 	
 	UserDTO findUserByUsernameAndEmail( String username, String email);
 	
+	int existsByUsernameAndEmail(@Param("username") String username, @Param("email") String email);
+	
+	int updatePassword(@Param("username") String username, @Param("newPassword") String newPassword);
+	
 	//---------- 개인정보 수정-----------
 	// 닉네임
 	void updateNickname(@Param("id") Long id,@Param("nickname")String nickname);

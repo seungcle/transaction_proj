@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import subak.example.subak.domain.NotificationDTO;
+import subak.example.subak.domain.NotificationResponseVO;
 
 @Mapper
 public interface NotificationDAO {
@@ -12,7 +13,7 @@ public interface NotificationDAO {
     int insertNotification(NotificationDTO notification);
 
     // 특정 사용자의 모든 알림을 조회하는 메서드
-    List<NotificationDTO> getNotificationsByUserId(Long userId);
+    List<NotificationResponseVO> getNotificationsByUserId(Long userId);
 
     // 알림의 읽음 상태를 업데이트하는 메서드
     int updateIsRead(Long notificationId);

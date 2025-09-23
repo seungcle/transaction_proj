@@ -25,5 +25,6 @@
 		<typeAlias alias="TagDTO" type="subak.example.subak.domain.TagDTO" />			
 		<typeAlias alias="ReviewResponseVO" type="subak.example.subak.domain.ReviewResponseVO" />			
 		<typeAlias alias="BidResponseVO" type="subak.example.subak.domain.BidResponseVO" />			
+		<typeAlias alias="NotificationResponseVO" type="subak.example.subak.domain.NotificationResponseVO" />			
 	</typeAliases>
 </configuration>

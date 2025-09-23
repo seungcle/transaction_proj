@@ -14,6 +14,27 @@
 <link rel="stylesheet"
     href="${pageContext.request.contextPath}/resources/css/mypage.css">
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<style>
+    .item-image-wrapper {
+        position: relative;
+    }
+    .item-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); /* 검은색 반투명 오버레이 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white; /* 텍스트 색상 */
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
 </head>
 
 <body>
@@ -126,11 +147,11 @@
                         <div class="tab-pane fade" id="pills-selling"
                            role="tabpanel" aria-labelledby="pills-selling-tab" tabindex="0">
                         
-                           <div id="sale-items" class="row g-3"></div>
+                            <div id="sale-items" class="row g-3"></div>
                         
-                           <div class="text-center mt-4">
-                               <button id="loadMoreSaleBtn" class="btn btn-outline-primary">더보기</button>
-                           </div>
+                            <div class="text-center mt-4">
+                                <button id="loadMoreSaleBtn" class="btn btn-outline-primary">더보기</button>
+                            </div>
                         </div>
 
                         <div class="tab-pane fade" id="pills-reserved"
@@ -181,13 +202,10 @@ $(document).ready(function() {
         
         for (let i = 1; i <= 5; i++) {
             if (i <= fullStars) {
-                // 꽉 찬 별
                 starsHtml += '<i class="bi bi-star-fill"></i>';
             } else if (i === fullStars + 1 && hasHalfStar) {
-                // 반쪽 별
                 starsHtml += '<i class="bi bi-star-half"></i>';
             } else {
-                // 빈 별 (Bootstrap Icons 1.8.0 이상에서는 bi-star 사용)
                 starsHtml += '<i class="bi bi-star"></i>';
             }
         }
@@ -200,20 +218,16 @@ $(document).ready(function() {
             url: `${pageContext.request.contextPath}/review/rating/average/\${userId}`,
             type: "GET",
             success: function(rating) {
-                // 성공적으로 데이터를 가져왔지만, 평점이 유효한 숫자인지 확인
                 if (rating && rating > 0) {
-                    // 평점이 있는 경우 (0보다 큼)
-                    $('#rating-score').text(rating.toFixed(1)); // 소수점 첫째 자리까지 표시
+                    $('#rating-score').text(rating.toFixed(1));
                     $('#user-rating-stars').html(renderStars(rating));
                 } else {
-                    // 평점이 없는 경우 (0점 또는 null)
                     $('#rating-score').text('0.0');
-                    $('#user-rating-stars').html(renderStars(0)); // 별 0개로 표시
+                    $('#user-rating-stars').html(renderStars(0));
                 }
             },
             error: function(xhr, status, error) {
                 console.error("평점 정보를 불러오는 데 실패했습니다:", error);
-                // AJAX 요청 자체가 실패한 경우에도 0점으로 표시
                 $('#rating-score').text('0.0');
                 $('#user-rating-stars').html(renderStars(0));
             }
@@ -222,7 +236,6 @@ $(document).ready(function() {
 
     // 페이지 로드 시 평점 정보 불러오기 실행
     loadUserRating();
-
 
     // 각 탭의 콘텐츠 영역
     const $allItems = $("#all-items");
@@ -241,13 +254,22 @@ $(document).ready(function() {
         offcanvas.show();
     }
 
-    // item 카드 HTML 생성 함수
+    // 👇 item 카드 HTML 생성 함수 (수정됨)
     function createItemCard(item) {
+        // item.status가 'OPEN'이 아닐 경우 '경매종료' 오버레이를 생성
+        const isSoldOut = item.status !== 'OPEN';
+        const overlayHtml = isSoldOut ? `
+            <div class="item-overlay">
+                <span>경매종료</span>
+            </div>` : '';
+
         return `
             <div class="col-md-3">
                 <a href="${pageContext.request.contextPath}/item/\${item.id}" class="card-link" style="text-decoration: none; color: inherit;">
                     <div class="card h-100 shadow-sm">
-                        <img src="${pageContext.request.contextPath}/\${item.imageUrl}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                        <div class="item-image-wrapper">
+                            <img src="${pageContext.request.contextPath}/\${item.imageUrl}" class="card-img-top" style="height: 150px; object-fit: cover;">
+                            \${overlayHtml} </div>
                         <div class="card-body">
                             <h6 class="card-title text-truncate">\${item.title}</h6>
                             <p class="card-text fw-bold text-success">\${item.currentPrice.toLocaleString()}</p>

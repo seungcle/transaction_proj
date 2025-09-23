@@ -32,6 +32,8 @@
             notification
         WHERE
             user_id = #{userId}
+            AND
+            is_read = 'N'
         ORDER BY created_at DESC
     </select>
     

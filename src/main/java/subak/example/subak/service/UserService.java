@@ -55,6 +55,11 @@ public class UserService {
 		return vo;
 	}
 	
+	public UserInfoVO getUserInfo(Long userId) {
+		
+		return userDAO.findById(userId);
+	}
+	
 	// 개인정보 수정
 	public boolean updateNickname(Long userId, String newNickname) {
 		if (userDAO.checkNickname(newNickname) > 0) {

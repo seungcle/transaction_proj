@@ -321,18 +321,19 @@
 			        return;
 			    }
 			
-			    // --- [추가된 부분] 입찰 확인 알림창 ---
+			    // --- 입찰 확인 알림창 ---
 			    const formattedBidPrice = formatNumber(bidPrice);
 			    if (confirm(formattedBidPrice + '원에 입찰하시겠습니까?')) {
-			        // 사용자가 '확인'을 클릭했을 경우에만 AJAX 요청 실행
-			        const url = `${pageContext.request.contextPath}/item/bid?price=\${bidPrice}&itemId=\${itemId}&sellerId=\${sellerId}`;
-			
+			    	const url = `${pageContext.request.contextPath}/item/bid_check?price=\${bidPrice}&itemId=\${itemId}&sellerId=\${sellerId}`;
 			        $.ajax({
 			            type: 'POST',
 			            url: url,
 			            success: function(response) {
-			                alert('입찰이 성공적으로 완료되었습니다!');
-			                window.location.reload();
+					        window.open(
+					                `${pageContext.request.contextPath}/payment/bid?price=\${bidPrice}&itemId=\${itemId}&sellerId=\${sellerId}`, // 열고 싶은 URL
+					                '_blank',  // 새 탭/창으로 열기
+					                'width=500,height=700,scrollbars=yes,resizable=yes' // 옵션: 크기, 스크롤, 크기 조절 가능
+					            );     
 			            },
 			            error: function(xhr, status, error) {
 			                console.error('입찰 요청 실패:', xhr.responseText);

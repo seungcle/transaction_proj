@@ -206,6 +206,14 @@ public class ItemController {
 	@PostMapping("/bid")
 	@ResponseBody
 	public ResponseEntity<String> UpdateBidPrice(Long price, Long itemId, Long sellerId, HttpSession session) {
+	    itemService.pushBid(price, itemId, session);
+	    return new ResponseEntity<>("입찰 성공", HttpStatus.OK); // 200 OK
+	}
+	
+	//bid 가능 여부 확인
+	@PostMapping("/bid_check")
+	@ResponseBody
+	public ResponseEntity<String> CheckBidPrice(Long price, Long itemId, Long sellerId, HttpSession session) {
 	    // 세션에서 현재 로그인한 사용자의 ID를 가져옵니다.
 	    SessionUserVO user = (SessionUserVO)session.getAttribute("user");
 	    // 1. 로그인 여부 확인
@@ -218,8 +226,7 @@ public class ItemController {
 	        return new ResponseEntity<>("자신의 상품은 입찰할 수 없습니다.", HttpStatus.FORBIDDEN); // 403 Forbidden
 	    }
 
-	    // 3. 정상 입찰 처리
-	    itemService.pushBid(price, itemId, session);
+	    // 3. 정상 입찰 
 	    return new ResponseEntity<>("입찰 성공", HttpStatus.OK); // 200 OK
 	}
 	

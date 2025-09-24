@@ -11,12 +11,16 @@ import subak.example.subak.domain.ChatRequestDTO;
 import subak.example.subak.domain.ChatResponseDTO;
 import subak.example.subak.domain.DmChatRoomDTO;
 import subak.example.subak.domain.DmChatRoomInfoDTO;
+import subak.example.subak.domain.NotificationDTO;
 
 @Service
 public class ChatService {
 	
 	@Autowired
 	private ChatDAO chatDAO;
+	
+	@Autowired
+    private NotificationService notificationService;
 
 	public ChatResponseDTO processMessage(Long roomId, ChatRequestDTO requestDTO) {
 		
@@ -47,8 +51,22 @@ public class ChatService {
 		// 기존에 생성된 채팅방이 있는지 확인
 	    Long roomId = chatDAO.findDmChatRoomByUsers(dto);
 		
-	    if(roomId == null)
+	    if(roomId == null) {
+            // 새 채팅방 생성
 	    	chatDAO.createDmChatRoom(dto);
+
+            // 알림 생성 로직
+            NotificationDTO notification = new NotificationDTO();
+            // 알림을 받는 사람 (채팅방 상대)
+            notification.setUserId(userId1); 
+            // 알림 내용
+            notification.setContent(userId2 + "님이 1:1 채팅을 시작했습니다.");
+            // 알림 클릭 시 이동할 URL
+            notification.setUrl("/chat/dm/" + roomId);
+            notification.setItemId(Long.parseLong("0"));
+            // NotificationService를 통해 알림 전송 (DB 저장 및 웹소켓)
+            notificationService.sendNotification(notification);
+        }
 	}
 
 	public List<DmChatRoomInfoDTO> getMyChatList(Long myUserId) {

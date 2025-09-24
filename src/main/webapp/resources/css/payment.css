@@ -1,0 +1,71 @@
+@charset "UTF-8";
+
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Toss Product Sans, -apple-system, BlinkMacSystemFont, Bazier Square, Noto Sans KR,
+    Segoe UI, Apple SD Gothic Neo, Roboto, Helvetica Neue, Arial, sans-serif, Apple Color Emoji,
+    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
+  background-color: #e8f3ff;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  word-break: keep-all;
+  word-wrap: break-word;
+}
+
+.wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;   /* 가로 중앙 */
+  align-items: flex-start;   /* 세로는 위에서부터 */
+  padding-top: 40px;         /* 위에서 살짝만 내려오기 */
+  box-sizing: border-box;
+}
+
+.box_section {
+  width: 400px;              /* 팝업보다 살짝 작은 카드 */
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgb(0 0 0 / 10%);
+  padding: 30px;
+  color: #333d4b;
+  text-align: center;
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: 24px;
+  font-weight: 600;
+  color: #4e5968;
+}
+
+.p {
+  margin: 5px 0;
+  font-size: 15px;
+  color: #4e5968;
+}
+
+.payment-button-area {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center; /* 버튼 가로 중앙 */
+}
+
+.button {
+  color: #f9fafb;
+  background-color: #3182f6;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 18px;
+  cursor: pointer;
+  border: none;
+  border-radius: 7px;
+  padding: 11px 16px;
+  width: 250px;
+  transition: background 0.2s ease, color 0.1s ease;
+}
+
+.button:hover {
+  background-color: #1b64da;
+}

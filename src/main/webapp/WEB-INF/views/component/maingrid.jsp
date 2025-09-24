@@ -26,8 +26,10 @@
 					class="d-block w-100" alt="판매 가이드">
 			</div>
 			<div class="carousel-item">
+			 <a href="https://youtu.be/JEsha9JQ5J8?feature=shared" target="_blank">
 				<img src="${pageContext.request.contextPath}/resources/images/sale.png"
 					class="d-block w-100" alt="구매 가이드">
+			</a>
 			</div>
 			<div class="carousel-item">
 				<img src="${pageContext.request.contextPath}/resources/images/welcome.png"

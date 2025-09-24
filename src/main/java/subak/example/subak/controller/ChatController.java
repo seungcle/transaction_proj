@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -51,14 +52,14 @@ public class ChatController {
 	
 	// 1:1 채팅방 만들기
 	@PostMapping("/chat/{userId}/start")
-	public String makeChatRoom(@PathVariable Long userId, HttpSession session) {
+	public String makeChatRoom(@PathVariable Long userId, @RequestParam Long itemId,  HttpSession session) {
 		
 		SessionUserVO user = (SessionUserVO)session.getAttribute("user");
 		if(user == null)
 			return "redirect:/login";
 		if(user.getId() == userId)
 			return "자신과는 채팅불가";
-		chatService.makeChatRoom(userId, user.getId());
+		chatService.makeChatRoom(userId, user.getId(), itemId);
 		return "redirect:/mypage?openChat=true";
 	}
 	

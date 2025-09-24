@@ -42,7 +42,7 @@ public class ChatService {
 	}
 
 	// userId1 -> 물건주인, userId2 -> 본인
-	public void makeChatRoom(Long userId1, Long userId2) {
+	public void makeChatRoom(Long userId1, Long userId2, Long itemId) {
 		
 		DmChatRoomDTO dto = new DmChatRoomDTO();
 		dto.setUserId1(userId1);
@@ -60,10 +60,10 @@ public class ChatService {
             // 알림을 받는 사람 (채팅방 상대)
             notification.setUserId(userId1); 
             // 알림 내용
-            notification.setContent(userId2 + "님이 1:1 채팅을 시작했습니다.");
+            notification.setContent("새로운 1:1 채팅요청이 들어왔습니다.");
             // 알림 클릭 시 이동할 URL
             notification.setUrl("/chat/dm/" + roomId);
-            notification.setItemId(Long.parseLong("0"));
+            notification.setItemId(itemId);
             // NotificationService를 통해 알림 전송 (DB 저장 및 웹소켓)
             notificationService.sendNotification(notification);
         }

@@ -57,7 +57,7 @@ public class ItemScheduler {
                     NotificationDTO notification = new NotificationDTO();
                     notification.setUserId(item.getSellerId());
                     notification.setItemId(item.getId());
-                    notification.setContent("회원님의 아이템 '" + item.getTitle() + "'이 유찰되었습니다.");
+                    notification.setContent("회원님의 아이템이 유찰되었습니다.");
                     notification.setUrl(itemUrl); // 수정된 URL 추가
                     notificationService.sendNotification(notification);
                     // --------------------------
@@ -80,7 +80,7 @@ public class ItemScheduler {
                 NotificationDTO sellerNotification = new NotificationDTO();
                 sellerNotification.setUserId(item.getSellerId());
                 sellerNotification.setItemId(item.getId());
-                sellerNotification.setContent("회원님의 아이템 '" + item.getTitle() + "'이 정상적으로 낙찰되었습니다.");
+                sellerNotification.setContent("회원님의 아이템이 정상적으로 낙찰되었습니다.");
                 sellerNotification.setUrl(itemUrl); // 수정된 URL 추가
                 notificationService.sendNotification(sellerNotification);
                 // --------------------------
@@ -89,7 +89,7 @@ public class ItemScheduler {
                 NotificationDTO winnerNotification = new NotificationDTO();
                 winnerNotification.setUserId(item.getWinnerId());
                 winnerNotification.setItemId(item.getId());
-                winnerNotification.setContent("회원님께서 입찰하신 아이템 '" + item.getTitle() + "'이 최종 낙찰되었습니다.");
+                winnerNotification.setContent("회원님께서 입찰하신 아이템이 최종 낙찰되었습니다.");
                 winnerNotification.setUrl(itemUrl); // 수정된 URL 추가
                 notificationService.sendNotification(winnerNotification);
 

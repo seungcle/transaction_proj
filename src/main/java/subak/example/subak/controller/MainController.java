@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import subak.example.subak.domain.SimpleItemResponseVO;
 import subak.example.subak.service.ItemService;
@@ -25,5 +26,14 @@ public class MainController {
 		List<SimpleItemResponseVO> list = itemService.findAll(page, pageSize);
 		model.addAttribute("list", list);
 		return "mainpage/main";
+	}
+	
+	@GetMapping("/main/items")
+	@ResponseBody
+	public List<SimpleItemResponseVO> getItems(
+	        @RequestParam(defaultValue = "1") int page,
+	        @RequestParam(defaultValue = "20") int pageSize) {
+
+	    return itemService.findAll(page, pageSize);
 	}
 }

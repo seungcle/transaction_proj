@@ -180,18 +180,18 @@
 					const distance = endTime - now;
 
 					if (distance < 0) {
-						// 이미 종료되었으면 더 이상 업데이트하지 않도록 data 속성을 제거할 수 있습니다.
+						// 이미 종료되었으면 더 이상 업데이트하지 않도록 data 속성을 제거
 						$this.removeAttr('data-end-time');
 						return;
 					}
 					
-					// 🔽 [수정] 시간 계산 로직
+					// 시간 계산 로직
 					const days = Math.floor(distance / (1000 * 60 * 60 * 24));
 					const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 					const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 					const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 					
-					// 🔽 [수정] 시간 포맷팅 로직
+					// 시간 포맷팅 로직
 					let timeLeft = '';
 					const hh = String(hours).padStart(2, '0');
 					const mm = String(minutes).padStart(2, '0');

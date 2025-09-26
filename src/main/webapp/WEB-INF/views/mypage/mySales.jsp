@@ -33,7 +33,7 @@
             // Offcanvas 요소 가져오기
             var myPurchasesOffcanvas = document.getElementById('mySalesOffcanvas');
             
-            // Offcanvas가 열릴 때 이벤트를 감지 (show.bs.offcanvas는 Bootstrap 5 이벤트)
+            // Offcanvas가 열릴 때 이벤트를 감지
             myPurchasesOffcanvas.addEventListener('show.bs.offcanvas', function () {
                 
                 // 컨테이너를 비워서 중복 로딩 방지
@@ -56,7 +56,6 @@
                         if (list && list.length > 0) {
                             // 응답받은 리스트를 순회하며 HTML 생성
                             $.each(list, function(index, item) {
-                                // + 연산자를 사용하여 HTML 문자열 조합
                                 var html = '<div class="product-item position-relative">'
                                          + '    <img src="' + contextPath + item.imageUrl + '" alt="상품 이미지">'
                                          + '    <div class="product-item-info">'
@@ -64,7 +63,6 @@
                                          + '        <p class="price text-dark">' + item.currentPrice + '</p>'
                                          + '        <p class="time">판매완료</p>'
                                          + '    </div>'
-                                         // SimpleItemResponseVO에 itemId가 있다면 아래 링크를 동적으로 생성 가능
                                          + '    <a href="${pageContext.request.contextPath}/item/' + item.id + '" class="stretched-link"></a>'
                                          + '</div>';
                                 

@@ -187,12 +187,6 @@ $(document).ready(function() {
     let currentPageBid = 1;
     
     const userId = $('#mypage-data').data('userId');
-
-    /**
-     * ==========================================================
-     * 사용자 평점 및 별점 표시를 위한 Ajax 코드
-     * ==========================================================
-     */
     
     // 별점 HTML을 생성하는 함수
     function renderStars(rating) {
@@ -254,7 +248,7 @@ $(document).ready(function() {
         offcanvas.show();
     }
 
-    // 👇 item 카드 HTML 생성 함수 (수정됨)
+    // 👇 item 카드 HTML 생성 함수
     function createItemCard(item) {
         // item.status가 'OPEN'이 아닐 경우 '경매종료' 오버레이를 생성
         const isSoldOut = item.status !== 'OPEN';

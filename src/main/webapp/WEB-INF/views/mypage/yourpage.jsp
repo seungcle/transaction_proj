@@ -49,11 +49,10 @@
         font-weight: bold;
         text-align: center;
     }
-    /* 후기 탭 관련 스타일 */
     .nav-tabs .nav-link.active {
         background-color: #fff;
         border-color: #dee2e6 #dee2e6 #fff;
-        color: var(--bs-success); /* primary에서 success로 변경하여 통일성 유지 */
+        color: var(--bs-success); 
     }
     .review-item .badge {
         background-color: #e9ecef;
@@ -163,16 +162,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
 $(document).ready(function() {
-    // ==========================================================
-    // 기본 정보 및 변수 설정
-    // ==========================================================
     const userId = $('#userpage-data').data('userId');
     let currentPageAll = 1;
     let currentPageSale = 1;
 
-    // ==========================================================
-    // 사용자 평점 및 별점 표시
-    // ==========================================================
     function renderStarsForRating(rating) {
         let starsHtml = '';
         const fullStars = Math.floor(rating);
@@ -210,9 +203,6 @@ $(document).ready(function() {
         });
     }
 
-    // ==========================================================
-    // 판매 상품 목록 표시
-    // ==========================================================
     const $allItems = $("#all-items");
     const $saleItems = $("#sale-items");
     const $loadMoreBtn = $("#loadMoreBtn");
@@ -268,9 +258,6 @@ $(document).ready(function() {
         });
     }
 
-    // ==========================================================
-    // 거래 후기 관련 로직 (신규 추가)
-    // ==========================================================
     const receivedReviewsContainer = $('#received-reviews');
     const writtenReviewsContainer = $('#written-reviews');
     let receivedReviewsLoaded = false;
@@ -373,10 +360,6 @@ $(document).ready(function() {
         if (!tags || tags.length === 0) return '';
         return tags.map(tag => `<span class="badge rounded-pill text-bg-secondary">#\${tag}</span>`).join(' ');
     }
-    
-    // ==========================================================
-    // 초기화 및 이벤트 바인딩
-    // ==========================================================
     
     // 페이지 로드 시 초기 데이터 로드
     loadUserRating();

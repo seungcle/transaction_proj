@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <style>
-       /* 별점 시스템을 위한 커스텀 CSS (개선안) */
     .star-rating {
         display: inline-flex;
     }
@@ -20,9 +19,8 @@
         transition: color 0.2s ease-in-out;
     }
     
-    /* 빈 별 (bi-star)은 부드러운 연한 노란색으로 설정 */
     .star-rating .bi-star {
-        color: #ffe082; /* 연한 노-란색 */
+        color: #ffe082; /* 연한 노란색 */
     }
 
     /* 반 별(bi-star-half)과 꽉 찬 별(bi-star-fill)은 뚜렷한 노란색으로 설정 */
@@ -142,18 +140,18 @@
         const reviewForm = document.getElementById('reviewForm');
         if (reviewForm) {
             reviewForm.addEventListener('submit', function (event) {
-                // 1. 원래의 form 전송 기능을 중단시킵니다.
+                // 1. 원래의 form 전송 기능을 중단
                 event.preventDefault();
 
-                // 2. 사용자에게 제출 여부를 확인하는 창을 띄웁니다.
+                // 2. 사용자에게 제출 여부를 확인하는 창을 띄움
                 const isConfirmed = confirm('작성된 리뷰는 수정할 수 없습니다. 이대로 제출하시겠습니까?');
 
-                // 3. 사용자가 "확인"을 눌렀을 경우에만 아래 코드를 실행합니다.
+                // 3. 사용자가 "확인"을 눌렀을 경우에만 아래 코드를 실행
                 if (isConfirmed) {
                     const form = event.target;
                     const formData = new FormData(form);
                     
-                    // Fetch API를 사용하여 서버에 비동기적으로 데이터를 전송합니다.
+                    // Fetch API를 사용하여 서버에 비동기적으로 데이터를 전송
                     fetch(form.action, {
                         method: form.method,
                         body: formData
@@ -161,9 +159,9 @@
                     .then(response => {
                         // 서버로부터 응답이 성공적으로 왔는지 확인합니다.
                         if (response.ok) {
-                            // 4. 성공 시, "리뷰가 작성되었습니다." 알림을 띄웁니다.
+                            // 4. 성공 시, "리뷰가 작성되었습니다." 알림을 띄움
                             alert('리뷰가 작성되었습니다.');
-                            // 알림 확인 후 메인 페이지로 이동시킵니다.
+                            // 알림 확인 후 메인 페이지로 이동
                             window.location.href = '${pageContext.request.contextPath}/main';
                         } else {
                             // 서버에서 오류 응답이 온 경우
@@ -171,7 +169,7 @@
                         }
                     })
                     .catch(error => {
-                        // 네트워크 문제 등 전송 실패 시 오류 알림을 띄웁니다.
+                        // 네트워크 문제 등 전송 실패 시 오류 알림을 띄움
                         console.error('리뷰 제출 오류:', error);
                         alert('리뷰 등록 중 오류가 발생했습니다. 다시 시도해주세요.');
                     });

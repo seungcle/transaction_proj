@@ -91,7 +91,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // mypage와 myInfo offcanvas의 이미지 엘리먼트를 별도로 가져옵니다.
+        // mypage와 myInfo offcanvas의 이미지 엘리먼트를 별도로 가져옴
         const mypageProfileImage = document.getElementById('mypageProfileImage');
         const myInfoImagePreview = document.getElementById('myInfoImagePreview');
         const profileImageInput = document.getElementById('profileImageInput');

@@ -77,7 +77,7 @@ $(document).ready(function() {
     var currentUserId = $('#user-data').data('id');
     var currentUserNickname = $('#user-data').data('nickname');
 
-    // ✅ 웹소켓 관련 전역 변수
+    // 웹소켓 관련 전역 변수
     var stompClient = null;
     var currentRoomId = null;
 
@@ -94,25 +94,25 @@ $(document).ready(function() {
         var roomName = $(button).data('room-name');
         var roomId = $(button).data('room-id');
 
-        currentRoomId = roomId; // ✅ 현재 접속한 채팅방 ID 저장
+        currentRoomId = roomId; // 현재 접속한 채팅방 ID 저장
         $('#chatDetailOffcanvasLabel').text(roomName);
         
         loadChatMessages(roomId); // 기존 대화 내용 불러오기
-        connect(roomId);          // ✅ 웹소켓 연결
+        connect(roomId);          // 웹소켓 연결
     });
     
-    // ✅ 채팅 상세 Offcanvas가 닫힐 때 이벤트
+    // 채팅 상세 Offcanvas가 닫힐 때 이벤트
     chatDetailOffcanvas.addEventListener('hide.bs.offcanvas', function (event) {
         disconnect(); // ✅ 웹소켓 연결 해제
         $('#chat-list').empty(); // 채팅 내용 비우기
     });
     
-    // ✅ 전송 버튼 클릭 이벤트
+    // 전송 버튼 클릭 이벤트
     $('#send-button').on('click', function() {
         sendMessage();
     });
 
-    // ✅ 메시지 입력 후 Enter 키 입력 이벤트
+    // 메시지 입력 후 Enter 키 입력 이벤트
     $('#chat-message-input').on('keypress', function(e) {
         if (e.which == 13) { // Enter key
             sendMessage();
@@ -120,7 +120,7 @@ $(document).ready(function() {
     });
 
     /**
-     * ✅ 지정된 채팅방에 웹소켓을 연결하는 함수
+     * 지정된 채팅방에 웹소켓을 연결하는 함수
      * @param {number} roomId
      */
     function connect(roomId) {
@@ -152,9 +152,7 @@ $(document).ready(function() {
         });
     }
 
-    /**
-     * ✅ 현재 연결된 웹소켓을 해제하는 함수
-     */
+    // 현재 연결된 웹소켓을 해제하는 함수
     function disconnect() {
         if (stompClient !== null) {
             stompClient.disconnect(function() {
@@ -164,9 +162,7 @@ $(document).ready(function() {
         }
     }
 
-    /**
-     * ✅ 입력된 메시지를 STOMP를 통해 서버로 전송하는 함수
-     */
+    // 입력된 메시지를 STOMP를 통해 서버로 전송하는 함수
     function sendMessage() {
         var messageInput = $('#chat-message-input');
         var message = messageInput.val().trim();
@@ -186,7 +182,7 @@ $(document).ready(function() {
     }
     
     /**
-     * ✅ 메시지 객체를 받아 화면에 채팅 버블로 표시하는 함수
+     * 메시지 객체를 받아 화면에 채팅 버블로 표시하는 함수
      * @param {object} msg - {nickname, message, createdAt}
      */
     function displayMessage(msg) {
@@ -210,9 +206,7 @@ $(document).ready(function() {
         chatContainer.scrollTop(chatContainer[0].scrollHeight); // 스크롤을 맨 아래로 이동
     }
 
-    /**
-     * 서버에서 채팅방 목록을 가져와 화면에 렌더링하는 함수
-     */
+    // 서버에서 채팅방 목록을 가져와 화면에 렌더링하는 함수
     function loadChatList() {
         $.ajax({
             url: contextPath + '/chat/list',
@@ -268,7 +262,7 @@ $(document).ready(function() {
                 chatContainer.empty();
                 if (messages && messages.length > 0) {
                     $.each(messages, function(index, msg) {
-                        displayMessage(msg); // ✅ 메시지 표시 함수 호출로 변경
+                        displayMessage(msg); // 메시지 표시 함수 호출로 변경
                     });
                 } else {
                 	chatContainer.html('<p class="text-center text-muted p-3 no-content">아직 대화 내용이 없습니다.</p>');
@@ -281,9 +275,7 @@ $(document).ready(function() {
         });
     }
 
-    /**
-     * 타임스탬프를 '오전/오후 HH:MM' 형식으로 변환하는 함수
-     */
+    // 타임스탬프를 '오전/오후 HH:MM' 형식으로 변환하는 함수
     function formatMessageTime(timestamp) {
         if (!timestamp) return '';
         var date = new Date(timestamp);
@@ -294,9 +286,7 @@ $(document).ready(function() {
         });
     }
 
-    /**
-     * 타임스탬프를 상대 시간으로 변환하는 함수
-     */
+    // 타임스탬프를 상대 시간으로 변환하는 함수
     function formatRelativeTime(timestamp) {
         if (!timestamp) return '';
         var now = new Date();

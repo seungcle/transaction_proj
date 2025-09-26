@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/mypage-components.css">
 </head>
 <body>
-    <%-- data-user-id에 실제 세션 ID를 담아줍니다. --%>
     <div class="offcanvas offcanvas-end" tabindex="-1"
         id="myInterestsOffcanvas" aria-labelledby="myInterestsOffcanvasLabel" data-user-id="${userId}">
         <div class="offcanvas-header">
@@ -21,10 +20,8 @@
                 aria-label="Close"></button>
         </div>
 
-        <%-- 스크롤을 위해 offcanvas-body를 직접 사용하도록 구조 개선 --%>
         <div class="offcanvas-body">
             <div class="p-3" id="favorite-items-container">
-                <%-- 내용이 여기에 동적으로 추가됩니다. --%>
             </div>
         </div>
     </div>
@@ -73,7 +70,7 @@
                             $.each(list, function(index, item) {
                                 let statusClass = item.status === 'OPEN' ? 'text-success' : 'text-secondary';
                                 
-                                // ✅ 변경된 부분: + 연산자를 사용하여 HTML 문자열을 만듭니다.
+                                // ✅ 변경된 부분: + 연산자를 사용하여 HTML 문자열을 만듬
                                 var itemHtml = 
                                     '<div class="product-item position-relative">' +
                                     '<img src="' + contextPath + item.imageUrl + '">' +

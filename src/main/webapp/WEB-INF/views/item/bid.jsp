@@ -36,7 +36,6 @@
             border-bottom: none;
         }
 
-        /* ▼▼▼ 판매자 항목을 위한 스타일 (이전과 동일) ▼▼▼ */
         .seller-entry {
             background-color: #f8f9fa; /* 연한 회색 배경 */
             border: 1px solid #dee2e6; /* 옅은 테두리 */
@@ -44,7 +43,6 @@
         .seller-entry .nickname {
             color: #0d6efd; /* 부트스트랩 primary 색상 */
         }
-        /* ▲▲▲ 판매자 항목을 위한 스타일 ▲▲▲ */
 
         .bid-entry img {
             width: 40px;

@@ -123,9 +123,6 @@
             let receivedReviewsLoaded = false;
             let writtenReviewsLoaded = false;
 
-            // =======================================================
-            // 1. 받은 후기 관련 로직
-            // =======================================================
             function loadReceivedReviews() {
                 if (receivedReviewsLoaded) return; // 중복 로드 방지
                 if (!userId) {
@@ -171,9 +168,6 @@
                     </div>`;
             }
 
-            // =======================================================
-            // 2. 작성한 후기 관련 로직
-            // =======================================================
             function loadWrittenReviews() {
                 if (writtenReviewsLoaded) return; // 중복 로드 방지
                 if (!userId) {
@@ -204,7 +198,6 @@
                 });
             }
             
-            // [수정된 부분]
             function createWrittenReviewHtml(review) {
                 const reviewComment = review.reviewComment || '';
                 return `
@@ -220,9 +213,6 @@
                     </div>`;
             }
 
-            // =======================================================
-            // 3. 공통 헬퍼 함수
-            // =======================================================
             function createEmptyPlaceholder(message, icon) {
                 return `
                     <div class="empty-placeholder">
@@ -246,9 +236,6 @@
                 return tags.map(tag => `<span class="badge rounded-pill text-bg-secondary">#\${tag}</span>`).join(' ');
             }
 
-            // =======================================================
-            // 4. 이벤트 바인딩
-            // =======================================================
             offcanvasEl.addEventListener('shown.bs.offcanvas', function() {
                 // Offcanvas가 처음 열릴 때 활성화된 탭의 후기 목록을 로드
                 loadReceivedReviews();
@@ -258,9 +245,6 @@
             $('#written-tab').on('click', loadWrittenReviews);
         });
         
-        // ===================================================================
-        // 폼 보기/숨기기 관련 로직 (수정 기능이 없어져서 호출되지 않음)
-        // ===================================================================
         const offcanvas = document.getElementById('myReviewOffcanvas');
         const views = {
             list : document.getElementById('review-list-view'),

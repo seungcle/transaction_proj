@@ -45,7 +45,6 @@
 							<div class="card-img-container">
 								<img src="${pageContext.request.contextPath}/${item.imageUrl}" class="card-img-top" alt="${item.title}">
 								
-								<%-- 타이머로 변경된 뱃지 --%>
 								<span class="badge position-absolute top-0 start-0 m-3 countdown-timer" 
                                       data-end-time="${item.endTime.time}">
                                 </span>
@@ -66,38 +65,36 @@
 
 	<jsp:include page="../component/footer.jsp" />
     
-    <%-- 카운트다운 타이머를 위한 JavaScript --%>
     <script>
-        // DOM 콘텐츠가 모두 로드된 후에 스크립트를 실행합니다.
         document.addEventListener('DOMContentLoaded', function() {
             
-            // 1. 페이지 내의 모든 카운트다운 타이머 요소를 선택합니다.
+            // 페이지 내의 모든 카운트다운 타이머 요소를 선택
             const timers = document.querySelectorAll('.countdown-timer');
 
             function updateAllTimers() {
                 timers.forEach(timer => {
-                    // 2. data-end-time 속성에서 경매 종료 시간을 숫자로 가져옵니다.
+                    // data-end-time 속성에서 경매 종료 시간을 숫자로 가져옴
                     const endTime = parseInt(timer.dataset.endTime, 10);
                     const now = new Date().getTime();
                     
-                    // 3. 남은 시간을 밀리초(ms) 단위로 계산합니다.
+                    // 남은 시간을 밀리초(ms) 단위로 계산
                     const remainingTime = endTime - now;
 
                     if (remainingTime > 0) {
-                        // 4. 경매가 아직 진행 중인 경우
+                        // 경매가 아직 진행 중인 경우
                         timer.classList.add('bg-success'); // 부트스트랩 초록색 배경
                         timer.classList.remove('bg-secondary');
 
-                        // 남은 시간을 일, 시, 분, 초로 변환합니다.
+                        // 남은 시간을 일, 시, 분, 초로 변환
                         const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
                         const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
                         const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
 
-                        // 숫자가 한 자리일 경우 앞에 0을 붙여줍니다 (예: 7 -> "07").
+                        // 숫자가 한 자리일 경우 앞에 0을 붙여줍니다 (예: 7 -> "07")
                         const pad = (num) => String(num).padStart(2, '0');
 
-                        // 5. 화면에 표시할 텍스트를 만듭니다.
+                        // 화면에 표시할 텍스트를 만듬
                         let timerText = '';
                         if (days > 0) {
                             timerText = `\${days}일 \${pad(hours)}:\${pad(minutes)}:\${pad(seconds)}`;
@@ -109,7 +106,7 @@
                         timer.textContent = timerText;
 
                     } else {
-                        // 6. 경매가 종료된 경우
+                        // 경매가 종료된 경우
                         timer.textContent = '경매 종료';
                         timer.classList.add('bg-secondary'); // 부트스트랩 회색 배경
                         timer.classList.remove('bg-success');
@@ -117,10 +114,10 @@
                 });
             }
 
-            // 페이지가 처음 로드될 때 타이머를 즉시 한 번 실행하여 1초의 지연을 없앱니다.
+            // 페이지가 처음 로드될 때 타이머를 즉시 한 번 실행하여 1초의 지연을 없앰
             updateAllTimers(); 
             
-            // 그 후 1초마다 updateAllTimers 함수를 반복해서 실행합니다.
+            // 그 후 1초마다 updateAllTimers 함수를 반복해서 실행
             setInterval(updateAllTimers, 1000); 
         });
     </script>

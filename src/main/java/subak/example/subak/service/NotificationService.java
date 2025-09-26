@@ -20,8 +20,7 @@ public class NotificationService {
     private SimpMessagingTemplate messagingTemplate;
 
     public void sendNotification(NotificationDTO notification) {
-        notificationDAO.insertNotification(notification);다.
-        // DTO에서 유저 ID와 내용을 가져옵니다.
+        notificationDAO.insertNotification(notification);
         String userId = String.valueOf(notification.getUserId());
         String message = notification.getContent();
         

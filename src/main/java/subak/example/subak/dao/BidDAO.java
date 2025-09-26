@@ -13,4 +13,8 @@ public interface BidDAO {
 	List<BidResponseVO> findBidsByItemId(@Param("itemId") Long itemId);
 	
 	int countBidsByItemId(long itemId);
+	
+	boolean insert(Long itemId,Long sellerId,int amount);
+
+	void setBid(Long itemId);
 }

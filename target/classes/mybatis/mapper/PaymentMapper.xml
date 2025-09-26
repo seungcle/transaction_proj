@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="subak.example.subak.dao.PaymentDAO">
+
+    <!-- 결제 등록 -->
+    <insert id="insertPayment" parameterType="subak.example.subak.domain.PaymentDTO">
+    	INSERT INTO TossPayment (
+        	item_id,
+        	toss_order_id,
+        	toss_payment_key,
+        	toss_payment_method,
+        	toss_payment_status,
+        	total_amount,
+        	approved_at,
+       	 	requested_at
+    	) VALUES (
+        	#{itemId}, 
+        	#{tossOrderId},
+        	#{tossPaymentKey},
+        	#{tossPaymentMethod},
+        	#{tossPaymentStatus},
+        	#{totalAmount},
+        	#{approvedAt},
+        	#{requestedAt}
+    	)
+	</insert>
+
+
+    <!-- id로 결제 조회 -->
+    <select id="selectPaymentById" resultType="subak.example.subak.domain.PaymentDTO">
+        SELECT *
+        FROM TossPayment
+        WHERE id = #{id}
+    </select>
+
+    <!-- itemId 로 결제 조회 -->
+    <select id="selectPaymentByItemId" resultType="subak.example.subak.domain.PaymentDTO">
+        SELECT *
+        FROM TossPayment
+        WHERE item_id = #{itemId}
+    </select>
+
+    <!-- 전체 결제 내역 조회 -->
+    <select id="selectAllPayments" resultType="subak.example.subak.domain.PaymentDTO">
+        SELECT *
+        FROM TossPayment
+    </select>
+
+    <!-- 결제 상태 업데이트 -->
+    <update id="updatePaymentStatus">
+        UPDATE TossPayment
+        SET toss_payment_status = #{tossPaymentStatus}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 결제 삭제 -->
+    <delete id="deletePayment">
+        DELETE FROM TossPayment
+        WHERE id = #{id}
+    </delete>
+
+</mapper>

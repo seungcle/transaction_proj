@@ -28,4 +28,8 @@
         WHERE
             bid_item_id = #{itemId}
     </select>
+    <insert id="insert" parameterType="map" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO bid (bid_item_id, bid_user_id, bid_price, created_at)
+    VALUES (#{itemId}, #{sellerId}, #{price}, SYSDATE)
+	</insert>
 </mapper>

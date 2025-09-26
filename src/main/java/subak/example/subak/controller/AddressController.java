@@ -56,9 +56,9 @@ public class AddressController {
         // 대표 배송지 체크 여부 처리
         if ("Y".equalsIgnoreCase(dto.getDefaultAddress())) {
             dto.setDefaultAddress("Y");
-            // 기존 대표 배송지 전부 해제
             addressDAO.resetDefault(user.getId());
-        } else {
+        }
+        else {
             dto.setDefaultAddress("N");
         }
 
@@ -83,14 +83,16 @@ public class AddressController {
         if ("true".equalsIgnoreCase(dto.getDefaultAddress()) || "Y".equalsIgnoreCase(dto.getDefaultAddress())) {
             dto.setDefaultAddress("Y");
             addressDAO.resetDefault(user.getId());
-        } else {
+        }
+        else {
             dto.setDefaultAddress("N");
         }
 
         try {
             addressDAO.update(dto);
             return ResponseEntity.ok("success");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("error");
         }
@@ -106,7 +108,8 @@ public class AddressController {
         try {
             addressDAO.delete(id);
             return ResponseEntity.ok("success");
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.status(500).body("error");
         }

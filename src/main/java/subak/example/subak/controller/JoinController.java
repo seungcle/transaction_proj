@@ -35,7 +35,8 @@ public class JoinController {
         boolean result = userService.join(user);
         if (result) {
             return "join/joinProcess";
-        } else {
+        }
+        else {
             model.addAttribute("error", "이미 존재하는 아이디입니다.");
             return "join/join2";
         }

@@ -28,8 +28,8 @@ public class PaymentService {
     }
 
     // bidId로 결제 조회
-    public PaymentDTO getPaymentByBidId(int bidId) {
-        return paymentDAO.selectPaymentByBidId(bidId);
+    public PaymentDTO getPaymentByItemId(int itemId) {
+        return paymentDAO.selectPaymentByItemId(itemId);
     }
 
     // 전체 결제 내역 조회

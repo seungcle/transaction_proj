@@ -123,9 +123,9 @@ public class PaymentController {
 	        boolean bid = bidService.createBid(itemId, sellerId, amount);
 
 	        if(bid == true) {
-	        	// 결제 테이블에 bid_id 업데이트
-		        Long bid_id = paymentDAO.getBidId(paymentKey);
-		        bidService.setBid(itemId);
+	        	// bid_id 업데이트
+		        Long bidId = paymentDAO.getBidId(paymentKey);
+		        bidService.setBid(bidId);
 		        
 		        response.put("status", 200);
 		        response.put("message", "결제 승인 및 입찰 생성 성공");

@@ -142,6 +142,7 @@
 	<jsp:include page="../component/footer.jsp" />
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 	<script>
+	
     // 설명 글자 수 카운터
     const descriptionTextarea = document.getElementById('description');
     const charCountSpan = document.getElementById('charCount');
@@ -190,6 +191,7 @@
 		    })
 		    .then(res => res.text())
 		    .then(data => {
+				alert("모든 필드를 채워주세요!");
 		        alert("상품이 등록되었습니다!");
 		        location.href = "/subak/main";
 		    })

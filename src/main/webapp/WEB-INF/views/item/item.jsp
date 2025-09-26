@@ -199,6 +199,7 @@
 						<div class="d-grid gap-2 d-md-block">
 						<form id="chatForm" method="post" action="${pageContext.request.contextPath}/chat/${item.userId}/start">
 							<input type="hidden" name="userId" value="${item.userId}">
+							<input type="hidden" name="itemId" value="${item.id}">
 						</form>
 							<a href="${pageContext.request.contextPath}/userinfo/${item.userId}" class="btn btn-dark">
 							    <i class="bi bi-person-plus-fill"></i> 판매자 정보

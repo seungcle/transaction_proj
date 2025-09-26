@@ -64,7 +64,8 @@ public class AuthController {
                 return null;
             }
             mailProps.load(input);
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             e.printStackTrace();
             return null;
         }
@@ -93,7 +94,8 @@ public class AuthController {
             session.setAttribute("signupAuthCode", authCode);
             session.setAttribute("signupEmail", email);
             return "success";
-        } else {
+        }
+        else {
             return "fail";
         }
     }
@@ -116,7 +118,8 @@ public class AuthController {
             session.setAttribute("findIdAuthCode", authCode);
             session.setAttribute("findIdEmail", email);
             return "success";
-        } else {
+        }
+        else {
             return "fail";
         }
     }
@@ -131,13 +134,15 @@ public class AuthController {
         String sessionCode = null;
         if ("signup".equals(type)) {
             sessionCode = (String) session.getAttribute("signupAuthCode");
-        } else if ("findId".equals(type)) {
+        }
+        else if ("findId".equals(type)) {
             sessionCode = (String) session.getAttribute("findIdAuthCode");
         }
 
         if (sessionCode != null && sessionCode.equals(inputAuthCode)) {
             return "success";
-        } else {
+        }
+        else {
             return "fail";
         }
     }
@@ -160,10 +165,12 @@ public class AuthController {
                 session.removeAttribute("findIdAuthCode");
                 session.removeAttribute("findIdEmail");
                 return user.getUsername();
-            } else {
+            }
+            else {
                 return "fail";
             }
-        } else {
+        }
+        else {
             return "fail";
         }
     }
@@ -173,7 +180,7 @@ public class AuthController {
         String username = requestMap.get("username");
         String email = requestMap.get("email");
 
-        // 아이디와 이메일로 사용자 존재 여부 확인
+        // 아이디와 이메일로 사용자 확인
         boolean userExists = userService.existsByUsernameAndEmail(username, email);
         if (!userExists) {
             return "{\"success\": false, \"message\": \"입력하신 정보와 일치하는 회원이 없습니다.\"}";
@@ -193,12 +200,13 @@ public class AuthController {
             session.setAttribute("passwordAuthUsername", username);
             session.setAttribute("passwordAuthEmail", email);
             return "{\"success\": true, \"message\": \"이메일로 인증 코드가 발송되었습니다.\"}";
-        } else {
+        }
+        else {
             return "{\"success\": false, \"message\": \"이메일 발송에 실패했습니다. 다시 시도해주세요.\"}";
         }
     }
 
-    // 2. 인증 코드 검증
+    // 인증 코드 확인
     @PostMapping("/user/verify-auth-code")
     @ResponseBody
     public String verifyAuthCodeForPassword(@RequestBody Map<String, String> requestMap, HttpSession session) {
@@ -212,7 +220,7 @@ public class AuthController {
         }
     }
     
-    // 3. 비밀번호 재설정
+    // 비밀번호 재설정
     @PostMapping("/user/reset-password")
     @ResponseBody
     public String resetPassword(@RequestBody Map<String, String> requestMap, HttpSession session) {
@@ -230,7 +238,8 @@ public class AuthController {
             session.removeAttribute("passwordAuthUsername");
             session.removeAttribute("passwordAuthEmail");
             return "{\"success\": true, \"message\": \"비밀번호가 성공적으로 재설정되었습니다.\"}";
-        } else {
+        }
+        else {
             return "{\"success\": false, \"message\": \"비밀번호 재설정에 실패했습니다. 잠시 후 다시 시도해주세요.\"}";
         }
     }

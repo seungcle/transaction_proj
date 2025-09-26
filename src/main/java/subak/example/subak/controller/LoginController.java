@@ -31,7 +31,8 @@ public class LoginController {
         if (user != null) {
             session.setAttribute("user", user); // 세션에 사용자 저장
             return "redirect:/main"; // 로그인 성공 시 메인 페이지
-        } else {
+        }
+        else {
             model.addAttribute("error", "아이디 또는 비밀번호가 올바르지 않습니다.");
             return "login/login"; // 다시 로그인 페이지
         }

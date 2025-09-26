@@ -79,34 +79,22 @@ public class ItemService {
 		if(!itemDAO.insertItem(dto))
 			return false;
 		
-		//db에 item을 넣은 이후에 자동 생성된 id를 bid에 넣음
+		// 이미지 저장
 		bid.setBidItemId(dto.getId());
 		if(!itemDAO.insertBid(bid))
 			return false;
-	    
-	    // 1. 파일을 저장할 기본 경로를 변수로 지정합니다.
 	    String uploadFolder = "C:/upload/";
-	    
-	    // 2. 해당 경로를 기반으로 File 객체를 생성합니다.
 	    File dir = new File(uploadFolder);
-	    
-	    // 3. 폴더가 존재하지 않으면 폴더를 생성합니다.
+
 	    if (!dir.exists()) {
-	        dir.mkdirs(); // mkdirs()는 필요한 상위 폴더까지 모두 생성해줍니다.
+	        dir.mkdirs(); 
 	    }
 	    
 	    for (MultipartFile file : images) {
 	        if (!file.isEmpty()) {
-	            // 4. 고유한 파일 이름을 생성합니다.
 	            String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-	            
-	            // 5. 최종 저장될 파일 경로를 포함한 File 객체를 생성합니다.
 	            File destinationFile = new File(uploadFolder + fileName);
-	            
-	            // 6. 파일을 지정된 경로로 저장합니다.
 	            file.transferTo(destinationFile);
-	            
-	            // DB에 이미지 정보를 저장합니다.
 	            ItemImageDTO img = new ItemImageDTO();
 	            img.setImageUrl("/upload/" + fileName); // 웹에서 접근할 URL 경로
 	            img.setItemId(dto.getId());
@@ -245,7 +233,6 @@ public class ItemService {
 	}
 
 	 public void pushBid(Long price, Long itemId, HttpSession session) {
-	        // 1. 로그인 여부 확인 및 BidDTO 생성
 	        SessionUserVO user = (SessionUserVO) session.getAttribute("user");
 	        if (user == null) {
 	            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "로그인이 필요합니다.");
@@ -255,14 +242,12 @@ public class ItemService {
 	        dto.setBidUserId(user.getId());
 	        dto.setBidPrice(price);
 
-	        // 2. 입찰 정보 DB에 삽입 및 아이템 가격 업데이트
 	        itemDAO.insertBid(dto);
 	        Map<String, Long> m = new HashMap<>();
 	        m.put("id", itemId);
 	        m.put("price", price);
 	        itemDAO.updateItem(m);
 
-	        // 3. 상품 판매자에게 알림 보내기 로직 추가
 	        Long sellerId = itemDAO.getSellerIdByItemId(itemId); 
 
 	        if (sellerId != null) {

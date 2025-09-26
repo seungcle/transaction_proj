@@ -36,13 +36,14 @@ public class FindController {
     @PostMapping("/find/username")
     public String findUsername(@RequestParam("email") String email, Model model) {
 
-        // 이메일로 사용자 조회
+        // 이메일로 조회
         UserDTO foundUser = userService.findUserByEmail(email);
 
         if (foundUser != null) {
             model.addAttribute("foundUsername", foundUser.getUsername());
             return "login/findUsernameResult";
-        } else {
+        }
+        else {
             model.addAttribute("message", "입력하신 정보와 일치하는 아이디가 없습니다.");
             return "login/findUserName";
         }

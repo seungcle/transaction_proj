@@ -43,7 +43,6 @@ public class UserController {
         if(sessionUser == null) return "redirect:/login";
 
         UserInfoVO vo = userService.getMyInfo(session);
-        // 기본 이미지 처리
         if(vo.getImageUrl() == null || vo.getImageUrl().isEmpty()) {
             vo.setImageUrl(DEFAULT_IMAGE);
         }
@@ -204,10 +203,10 @@ public class UserController {
     public Map<String, Object> getUserProfile(HttpSession session) {
         Map<String, Object> response = new HashMap<>();
         try {
-            UserDTO user = (UserDTO) session.getAttribute("loggedInUser"); // 세션에서 사용자 가져오기
+            UserDTO user = (UserDTO) session.getAttribute("loggedInUser"); 
             if (user != null) {
                 response.put("success", true);
-                response.put("user", user); // user.imageUrl 포함
+                response.put("user", user); 
             } else {
                 response.put("success", false);
                 response.put("message", "로그인이 필요합니다.");

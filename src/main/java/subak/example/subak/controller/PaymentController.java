@@ -56,7 +56,7 @@ public class PaymentController {
 		return "payment/success";
 	}
 
-	// --- 결제 실패 시 호출되는 URL ---
+	// 결제 실패 시 호출되는 URL 
 	@GetMapping("/fail")
 	public String paymentFail(
 			@RequestParam String code,
@@ -76,12 +76,11 @@ public class PaymentController {
 		return "payment/fail";
 	}
 	
-	//------key검증 로직------
+	//key검증 로직
 	@PostMapping("/confirm")
 	@ResponseBody
     public ResponseEntity<Map<String, Object>> confirmPayment(@RequestBody Map<String, Object> requestData) {
-        // 테스트를 위해 결제 키 검증 없이 항상 성공 응답을 반환
-        // 실제 운영 환경에서는 이 로직을 토스페이먼츠 API 호출로 대체해야 합니다.
+        // 테스트용
         
         // 성공 응답 데이터 생성 (토스페이먼츠 API 응답과 유사한 형식)
         Map<String, Object> successResponse = new HashMap<>();

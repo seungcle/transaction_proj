@@ -45,7 +45,7 @@ public class ItemScheduler {
                     startPrice = Long.parseLong(startPriceStr.replaceAll(",", ""));
                 }
                 
-                // 알림 URL 생성 (경로 변수 방식)
+                // 알림 URL 생성 
                 String itemUrl = "/subak/item/" + item.getId();
 
                 // 만료 아이템 유찰 처리
@@ -53,14 +53,13 @@ public class ItemScheduler {
                     itemDAO.updateStatus(item.getId(), "FAILED");
                     System.out.println("아이템 ID: " + item.getId() + " 유찰 처리 완료.");
 
-                    // --- 판매자 알림 로직 (유찰) ---
+                    //판매자 알림
                     NotificationDTO notification = new NotificationDTO();
                     notification.setUserId(item.getSellerId());
                     notification.setItemId(item.getId());
-                    notification.setContent("회원님의 아이템 '" + item.getTitle() + "'이 유찰되었습니다.");
-                    notification.setUrl(itemUrl); // 수정된 URL 추가
+                    notification.setContent("회원님의 아이템이 유찰되었습니다.");
+                    notification.setUrl(itemUrl);
                     notificationService.sendNotification(notification);
-                    // --------------------------
                     
                     continue;
                 }
@@ -76,21 +75,20 @@ public class ItemScheduler {
 
                 System.out.println("아이템 ID: " + item.getId() + " 정상 낙찰 처리 완료.");
 
-                // --- 판매자 알림 로직 (낙찰) ---
+                // 판매자 알림 
                 NotificationDTO sellerNotification = new NotificationDTO();
                 sellerNotification.setUserId(item.getSellerId());
                 sellerNotification.setItemId(item.getId());
-                sellerNotification.setContent("회원님의 아이템 '" + item.getTitle() + "'이 정상적으로 낙찰되었습니다.");
-                sellerNotification.setUrl(itemUrl); // 수정된 URL 추가
+                sellerNotification.setContent("회원님의 아이템이 정상적으로 낙찰되었습니다.");
+                sellerNotification.setUrl(itemUrl); 
                 notificationService.sendNotification(sellerNotification);
-                // --------------------------
 
-                // --- 낙찰자 알림 로직 ---
+                // 낙찰자 알림 로직
                 NotificationDTO winnerNotification = new NotificationDTO();
                 winnerNotification.setUserId(item.getWinnerId());
                 winnerNotification.setItemId(item.getId());
-                winnerNotification.setContent("회원님께서 입찰하신 아이템 '" + item.getTitle() + "'이 최종 낙찰되었습니다.");
-                winnerNotification.setUrl(itemUrl); // 수정된 URL 추가
+                winnerNotification.setContent("회원님께서 입찰하신 아이템이 최종 낙찰되었습니다.");
+                winnerNotification.setUrl(itemUrl); 
                 notificationService.sendNotification(winnerNotification);
 
             } catch (Exception e) {

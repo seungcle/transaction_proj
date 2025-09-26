@@ -32,7 +32,7 @@
         ) VALUES (
             #{address}, 
             #{detailAddress}, 
-            #{userId}, <!-- 수정: userId → user_id -->
+            #{userId},
             #{defaultAddress},
             #{addressName}, 
             #{postalCode} 
